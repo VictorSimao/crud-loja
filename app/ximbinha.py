@@ -1,7 +1,7 @@
-# import os
-# import sys
-# PROJECT_ROOT = os.path.dirname(__file__)
-# sys.path.insert(0, os.path.join(PROJECT_ROOT, "CRUD-LOJA"))
+import os
+import sys
+PROJECT_ROOT = os.path.dirname(__file__)
+sys.path.insert(0, os.path.join(PROJECT_ROOT, ""))
 
 # from setuptools import setup, find_packages
 # from package import module 
@@ -11,7 +11,7 @@ from ..src.product_category.dao.product_category_dao import ProductCategoryDao
 
 
 def controller():
-    category = CategoryDAO()
+    # category = CategoryDAO()
     product = ProductDAO()
     product_category = ProductCategoryDao()
 
