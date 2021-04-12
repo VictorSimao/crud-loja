@@ -5,7 +5,8 @@
 
 # from setuptools import setup, find_packages
 # from package import module 
-from ..src.category.dao.category_dao import *
+
+from ..src.category.dao.category_dao import CategoryDAO
 from ..src.product.dao.product_dao import ProductDAO
 from ..src.product_category.dao.product_category_dao import ProductCategoryDao
 
