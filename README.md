@@ -1,2 +1,2 @@
 # crud-loja
-Ainda procurando uma solução
+Ainda procurando uma solução.
