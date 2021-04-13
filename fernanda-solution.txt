@@ -1,27 +1,56 @@
-Na estrutura original, havia uma tentativa de acessar os módulos com caminho relativo.
-Utilizavam-se, portanto, ".." (dois pontos) para voltar um diretório e, em seguida,
-o path correto. Contudo, essa forma de fazer o caminho relativo não funciona, retornando o erro:
+Um módulo é um arquivo que contém definições e statements de Python.
+Pode conter executáveise definições de função, que são utilizados para
+inicializar o módulo, segundo a documentação do Python.
+O nome de um módulo, como string, tem o valor da variável global
+__name__. Os módulos podem importar outros módulos. Pode-se importar
+elementos específicos de dentro do módulo ou todo conteúdo dele com *.
+
+Quando o módulo é importado, o interpretador busca primeiro um módulo
+já existente. Se não encontrar, procura ele em uma lista de diretórios,
+dada pela variável sys.path, que é inicializada a partir dos locais:
+
+* diretório contendo input script (ou diretório atual)
+* PYTHONPATH: uma lista de nomes de diretório
+* O padrão de instalação
+
+Depois de inicializar, os programas Python podem fazer alterações no
+sys.path.
+
+Na estrutura original, havia uma tentativa de acessar os módulos com
+caminho relativo. Utilizavam-se, portanto, ".." (dois pontos) para voltar
+um diretório e, em seguida, o path correto. Contudo, essa forma de fazer o
+caminho relativo não funciona, retornando o erro:
 
 ImportError: attempted relative import with no known parent package
 
 Retiraram-se os dois pontos ("..") dos imports.
-Foi feita uma tentativa movendo o main.py para fora da pasta, no diretório crud-loja.
-Usando o caminho absoluto, o código funcionou normalmente.
+
+Foi feita uma tentativa movendo o main.py para fora da pasta, no diretório
+crud-loja. Usando o caminho absoluto, o código funcionou normalmente.
+(O caminho absoluto corresponde ao path exato do diretório. O caminho
+relativo é definido conforme referencial)
 Contudo, o objetivo é fazer funcionar mantendo o ximbinha.py na pasta app.
 
-Procedeu-se então para novas alternativas:
-Para importar módulos de um parent directory, deve-se usar o PYTHONPATH ou o sys.path.
+Procedeu-se então para as seguintes alternativas:
+Para importar módulos de um parent directory, deve-se usar o PYTHONPATH ou o
+sys.path.
+
+* PYTHONPATH
 
 O PYTHONPATH é uma variável de ambiente.
-Ela é utilizada para adicionar diretórios onde o Python procura módulos e pacotes.
+Ela é utilizada para adicionar diretórios onde o Python procura módulos
+e pacotes.
 
-Para utilizar o PYTHONPATH, bastou navegar no terminal até o crud-loja e inserir:
-export PYTHONPATH="$PWD"
+Para utilizar o PYTHONPATH, bastou navegar no terminal até o crud-loja e
+inserir: export PYTHONPATH="$PWD"
 
 PWD corresponde ao diretório atual.
-Desta forma, entende-se que a raiz está em crud-loja, e não onde o ximbinha.py está sendo executado.
-Rodando ximbinha.py, após isso, o código funciona.
-Vale notar que, para que se considerem os pacotes, deve haver um __init__.py nas pastas.
+Desta forma, entende-se que a raiz está em crud-loja, e não onde o
+ximbinha.py está sendo executado. Rodando ximbinha.py, após isso, o
+código funciona. Vale notar que, para que se considerem os pacotes,
+deve haver um __init__.py nas pastas.
+
+* sys.path
 
 A solução com sys.path, por sua vez, funcionou ao inserir no início:
 
@@ -30,7 +59,8 @@ import sys
 sys.path.insert(0,
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-Apesar de não ser a prática mais recomendada, para referenciar o parent directory, uma solução simples e viável seria:
+Apesar de não ser a prática mais recomendada, para referenciar o parent
+directory, uma solução simples e viável seria:
 
 import sys
 sys.path.append("..")
@@ -40,3 +70,4 @@ Referência sobre pacotes, módulos, PYTHONPATH, caminho absoluto e relativo:
 https://iq-inc.com/importerror-attempted-relative-import/#packages-explained
 https://docs.python.org/pt-br/3/using/cmdline.html#envvar-PYTHONPATH
 https://bic-berkeley.github.io/psych-214-fall-2016/using_pythonpath.html
+https://docs.python.org/3/tutorial/modules.html
