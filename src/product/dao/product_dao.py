@@ -19,5 +19,23 @@ class ProductDAO(Database):
         """, (product.name, product.description, product.price))
         self.commit()
         id = self.cursor.lastrowid
-        self.close()
+        print("oi", id)
         return id
+
+    def select_all_data_product(self):
+        self.cursor.execute("""
+        SELECT product.name, product.description, product.price, group_concat(category.name)
+        FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
+        GROUP BY product.name, product.description, product.price
+        """)
+
+        for product in self.cursor.fetchall():
+            print(product)
+        
+    def select_data_product(self, product:Product):
+        print(self.cursor.execute("""
+        SELECT * FROM product WHERE id = ?
+        """, product.id))
+
+    def close(self):
+        self.close()

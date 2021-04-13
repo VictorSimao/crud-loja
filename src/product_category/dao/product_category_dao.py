@@ -19,3 +19,5 @@ class ProductCategoryDao(Database):
         """, (product_id, category_id))
         self.commit()
 
+    def close(self):
+        self.close()

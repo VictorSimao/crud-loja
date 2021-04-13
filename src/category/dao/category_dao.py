@@ -20,3 +20,19 @@ class CategoryDAO(Database):
         id = self.cursor.lastrowid
         self.close()
         return id
+
+    def select_all_data_category(self):
+        self.cursor.execute("""
+        SELECT * FROM category
+        """)
+
+        for category in self.cursor.fetchall():
+            print(category)
+
+    def select_data_category(self, category:Category):
+        print(self.cursor.execute("""
+        SELECT * FROM category WHERE id = ?
+        """, category.id))
+
+    def close(self):
+        self.close()
