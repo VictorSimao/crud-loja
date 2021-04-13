@@ -1,0 +1,3 @@
+infelizmente solução que localizei e alterando o PYTHONPATH, porém não é melhor prática pois existe a possibilidade de alterar o que não se deve.
+alteração é via terminal com o seguinte comando
+export PYTHONPATH=${PYTHONPATH}:${HOME}/crud-loja/src/category/dao
