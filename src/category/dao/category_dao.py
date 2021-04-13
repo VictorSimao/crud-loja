@@ -1,4 +1,5 @@
 from src.database.database import Database
+from src.category.model.category_model import Category
 
 
 class CategoryDAO(Database):
@@ -11,9 +12,11 @@ class CategoryDAO(Database):
         );
         """)
 
-    def insert_data_category(self, name, description):
+    def insert_data_category(self, category:Category):
         self.cursor.execute("""
-        INSERT INTO category (name, description) VALUES (?, ?)
-        """, (name, description))
+        INSERT INTO category ("name", "description") VALUES (?, ?);
+        """, (category.name,category.description))
         self.commit()
-        return self.cursor.lastrowid
+        id = self.cursor.lastrowid
+        self.close()
+        return id

@@ -1,4 +1,5 @@
 from src.database.database import Database
+from src.product.model.product_model import Product
 
 class ProductDAO(Database):
 
@@ -12,9 +13,11 @@ class ProductDAO(Database):
             );
         """)
 
-    def insert_data_product(self, name, description, price):
+    def insert_data_product(self, product:Product):
         self.cursor.execute("""
         INSERT INTO product (name, description, price) VALUES (?, ?, ?)
-        """, (name, description, price))
+        """, (product.name, product.description, product.price))
         self.commit()
-        return self.cursor.lastrowid
+        id = self.cursor.lastrowid
+        self.close()
+        return id
