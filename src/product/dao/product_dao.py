@@ -52,10 +52,11 @@ class ProductDAO(Dao):
 
     def update(self, product:Product):
         sql = """
-            UPDATE ptofuct
+            UPDATE product
                 SET
                     name = ?
                     ,description = ?
+                    ,price = ?
                 WHERE id = ?
         """
         parameters = (product.name, product.description, product.id, product.categories)  

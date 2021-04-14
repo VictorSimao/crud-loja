@@ -18,3 +18,8 @@ class CategoryInput:
         category_description = input("Escreva a descrição da categoria:")
         category = Category(category_name, category_description)
         self.category_id = self.category_dao.create(category)
+
+    def delete_category(self):
+        category_to_delete = input("Escolha uma categoria para deletar:")
+        categories = self.category_dao.delete(category_to_delete)
+        
