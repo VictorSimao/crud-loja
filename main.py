@@ -10,8 +10,6 @@ class Main:
     def __init__(self):
         self.category_dao = CategoryDAO()
         self.product_dao = ProductDAO()
-        self.product_id = 0
-        self.category_id = 0
         self.product_category_dao = ProductCategoryDao()
         self.controller()
 
@@ -84,10 +82,10 @@ class Main:
             selected_categories = self.get_typed_categories()
             product = Product(product_name, product_description, product_price, selected_categories)
             
-            self.product_id = self.product_dao.create(product)
+            product_id = self.product_dao.create(product)
             
             for selected_category in selected_categories:
-                self.product_category_dao.create(self.product_id, selected_category)
+                self.product_category_dao.create(product_id, selected_category)
                 
                 
         elif choice == "3":
@@ -98,11 +96,13 @@ class Main:
             category_name = input("Escreva o nome da categoria:")
             category_description = input("Escreva a descrição da categoria:")
             category = Category(category_name, category_description)
-            self.category_id = self.category_dao.create(category)
+            self.category_dao.create(category)
             
             
         elif choice == "5":
             sys.exit(1)
+            
+            
         else:
             print("Opção inválida")
             self.get_user_input()
