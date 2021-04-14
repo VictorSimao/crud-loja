@@ -32,3 +32,20 @@ class CategoryController:
     def get_all_categories(self):
         categories = self.category_dao.read_all()
         format_print(categories)
+
+    def update_category(self):
+        self.category['id'] = input("Qual o id da categoria a ser atualizada? ")
+        self.category['name'] = input("Qual o novo nome da categoria? ")
+        self.category['description'] = input("Qual a nova descrição da categoria? ")
+
+        updated_category = Category(
+            self.category['name'], 
+            self.category['description'], 
+            self.category['id'] 
+        )
+
+        self.category_dao.update(updated_category)
+    
+    def delete_category(self):
+        self.category['id'] = input("Qual o id da categoria a ser removida? ")
+        self.category_dao.delete(self.category['id'])
