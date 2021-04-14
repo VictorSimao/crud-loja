@@ -6,11 +6,24 @@ from src.product_category.dao.product_category_dao import ProductCategoryDao
 from src.category.model.category_model import Category
 from src.product.model.product_model import Product
 
+
+class CategoryView():
+    def __init__(self):
+        self.category_dao = CategoryDAO()
+        
+        
+    def show_categories(self):
+        categories = self.category_dao.read_all()
+        for cat in categories:
+            data = f"{cat.id} - {cat.name} - {cat.description}"
+            print(data)
+
 class Main:
     def __init__(self):
         self.category_dao = CategoryDAO()
         self.product_dao = ProductDAO()
         self.product_category_dao = ProductCategoryDao()
+        self.categoryView = CategoryView()
         self.controller()
 
 
@@ -46,17 +59,11 @@ class Main:
             print(data)
 
 
-    def show_categories(self):
-        categories = self.category_dao.read_all()
-        for cat in categories:
-            data = f"{cat.id} - {cat.name} - {cat.description}"
-            print(data)
-
     def get_typed_categories(self):
         selected_categories = []
         while True:
             print("Categorias:")
-            self.show_categories()
+            self.categoryView.show_categories()
                 
             selected_categories.append(input("Selecione uma das categorias acima: "))
             
@@ -89,7 +96,7 @@ class Main:
                 
                 
         elif choice == "3":
-            self.show_categories()
+            self.categoryView.show_categories()
                 
                 
         elif choice == "4":
