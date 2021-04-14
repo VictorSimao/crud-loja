@@ -14,13 +14,12 @@ class ProductDAO(Dao):
         """)
 
     def insert_data_product(self, product:Product):
-        self.cursor.execute("""
+        sql = """
         INSERT INTO product (name, description, price) VALUES (?, ?, ?)
-        """, (product.name, product.description, product.price))
-        self.commit()
-        id = self.cursor.lastrowid
-        print("oi", id)
-        return id
+        """
+        parameters =  (product.name, product.description, product.price)
+        return self.insert_data(sql, parameters)
+
 
     def select_all_data_product(self):
         self.cursor.execute("""
