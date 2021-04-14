@@ -24,13 +24,6 @@ class Main:
 
         while True:
             self.get_user_input()
-        # category = Category('categoryName','cate')
-        # categories = [category]
-        # print(category.name, type(category.name))
-        # last_category = self.category_dao.insert_data_category(category)
-        
-        # self.product_category.insert_data_product_category(last_product,last_category)
-
 
     def get_user_input(self):
         print("""O que você deseja fazer? Selecione uma das opções abaixo:
@@ -38,37 +31,56 @@ class Main:
         2. Cadastrar um produto
         3. Listar as categorias
         4. Cadastrar uma categoria
-        5. Sair""")
+        5. Sair
+        6. Deletar um produto
+        7. Deletar uma categoria
+        8. Editar um produto
+        9. Editar uma categoria """)
         choice = input()
         self.get_choice(choice)
 
     def get_choice(self, choice):
         if choice == "1":
-            self.product_dao.select_all_data_product()
+            products = self.product_dao.read_all()
+            for pro in products:
+                data = f"{pro.id} - {pro.name} - {pro.description} - {pro.price}"
+                print(data)
+            
+
         elif choice == "2":
+
             product_name = input("Escreva o nome do produto:")
             product_description = input("Escreva a descrição do produto:")
             product_price = input("Escreva o preço do produto:")
             selected_categories = []
             while True:
                 print("Selecione uma das categorias abaixo:")
-                self.category_dao.read_all()
+
+                categories = self.category_dao.read_all()
+                for cat in categories:
+                    data = f"{cat.id} - {cat.name} - {cat.description}"
+                    print(data)
+
+    
                 selected_categories.append(input())
                 option = input("Você deseja cadastrar mais uma categoria? (s/N)")
                 if option == "s":
                     continue
                 else:
                     break
-                print(selected_categories)
+            
+
             product = Product(product_name, product_description, product_price, selected_categories)
-            self.product_id = self.product_dao.insert_data_product(product)
+            self.product_id = self.product_dao.create(product)
             for selected_category in selected_categories:
-                self.product_category_dao.insert_data_product_category(self.product_id, selected_category)
+                self.product_category_dao.create(self.product_id, selected_category)
+        
         elif choice == "3":
             categories = self.category_dao.read_all()
             for cat in categories:
                 data = f"{cat.id} - {cat.name} - {cat.description}"
                 print(data)
+        
         elif choice == "4":
             category_name = input("Escreva o nome da categoria:")
             category_description = input("Escreva a descrição da categoria:")
@@ -76,6 +88,40 @@ class Main:
             self.category_id = self.category_dao.create(category)
         elif choice == "5":
             sys.exit(1)
+        
+        elif choice == "6":
+            print("Produtos: ")
+
+            products = self.product_dao.read_all()
+            for pro in products:
+                data = f"{pro.id} - {pro.name} - {pro.description} - {pro.price}"
+                print(data)
+            
+            option = input("Qual produto você quer deletar? ")
+
+            self.product_dao.delete(option)
+
+
+        elif choice == "7":
+
+            print("Categorias: ")
+            
+            categories = self.category_dao.read_all()
+            for cat in categories:
+                data = f"{cat.id} - {cat.name} - {cat.description}"
+                print(data)
+            
+    
+            option = input("Qual categoria você quer deletar? ")
+            
+            self.category_dao.delete(option)      
+
+        elif choice == "8":
+            pass
+
+        elif choice == "9":
+            pass
+
         else:
             print("Opção inválida")
             self.get_user_input()
