@@ -93,8 +93,8 @@ class Main:
                 self.product_category_dao.create(self.product_id, selected_category)
 
         elif choice == "3":
-            return ''
-            # excluir produto
+            id_product = int(input("Código do produto para exclusão: "))
+            self.product_dao.delete(id_product)
 
         elif choice == "4":
             return ''

@@ -64,5 +64,5 @@ class ProductDAO(Dao):
             DELETE FROM product
                 WHERE id = ?
         """
-        parameters = (id)
+        parameters = (id,)
         return self.execute_query(sql, parameters)
