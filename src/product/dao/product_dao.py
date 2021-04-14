@@ -33,13 +33,23 @@ class ProductDAO(Dao):
         result = self.execute_query_select(sql)
         [list_products.append(Product(item[1], item[2], item[3], item[4], item[0])) for item in result]
         return list_products
-        
-    def read_by_id(self, product:Product, id:int) -> Product:
+    
+    def read_all(self, product_id) -> NoReturn:
+        sql = """
+        SELECT product.id, product.name, product.description, product.price, group_concat(category.name)
+        FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
+        GROUP BY product.name, product.description, product.price
+        """
+        list_products = []
+        result = self.execute_query_select(sql)
+        [list_products.append(Product(item[1], item[2], item[3], item[4], item[0])) for item in result]
+        return list_products
+
+    def read_by_id(self, product_id:int) -> Product:
         sql = """
             SELECT * FROM product WHERE id = ?
         """
-        parameter = id
-        result = self.execute_query_select(sql=sql, parameters=parameter)
+        result = self.execute_query_select(sql=sql, parameters=[product_id])
         item = result[0]
         product = Product(item[1], item[2], item[3], item[0])
         return product
@@ -50,22 +60,22 @@ class ProductDAO(Dao):
             SET 
             name= ?, 
             description= ?, 
-            price= ?, 
+            price= ?,
             WHERE ID = ?
         """
 
         parameters = (product.name,
-        product.description, product.price, product.categories
+        product.description, product.price,
+        product.id
         )
 
         return self.execute_query(sql=sql, parameters=parameters)
     
-    def delete(self, id:int) -> sqlite3:
+    def delete(self, product_id:int) -> sqlite3:
         sql = """
             DELETE FROM product WHERE ID = ? 
         """
-        parameter = id
         
-        return self.execute_query(sql=sql, parameters=parameter)
+        return self.execute_query(sql=sql, parameters=product_id)
 
 

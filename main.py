@@ -1,3 +1,4 @@
+from time import sleep
 import sys
 
 from src.category.dao.category_dao import CategoryDAO
@@ -91,13 +92,29 @@ class Main:
             sys.exit(1)
         elif int(choice) > 3 or type(int(choice)) != int:
             print("Opção inválida")
+            sleep(2)
             callback()
 
 
+    def show_products(self):
+        products = self.product_dao.read_all()
+        return [print(f"{product.id} - {product.name} - {product.description} - {product.price} - {product.categories}") for product in products]
+
+
+    def register_product(self):
+        product_name = input("Escreva o nome do produto:")
+        product_description = input("Escreva a descrição do produto:")
+        product_price = input("Escreva o preço do produto:")
+        selected_categories = self.menu_register_product()
+        categories = self.category_dao.read_by_id(selected_categories)
+        product = Product(product_name, product_description, product_price, categories)
+        self.product_id = self.product_dao.update(product)
+        for selected_category in selected_categories:
+            self.product_category_dao.update(self.product_id, selected_category)
+
     def main_menu_product(self, choice):
         if choice == "1":
-            products = self.product_dao.read_all()
-            [print(f"{product.id} - {product.name} - {product.description} - {product.price} - {product.categories}") for product in products]
+            self.show_products()
         elif choice == "2":
             product_name = input("Escreva o nome do produto:")
             product_description = input("Escreva a descrição do produto:")
@@ -108,6 +125,22 @@ class Main:
             self.product_id = self.product_dao.create(product)
             for selected_category in selected_categories:
                 self.product_category_dao.create(self.product_id, selected_category)
+        elif choice == '3':
+            print("""
+                Selecione o produto que deseja excluir !!
+            """)
+            self.show_products()
+            product_id = input()
+            self.product_dao.delete(product_id=product_id)
+        elif choice == '4':
+            print("""
+                Selecione o Produuto que deseja atualizar !!
+            """)
+            self.show_products()
+            product_id = input()
+            product = self.product_dao.read_by_id(product_id=product_id)
+            product.name = input
+            self.product_dao.update(product)
         self.exit_menu(choice, callback=self.menu_product)
 
 Main()

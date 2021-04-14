@@ -1,6 +1,5 @@
 from src.database.dao import Dao
 
-
 class ProductCategoryDao(Dao):
     def create_table_product_category(self):
         self.execute_query("""
@@ -25,3 +24,14 @@ class ProductCategoryDao(Dao):
 
         id = self.insert_data(sql, parameters)
         return id
+
+    def update(self, product_category, category_id) -> sqlite3:
+        sql = """
+            UPDATE product_category
+            SET 
+            product_id= ?, 
+            category_id= ?, 
+            WHERE ID = 
+        """
+
+        parameters = (product_id,category_id)
