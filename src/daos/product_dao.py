@@ -59,7 +59,7 @@ class ProductDAO(Dao):
                     ,price = ?
                 WHERE id = ?
         """
-        parameters = (product.name, product.description, product.categories, product.id)  
+        parameters = (product.name, product.description, product.price, product.id)  
 
         return self.execute_query(sql, parameters)
 
@@ -68,6 +68,6 @@ class ProductDAO(Dao):
             DELETE FROM product
                 WHERE id = ?
         """
-        parameters = (id)     
+        parameters = (id, )
         
         return self.execute_query(sql, parameters)

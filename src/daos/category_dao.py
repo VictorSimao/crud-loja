@@ -64,6 +64,6 @@ class CategoryDAO(Dao):
             DELETE FROM category
                 WHERE id = ?
         """
-        parameters = (id)     
+        parameters = (id, )     
         
         return self.execute_query(sql, parameters)

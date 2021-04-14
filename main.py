@@ -15,9 +15,13 @@ class Main:
             print("""\nO que você deseja fazer? Selecione uma das opções abaixo:
             1. Listar os produtos
             2. Cadastrar um produto
-            3. Listar as categorias
-            4. Cadastrar uma categoria
-            5. Sair""")
+            3. Atualizar um produto
+            4. Deletar um produto
+            5. Listar as categorias
+            6. Cadastrar uma categoria
+            7. Atualizar uma categoria
+            8. Deletar uma categoria
+            9. Sair""")
             self.user_choice = input()
             self.process_choice()
 
@@ -27,10 +31,18 @@ class Main:
         elif self.user_choice == "2":
             self.product_controller.create_new_product()
         elif self.user_choice == "3":
-            self.category_controller.get_all_categories()
+            self.product_controller.update_product()
         elif self.user_choice == "4":
-            self.category_controller.create_new_category()
+            self.product_controller.delete_product()
         elif self.user_choice == "5":
+            self.category_controller.get_all_categories()
+        elif self.user_choice == "6":
+            self.category_controller.create_new_category()
+        elif self.user_choice == "7":
+            self.category_controller.update_category()
+        elif self.user_choice == "8":
+            self.category_controller.delete_category()
+        elif self.user_choice == "9":
             sys.exit(1)
         else:
             print("Opção inválida")
