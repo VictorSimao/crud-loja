@@ -1,6 +1,7 @@
 from src.daos.category_dao import CategoryDAO
 
 from src.models.category_model import Category
+from src.utils.utils import format_print
 
 
 class CategoryController:
@@ -31,7 +32,4 @@ class CategoryController:
         
     def get_all_categories(self):
         categories = self.category_dao.read_all()
-        print("\n")
-        for cat in categories:
-            data = f"{cat.id} - {cat.name} - {cat.description}"
-            print(data)
+        format_print(categories)

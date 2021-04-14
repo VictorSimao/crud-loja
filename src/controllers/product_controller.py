@@ -3,6 +3,7 @@ from src.daos.category_dao import CategoryDAO
 from src.daos.product_category_dao import ProductCategoryDao
 
 from src.models.product_model import Product
+from src.utils.utils import format_print
 
 class ProductController:
     def __init__(self):
@@ -39,18 +40,13 @@ class ProductController:
 
     def get_all_products(self):
         products = self.product_dao.read_all()
-        for product in products:
-            data = f"{product.id} - {product.name} - {product.description} - {product.price} - {product.categories}"
-            print(data)
+        format_print(products)
 
     def get_categories(self):
         while True:
             print("\nSelecione uma das categorias abaixo:\n")
             categories = self.category_dao.read_all()
-
-            for cat in categories:
-                data = f"{cat.id} - {cat.name} - {cat.description}"
-                print(data)
+            format_print(categories)
 
             selected_category = input()
             self.product['categories'].append(selected_category)
