@@ -25,7 +25,7 @@ class Main:
 
 
     def show_menu(self):
-        print("""O que você deseja fazer? Selecione uma das opções abaixo:
+        print("""O que você deseja fazer?
         1. Listar os produtos
         2. Cadastrar um produto
         3. Listar as categorias
@@ -35,7 +35,7 @@ class Main:
 
     def get_user_input(self):
         self.show_menu()
-        choice = input()
+        choice = input("Selecione uma das opções acima:")
         self.get_choice(choice)
 
 
