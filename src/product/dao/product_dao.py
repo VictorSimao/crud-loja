@@ -1,5 +1,7 @@
 from src.database.dao import Dao
 from src.product.model.product_model import Product
+from typing import List
+
 
 class ProductDAO(Dao):
 
@@ -13,7 +15,7 @@ class ProductDAO(Dao):
             );
         """)
 
-    def insert_data_product(self, product:Product):
+    def create(self, product:Product):
         sql = """
         INSERT INTO product (name, description, price) VALUES (?, ?, ?)
         """
@@ -21,7 +23,7 @@ class ProductDAO(Dao):
         return self.insert_data(sql, parameters)
 
 
-    def select_all_data_product(self):
+    def read_all(self)-> List[Product]:
         self.cursor.execute("""
         SELECT product.name, product.description, product.price, group_concat(category.name)
         FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id

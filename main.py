@@ -44,7 +44,7 @@ class Main:
 
     def get_choice(self, choice):
         if choice == "1":
-            self.product_dao.select_all_data_product()
+            self.product_dao.read_all()
         elif choice == "2":
             product_name = input("Escreva o nome do produto:")
             product_description = input("Escreva a descrição do produto:")
@@ -61,7 +61,7 @@ class Main:
                     break
                 print(selected_categories)
             product = Product(product_name, product_description, product_price, selected_categories)
-            self.product_id = self.product_dao.insert_data_product(product)
+            self.product_id = self.product_dao.create(product)
             for selected_category in selected_categories:
                 self.product_category_dao.insert_data_product_category(self.product_id, selected_category)
         elif choice == "3":
