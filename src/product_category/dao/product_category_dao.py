@@ -13,7 +13,11 @@ class ProductCategoryDao(Dao):
             );
         """)
         
-    def insert_data_product_category(self, product_id, category_id) -> int:
+    def create(
+        self, 
+        product_id: int, 
+        category_id: int
+        ) -> int:
         sql = """
         INSERT INTO product_category (product_id, category_id) VALUES (?, ?)
         """
