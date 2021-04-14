@@ -17,10 +17,10 @@ class ProductDAO(Dao):
 
     def create(self, product:Product):
         sql = "INSERT INTO product (name, description, price) VALUES (?, ?, ?)"
-        parameters = (product.name, product.description, product.price))
+        parameters = (product.name, product.description, product.price)
         return self.insert_data(sql, parameters)
 
-    def read_all(self) -> List(Product):
+    def read_all(self) -> List[Product]:
         sql = """
             SELECT product.name, product.description, product.price, group_concat(category.name), product.id
             FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id

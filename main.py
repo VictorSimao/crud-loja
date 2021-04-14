@@ -44,7 +44,11 @@ class Main:
 
     def get_choice(self, choice):
         if choice == "1":
-            self.product_dao.select_all_data_product()
+            # self.product_dao.select_all_data_product()
+            products = self.product_dao.read_all()
+            for prod in products:
+                data = f"{prod.id} - Produto: {prod.name} - Desc: {prod.description} - Preço: {prod.price} - Categorias: {prod.categories}"
+                print(data)
         elif choice == "2":
             product_name = input("Escreva o nome do produto:")
             product_description = input("Escreva a descrição do produto:")
