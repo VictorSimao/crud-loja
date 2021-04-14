@@ -18,9 +18,16 @@ class CategoryView():
             data = f"{cat.id} - {cat.name} - {cat.description}"
             print(data)
 
+
+    def insert_category(self):
+        category_name = input("Escreva o nome da categoria:")
+        category_description = input("Escreva a descrição da categoria:")
+        category = Category(category_name, category_description)
+        self.category_dao.create(category)
+
 class Main:
     def __init__(self):
-        self.category_dao = CategoryDAO()
+        # self.category_dao = CategoryDAO()
         self.product_dao = ProductDAO()
         self.product_category_dao = ProductCategoryDao()
         self.categoryView = CategoryView()
@@ -29,7 +36,7 @@ class Main:
 
     def controller(self):
 
-        self.category_dao.create_table_category()
+        CategoryDAO().create_table_category()
         self.product_dao.create_table_product()
         self.product_category_dao.create_table_product_category()
 
@@ -100,10 +107,7 @@ class Main:
                 
                 
         elif choice == "4":
-            category_name = input("Escreva o nome da categoria:")
-            category_description = input("Escreva a descrição da categoria:")
-            category = Category(category_name, category_description)
-            self.category_dao.create(category)
+            self.categoryView.insert_category()
             
             
         elif choice == "5":
