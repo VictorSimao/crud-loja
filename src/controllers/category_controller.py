@@ -19,7 +19,7 @@ class CategoryController:
     def create_category_table(self):
         self.category_dao.create_table_category()
 
-    def create_new_product(self):
+    def create_new_category(self):
         self.category['name'] = input("\nEscreva o nome da categoria: ")
         self.category['description'] = input("\nEscreva a descrição do produto: ")
 

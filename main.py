@@ -29,7 +29,7 @@ class Main:
         elif self.user_choice == "3":
             self.category_controller.get_all_categories()
         elif self.user_choice == "4":
-            self.category_controller.create_new_product()
+            self.category_controller.create_new_category()
         elif self.user_choice == "5":
             sys.exit(1)
         else:
