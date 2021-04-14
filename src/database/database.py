@@ -1,13 +1,10 @@
 import sqlite3
 
 class Database:
-    def __init__(self):
-        self.conn = sqlite3.connect('database.db')
-        self.cursor = self.conn.cursor()
-    
-    def commit(self):
-        self.conn.commit()
 
-    def close(self):
+    def __enter__(self):
+        self.conn = sqlite3.connect('database.db')
+        return self.conn
+
+    def __exit__(self, type, value, traceback):
         self.conn.close()
-    

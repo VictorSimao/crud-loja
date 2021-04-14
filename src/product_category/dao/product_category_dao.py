@@ -1,9 +1,9 @@
-from src.database.database import Database
+from src.database.dao import Dao
 
 
-class ProductCategoryDao(Database):
+class ProductCategoryDao(Dao):
     def create_table_product_category(self):
-        self.cursor.execute("""
+        self.execute_query("""
         CREATE TABLE IF NOT EXISTS product_category (
             product_id INTEGER,
             category_id INTEGER,
@@ -13,9 +13,11 @@ class ProductCategoryDao(Database):
             );
         """)
         
-    def insert_data_product_category(self, product_id, category_id):
-        self.cursor.execute("""
+    def insert_data_product_category(self, product_id, category_id) -> int:
+        sql = """
         INSERT INTO product_category (product_id, category_id) VALUES (?, ?)
-        """, (product_id, category_id))
-        self.commit()
+        """
+        parameters =  (product_id, category_id)
 
+        id = self.insert_data(sql, parameters)
+        return id

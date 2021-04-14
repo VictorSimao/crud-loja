@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 
 # Byte-compiled / optimized / DLL files
 *__pycache__/
 *.py[cod]
 *$py.class
 *.pyc
+=======
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+>>>>>>> main
 
 # C extensions
 *.so
@@ -138,3 +145,15 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+<<<<<<< HEAD
+=======
+
+# SQlite
+.db
+
+# Vscode
+.vscode
+
+#Pycharm
+.idea
+>>>>>>> main
