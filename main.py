@@ -44,26 +44,36 @@ class Main:
 
     def get_choice(self, choice):
         if choice == "1":
-            self.product_dao.select_all_data_product()
+            products = self.product_dao.read_all()
+            for prod in products:
+                data = f"{prod.id} - {prod.name} - {prod.description} - {prod.price}"
+                print(data)
+
         elif choice == "2":
             product_name = input("Escreva o nome do produto:")
             product_description = input("Escreva a descrição do produto:")
             product_price = input("Escreva o preço do produto:")
+
             selected_categories = []
             while True:
                 print("Selecione uma das categorias abaixo:")
-                self.category_dao.read_all()
+                categories = self.category_dao.read_all()
+                for cat in categories:
+                    data = f"{cat.id} - {cat.name} - {cat.description}"
+                    print(data)
+
                 selected_categories.append(input())
                 option = input("Você deseja cadastrar mais uma categoria? (s/N)")
+
                 if option == "s":
                     continue
                 else:
                     break
                 print(selected_categories)
             product = Product(product_name, product_description, product_price, selected_categories)
-            self.product_id = self.product_dao.insert_data_product(product)
+            self.product_id = self.product_dao.create(product)
             for selected_category in selected_categories:
-                self.product_category_dao.insert_data_product_category(self.product_id, selected_category)
+                self.product_category_dao.execute_query(self.product_id, selected_category)
         elif choice == "3":
             categories = self.category_dao.read_all()
             for cat in categories:
@@ -82,3 +92,4 @@ class Main:
 
 
 Main()
+
