@@ -30,7 +30,7 @@ class StartInput:
         elif choice == "3":
             pass
         elif choice == "4":
-            pass
+            self.product_ui.delete_product()
         elif choice == "5":
             self.category_ui.list_categories()
         elif choice == "6":

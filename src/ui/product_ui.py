@@ -36,3 +36,6 @@ class ProductInput:
             for selected_category in selected_categories:
                 self.product_category_dao.insert_data_product_category(self.product_id, selected_category)
     
+    def delete_product(self):
+        product_to_delete = input("Escolha um produto para deletar:")
+        products = self.product_dao.delete(product_to_delete)

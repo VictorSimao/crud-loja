@@ -22,4 +22,3 @@ class CategoryInput:
     def delete_category(self):
         category_to_delete = input("Escolha uma categoria para deletar:")
         categories = self.category_dao.delete(category_to_delete)
-        
