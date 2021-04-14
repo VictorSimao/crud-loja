@@ -23,10 +23,9 @@ class CategoryController:
         self.category['name'] = input("\nEscreva o nome da categoria: ")
         self.category['description'] = input("\nEscreva a descrição do produto: ")
 
-        self.get_categories()
         new_category = Category(
             self.category['name'], 
-            self.category['category_description']
+            self.category['description']
         )
         self.category['id'] = self.category_dao.create(new_category)
         

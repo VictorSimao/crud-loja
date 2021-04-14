@@ -22,7 +22,7 @@ class CategoryDAO(Dao):
 
     def read_all(self)-> List[Category]:
         sql = """
-        SELECT * FROM category
+        SELECT * FROM category ORDER BY id
         """
 
         list_categories = []
