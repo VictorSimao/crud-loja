@@ -42,33 +42,47 @@ class Main:
         choice = input()
         self.get_choice(choice)
 
+
+    def show_products(self):
+        products_bd = self.product_dao.read_all()
+        for prod in products_bd:
+            data = f"{prod.id} - {prod.name} - {prod.description} - {prod.price} - Categorias: {prod.categories}" 
+            print(data)
+
+
+    def get_typed_categories(self):
+        selected_categories = []
+        while True:
+            print("Selecione uma das categorias abaixo:")
+            for categoria in self.category_dao.read_all():
+                print(f"{categoria.id} - {categoria.name}")
+                
+            selected_categories.append(input())
+            
+            option = input("Você deseja cadastrar mais uma categoria? (s/N)")
+            if option == "s":
+                continue
+            else:
+                break
+        
+        return selected_categories
+
+
     def get_choice(self, choice):
         if choice == "1":
-            products_bd = self.product_dao.read_all()
-            for prod in products_bd:
-                data = f"{prod.id} - {prod.name} - {prod.description} - {prod.price} - Categorias: {prod.categories}" 
-                print(data)
+            self.show_products()
         elif choice == "2":
             product_name = input("Escreva o nome do produto:")
             product_description = input("Escreva a descrição do produto:")
             product_price = input("Escreva o preço do produto:")
-            selected_categories = []
-            while True:
-                print("Selecione uma das categorias abaixo:")
-                for c in self.category_dao.read_all():
-                    print(c)
-                    
-                selected_categories.append(input())
-                option = input("Você deseja cadastrar mais uma categoria? (s/N)")
-                if option == "s":
-                    continue
-                else:
-                    break
+            selected_categories = self.get_typed_categories()
 
             product = Product(product_name, product_description, product_price, selected_categories)
             self.product_id = self.product_dao.create(product)
             for selected_category in selected_categories:
                 self.product_category_dao.create(self.product_id, selected_category)
+                
+                
         elif choice == "3":
             categories = self.category_dao.read_all()
             for cat in categories:
