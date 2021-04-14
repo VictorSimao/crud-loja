@@ -1,7 +1,7 @@
 from src.database.dao import Dao
 from src.product.model.product_model import Product
 from typing import List
-
+from src.product_category.dao.product_category_dao import ProductCategoryDao
 
 class ProductDAO(Dao):
 
@@ -25,18 +25,16 @@ class ProductDAO(Dao):
 
     def read_all(self)-> List[Product]:
         sql = """
-        SELECT product.name, product.description, product.price, group_concat(category.name)
+        SELECT product.id, product.name, product.description, product.price, group_concat(category.name)
         FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
-        GROUP BY product.name, product.description, product.price
+        GROUP BY product.id, product.name, product.description, product.price
         """
         list_products = []
         
         result = self.execute_query_select(sql)
-        print(result)
 
         for item in result:
-            # categories = item[4]
-            product = Product(item[1], item[2], item[3], None, item[0])
+            product = Product(item[1], item[2], item[3], item[4], item[0])
             list_products.append(product)
 
         return list_products
