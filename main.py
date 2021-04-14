@@ -66,8 +66,9 @@ class Main:
                 else:
                     break
                 print(selected_categories)
-            product = Product(product_name, product_description, product_price, selected_categories)
+            product = Product(product_name, product_description, product_price)
             self.product_id = self.product_dao.create(product)
+            #selected_categories
             for selected_category in selected_categories:
                 self.product_category_dao.insert_data_product_category(self.product_id, selected_category)
         elif choice == "3":
