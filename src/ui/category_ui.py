@@ -1,8 +1,6 @@
 from src.category.dao.category_dao import CategoryDAO
-from src.product.dao.product_dao import ProductDAO
 from src.product_category.dao.product_category_dao import ProductCategoryDao
 from src.category.model.category_model import Category
-from src.product.model.product_model import Product
 
 class CategoryInput:
     def __init__(self):

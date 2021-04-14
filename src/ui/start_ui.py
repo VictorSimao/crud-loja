@@ -1,8 +1,4 @@
-from src.category.dao.category_dao import CategoryDAO
-from src.product.dao.product_dao import ProductDAO
-from src.product_category.dao.product_category_dao import ProductCategoryDao
-from src.category.model.category_model import Category
-from src.product.model.product_model import Product
+import sys
 from src.ui.product_ui import ProductInput
 from src.ui.category_ui import CategoryInput
 
@@ -11,12 +7,9 @@ class StartInput:
     def __init__(self):
         self.product_ui = ProductInput()
         self.category_ui = CategoryInput()
-        self.category_dao = CategoryDAO()
-        self.product_dao = ProductDAO()
-        self.product_category_dao = ProductCategoryDao()
 
     def get_user_input(self):
-        print("""O que você deseja fazer? Selecione uma das opções abaixo:
+        print("""\n O que você deseja fazer? Selecione uma das opções abaixo:
         1. Listar os produtos
         2. Cadastrar um produto
         3. Listar as categorias
