@@ -29,14 +29,17 @@ class ProductDAO(Dao):
         FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
         GROUP BY product.name, product.description, product.price
         """
-        
         list_products = []
         
         result = self.execute_query_select(sql)
+        print(result)
 
         for item in result:
-            product = Product(item[1], item[2], item[0])
+            # categories = item[4]
+            product = Product(item[1], item[2], item[3], None, item[0])
             list_products.append(product)
+
+        return list_products
 
         
     def select_data_product(self, product:Product):

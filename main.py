@@ -29,7 +29,7 @@ class Main:
         # print(category.name, type(category.name))
         # last_category = self.category_dao.insert_data_category(category)
         
-        # self.product_category.insert_data_product_category(last_product,last_category)
+        # self.product_category.create(last_product,last_category)
 
 
     def get_user_input(self):
@@ -44,7 +44,10 @@ class Main:
 
     def get_choice(self, choice):
         if choice == "1":
-            self.product_dao.read_all()
+            print("oioioi")
+            products_bd = self.product_dao.read_all()
+            # for item in products_bd:
+            #     print(item.name)
         elif choice == "2":
             product_name = input("Escreva o nome do produto:")
             product_description = input("Escreva a descrição do produto:")
@@ -52,18 +55,20 @@ class Main:
             selected_categories = []
             while True:
                 print("Selecione uma das categorias abaixo:")
-                self.category_dao.read_all()
+                for c in self.category_dao.read_all():
+                    print(c)
+                    
                 selected_categories.append(input())
                 option = input("Você deseja cadastrar mais uma categoria? (s/N)")
                 if option == "s":
                     continue
                 else:
                     break
-                print(selected_categories)
+
             product = Product(product_name, product_description, product_price, selected_categories)
             self.product_id = self.product_dao.create(product)
             for selected_category in selected_categories:
-                self.product_category_dao.insert_data_product_category(self.product_id, selected_category)
+                self.product_category_dao.create(self.product_id, selected_category)
         elif choice == "3":
             categories = self.category_dao.read_all()
             for cat in categories:
