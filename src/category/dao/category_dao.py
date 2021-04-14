@@ -1,10 +1,11 @@
-from src.database.database import Database
+from src.database.dao import Dao
 from src.category.model.category_model import Category
+from typing import List
 
 
-class CategoryDAO(Database):
+class CategoryDAO(Dao):
     def create_table_category(self):
-        self.cursor.execute("""
+        self.execute_query("""
         CREATE TABLE IF NOT EXISTS category (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name VARCHAR(100) NOT NULL,
@@ -12,27 +13,57 @@ class CategoryDAO(Database):
         );
         """)
 
-    def insert_data_category(self, category:Category):
-        self.cursor.execute("""
+    def create(self, category:Category):
+        sql = """
         INSERT INTO category ("name", "description") VALUES (?, ?);
-        """, (category.name,category.description))
-        self.commit()
-        id = self.cursor.lastrowid
-        self.close()
-        return id
+        """
+        parameters =  (category.name,category.description)     
+        return self.insert_data(sql, parameters)
 
-    def select_all_data_category(self):
-        self.cursor.execute("""
+    def read_all(self)-> List[Category]:
+        sql = """
         SELECT * FROM category
-        """)
+        """
 
-        for category in self.cursor.fetchall():
-            print(category)
+        list_categories = []
 
-    def select_data_category(self, category:Category):
-        print(self.cursor.execute("""
+        result = self.execute_query_select(sql)
+
+        for item in result:
+            category = Category(item[1], item[2], item[0])
+            list_categories.append(category)
+
+        return list_categories
+
+    def read_by_id(self, id:int) -> Category:
+        sql = """
         SELECT * FROM category WHERE id = ?
-        """, category.id))
+        """
+        parameter = id
 
-    def close(self):
-        self.close()
+        result = self.execute_query_select(sql, parameter)
+        item = result[0]
+
+        category = Category(item[1], item[2], item[0])
+        return category
+
+    def update(self, category:Category):
+        sql = """
+            UPDATE category
+                SET
+                    name = ?
+                    ,description = ?
+                WHERE id = ?
+        """
+        parameters = (category.name, category.description, category.id)  
+
+        return self.execute_query(sql, parameters)
+
+    def delete(self, id:int):
+        sql = """
+            DELETE FROM category
+                WHERE id = ?
+        """
+        parameters = (id)     
+        
+        return self.execute_query(sql, parameters)

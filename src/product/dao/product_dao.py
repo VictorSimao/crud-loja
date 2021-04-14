@@ -1,10 +1,10 @@
-from src.database.database import Database
+from src.database.dao import Dao
 from src.product.model.product_model import Product
 
-class ProductDAO(Database):
+class ProductDAO(Dao):
 
     def create_table_product(self):
-        self.cursor.execute("""
+        self.execute_query("""
         CREATE TABLE IF NOT EXISTS product (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name VARCHAR(100) NOT NULL,
@@ -36,6 +36,3 @@ class ProductDAO(Database):
         print(self.cursor.execute("""
         SELECT * FROM product WHERE id = ?
         """, product.id))
-
-    def close(self):
-        self.close()

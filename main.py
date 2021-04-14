@@ -52,7 +52,7 @@ class Main:
             selected_categories = []
             while True:
                 print("Selecione uma das categorias abaixo:")
-                self.category_dao.select_all_data_category()
+                self.category_dao.read_all()
                 selected_categories.append(input())
                 option = input("Você deseja cadastrar mais uma categoria? (s/N)")
                 if option == "s":
@@ -65,16 +65,16 @@ class Main:
             for selected_category in selected_categories:
                 self.product_category_dao.insert_data_product_category(self.product_id, selected_category)
         elif choice == "3":
-            self.category_dao.select_all_data_category()
+            categories = self.category_dao.read_all()
+            for cat in categories:
+                data = f"{cat.id} - {cat.name} - {cat.description}"
+                print(data)
         elif choice == "4":
             category_name = input("Escreva o nome da categoria:")
             category_description = input("Escreva a descrição da categoria:")
             category = Category(category_name, category_description)
-            self.category_id = self.category_dao.insert_data_category(category)
+            self.category_id = self.category_dao.create(category)
         elif choice == "5":
-            self.product_dao.close()
-            self.category_dao.close()
-            self.product_category.close()
             sys.exit(1)
         else:
             print("Opção inválida")
