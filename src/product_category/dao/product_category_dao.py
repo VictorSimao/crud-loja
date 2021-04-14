@@ -17,7 +17,7 @@ class ProductCategoryDao(Dao):
         sql = """
         INSERT INTO product_category (product_id, category_id) VALUES (?, ?)
         """
-        parameters =  (product_id, category_id)
+        parameters = (product_id, category_id)
 
         id = self.insert_data(sql, parameters)
         return id

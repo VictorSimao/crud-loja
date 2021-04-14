@@ -17,7 +17,7 @@ class CategoryDAO(Dao):
         sql = """
         INSERT INTO category ("name", "description") VALUES (?, ?);
         """
-        parameters =  (category.name,category.description)     
+        parameters = (category.name,category.description)     
         return self.insert_data(sql, parameters)
 
     def read_all(self)-> List[Category]:

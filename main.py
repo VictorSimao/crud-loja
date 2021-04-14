@@ -24,13 +24,6 @@ class Main:
 
         while True:
             self.get_user_input()
-        # category = Category('categoryName','cate')
-        # categories = [category]
-        # print(category.name, type(category.name))
-        # last_category = self.category_dao.insert_data_category(category)
-        
-        # self.product_category.insert_data_product_category(last_product,last_category)
-
 
     def get_user_input(self):
         print("""O que você deseja fazer? Selecione uma das opções abaixo:
@@ -44,7 +37,10 @@ class Main:
 
     def get_choice(self, choice):
         if choice == "1":
-            self.product_dao.select_all_data_product()
+            products = self.product_dao.read_all()
+            for prod in products:
+                data = f"{prod.name} - {prod.description} - {prod.price} - {prod.categories}"
+                print(data)
         elif choice == "2":
             product_name = input("Escreva o nome do produto:")
             product_description = input("Escreva a descrição do produto:")
@@ -61,7 +57,7 @@ class Main:
                     break
                 print(selected_categories)
             product = Product(product_name, product_description, product_price, selected_categories)
-            self.product_id = self.product_dao.insert_data_product(product)
+            self.product_id = self.product_dao.create(product)
             for selected_category in selected_categories:
                 self.product_category_dao.insert_data_product_category(self.product_id, selected_category)
         elif choice == "3":
