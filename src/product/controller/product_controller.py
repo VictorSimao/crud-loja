@@ -4,24 +4,23 @@ from typing import NoReturn
 
 
 class ProductController(ProductDAO):
-    def create_controller(self) -> NoReturn:
+    def create_controller(self):
         return self.create(Product(input('Nome: '), input('Descrição: '), input('Valor: ')))
 
     def read_controller(self) -> NoReturn:
         products = self.read_all()
+        print("\n\n=============== Produtos =================")
+        print("ID - NOME - PREÇO - DESCRIÇÃO - CATEGORIAS")
         for prod in products:
-            data = f"{prod.name} - {prod.price} - {prod.description} - {prod.categories}"
+            data = f"{prod.id} - {prod.name} - {prod.price} - {prod.description} - {prod.categories}"
             print(data)
 
-    def add_category(self) -> list:
-        selected_categories = []
-        while True:
-            print("Selecione uma das categorias acima:")
-            selected_categories.append(input())
-            option = input(
-                "Você deseja cadastrar mais uma categoria? (s/N)")
-            if option == "s":
-                continue
-            else:
-                break
-        return selected_categories
+    def update_controller(self):
+        id = input('Id: ')
+        self.update(Product(input('Nome: '), input('Descrição: '), input('Price: '), id))
+        return id
+
+    def delete_controller(self):
+        id = int(input('Id Produto: '))
+        self.delete((id,))
+        return id

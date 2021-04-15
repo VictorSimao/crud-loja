@@ -19,3 +19,23 @@ class ProductCategoryDao(Dao):
         """
         parameters = (product_id, category_id)
         return self.insert_data(sql, parameters)
+
+    def update(self, product_id, category_id, new_category_id):
+        sql = """
+            UPDATE product_category
+                SET
+                    category_id = ?
+                WHERE product_id = ? AND category_id = ?
+        """
+        parameters = (new_category_id, product_id, category_id)
+
+        return self.execute_query(sql, parameters)
+
+    def delete(self, id: int):
+        sql = """
+            DELETE FROM product_category
+                WHERE product_id = ?
+        """
+        parameters = (id)
+
+        return self.execute_query(sql, parameters)
