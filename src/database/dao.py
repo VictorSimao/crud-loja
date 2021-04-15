@@ -2,7 +2,14 @@ from .database import Database
 
 from typing import NoReturn
 
+"""
+This class abstracts all connections with database to execute the queries
+passed by specific DAOs
+"""
+
+
 class Dao:
+
 
     def insert_data(self, sql:str, parameters:tuple) -> int :      
         with Database() as conn:

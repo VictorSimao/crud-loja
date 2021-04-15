@@ -1,11 +1,17 @@
 from src.daos.category_dao import CategoryDAO
 
 from src.models.category_model import Category
+
 from src.utils.utils import format_print
+
+"""
+This class serves to control the data between user inputs and category DAO
+"""
 
 
 class CategoryController:
     
+
     def __init__(self):
         self.category_dao = CategoryDAO()
         self.category = {

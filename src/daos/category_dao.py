@@ -1,9 +1,19 @@
 from src.database.dao import Dao
+
 from src.models.category_model import Category
+
 from typing import List
 
 
+"""
+This class makes a communication between category controller data and
+set the queries to save in category table on database.
+"""
+
+
 class CategoryDAO(Dao):
+
+
     def create_table_category(self):
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS category (

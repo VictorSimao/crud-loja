@@ -1,8 +1,17 @@
 from src.database.dao import Dao
+
 from src.models.product_model import Product
+
+
+"""
+This class makes a communication between product controller data and
+set the queries to save product table on database.
+"""
+
 
 class ProductDAO(Dao):
 
+    
     def create_table_product(self):
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS product (

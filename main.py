@@ -1,8 +1,18 @@
 from src.controllers.category_controller import CategoryController 
+
 from src.controllers.product_controller import ProductController
+
 import sys
 
+
+"""
+This class is the first called, it's responsible to get user input and 
+share with controllers
+"""
+
+
 class Main:
+
 
     def __init__(self):
         self.category_controller = CategoryController()

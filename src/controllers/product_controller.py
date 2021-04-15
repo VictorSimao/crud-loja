@@ -1,11 +1,23 @@
 from src.daos.product_dao import ProductDAO
+
 from src.daos.category_dao import CategoryDAO
+
 from src.daos.product_category_dao import ProductCategoryDao
 
 from src.models.product_model import Product
+
 from src.utils.utils import format_print
 
+
+"""
+This class serves to control the data between user inputs and all the other 
+DAOs.
+"""
+
+
 class ProductController:
+
+
     def __init__(self):
         self.product_dao = ProductDAO()
         self.category_dao = CategoryDAO()
