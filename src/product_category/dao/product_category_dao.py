@@ -1,7 +1,10 @@
 from src.database.dao import Dao
+from typing import NoReturn
+
 
 class ProductCategoryDao(Dao):
-    def create_table_product_category(self):
+
+    def create_table_product_category(self) -> NoReturn:
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS product_category (
             product_id INTEGER,
@@ -11,16 +14,16 @@ class ProductCategoryDao(Dao):
             PRIMARY KEY(product_id, category_id)            
             );
         """)
-        
+
     def create(
-        self, 
-        product_id: int, 
+        self,
+        product_id: int,
         category_id: int
-        ) -> int:
+    ) -> int:
         sql = """
         INSERT INTO product_category (product_id, category_id) VALUES (?, ?)
         """
-        parameters =  (product_id, category_id)
+        parameters = (product_id, category_id)
 
         id = self.insert_data(sql, parameters)
         return id
@@ -34,4 +37,4 @@ class ProductCategoryDao(Dao):
             WHERE ID = 
         """
 
-        parameters = (product_id,category_id)
+        parameters = (product_id, category_id)
