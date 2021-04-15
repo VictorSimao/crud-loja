@@ -13,26 +13,62 @@ class ProductDAO(Dao):
             );
         """)
 
-    def insert_data_product(self, product:Product):
-        self.cursor.execute("""
+    def create_product(self, product:Product):
+        sql = """
         INSERT INTO product (name, description, price) VALUES (?, ?, ?)
-        """, (product.name, product.description, product.price))
-        self.commit()
-        id = self.cursor.lastrowid
-        print("oi", id)
-        return id
+        """
 
-    def select_all_data_product(self):
-        self.cursor.execute("""
-        SELECT product.name, product.description, product.price, group_concat(category.name)
-        FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
-        GROUP BY product.name, product.description, product.price
-        """)
+        parameters = (product.name, product.description, product.price)
 
-        for product in self.cursor.fetchall():
-            print(product)
+        return self.insert_data(sql, parameters)
+
+    def read_all_products(self):
+        sql = """
+        SELECT * FROM product
+        """
+
+        list_products = []
+
+        result = self.execute_query_select(sql)
+
+        for item in result:
+            product = Product(item[1], item[2], item[3], item[0])
+            list_products.append(product)
         
-    def select_data_product(self, product:Product):
-        print(self.cursor.execute("""
-        SELECT * FROM product WHERE id = ?
-        """, product.id))
+        return list_products
+
+    def read_by_id_product(self, id:int):
+        sql = """ 
+        SELECT * FROM product WHERE id = ? 
+        """
+
+        parameter = tuple(id)
+        result = self.execute_query_select(sql, parameter)
+        item = result[0]
+
+        product = Product(item[0], item[1], item[2], item[3])
+
+        return product
+
+    def update_product(self, product:Product):
+        sql = """
+            UPDATE product 
+                SET 
+                    name = ?
+                    ,description = ?
+                    ,price = ?
+                WHERE id = ?
+        """
+
+        parameters = (product.name, product.description, product.price, product.id)
+        return self.execute_query(sql, parameters)
+
+    def delete_product(self, id:int):
+        sql = """
+            DELETE FROM product WHERE id = ?
+        """
+
+        # parameter = tuple(id)
+        parameter = (id,)
+        return self.execute_query(sql, parameter)
+
