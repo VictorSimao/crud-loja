@@ -38,4 +38,22 @@ class ProductInput:
     
     def delete_product(self):
         product_to_delete = input("Escolha um produto para deletar:")
-        products = self.product_dao.delete(product_to_delete)
+        product = self.product_dao.delete(product_to_delete)
+
+    def update_product(self):
+        selected_categories = []
+        product_id = input("Informe o id do produto a editar:")
+        product_name = input("Digite um novo nome:")
+        product_description = input("Digite uma nova descrição:")
+        product_price = input("Digite um novo valor para o produto:")
+        while True:
+            print("Selecione uma das categorias abaixo:")
+            self.category_dao.read_all()
+            selected_categories.append(input())
+            option = input("Você deseja cadastrar mais uma categoria? (s/N)")
+            if option == "s":
+                continue
+            else:
+                break
+        product_to_update = Product(product_name, product_description, product_price, selected_categories)
+        updated_product = self.product_dao.update(product_to_update, product_id)

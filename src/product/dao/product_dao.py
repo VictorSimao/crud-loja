@@ -50,16 +50,17 @@ class ProductDAO(Dao):
         product = Product(item[1], item[2], item[0])
         return product
 
-    def update(self, product:Product):
-        sql = """
+    def update(self, product:Product, product_id):
+        sql = f"""
             UPDATE product
                 SET
                     name = ?
                     ,description = ?
                     ,price = ?
-                WHERE id = ?
+                    ,categories = ?
+                WHERE id = {product_id}
         """
-        parameters = (product.name, product.description, product.id, product.categories)  
+        parameters = (product.name, product.description, product.price, product.categories)  
 
         return self.execute_query(sql, parameters)
 

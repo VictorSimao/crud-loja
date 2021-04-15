@@ -47,15 +47,15 @@ class CategoryDAO(Dao):
         category = Category(item[1], item[2], item[0])
         return category
 
-    def update(self, category:Category):
-        sql = """
+    def update(self, category:Category, category_id):
+        sql = f"""
             UPDATE category
                 SET
                     name = ?
                     ,description = ?
-                WHERE id = ?
+                WHERE id = {category_id}
         """
-        parameters = (category.name, category.description, category.id)  
+        parameters = (category.name, category.description)  
 
         return self.execute_query(sql, parameters)
 

@@ -28,7 +28,7 @@ class StartInput:
         elif choice == "2":
             self.product_ui.create_product()
         elif choice == "3":
-            pass
+            self.product_ui.update_product()
         elif choice == "4":
             self.product_ui.delete_product()
         elif choice == "5":
@@ -36,7 +36,7 @@ class StartInput:
         elif choice == "6":
             self.category_ui.create_category()
         elif choice == "7":
-            pass
+            self.category_ui.update_category()
         elif choice == "8":
             self.category_ui.delete_category()
         elif choice == "9":

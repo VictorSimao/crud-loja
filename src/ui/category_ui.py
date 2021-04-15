@@ -20,5 +20,12 @@ class CategoryInput:
         self.category_id = self.category_dao.create(category)
 
     def delete_category(self):
-        category_to_delete = input("Escolha uma categoria para deletar:")
+        category_to_delete = input("Informe o id da categoria a deletar:")
         categories = self.category_dao.delete(category_to_delete)
+
+    def update_category(self):
+        category_id = input("Informe o id da categoria a editar:")
+        category_name = input("Digite um novo nome:")
+        category_description = input("Digite uma nova descrição:")
+        category_to_update = Category(category_name, category_description)
+        updated_category = self.category_dao.update(category_to_update, category_id)
