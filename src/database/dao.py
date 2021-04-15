@@ -21,7 +21,6 @@ class Dao:
                 cursor.execute(sql)
             conn.commit()
 
-
     def execute_query_select(self, sql:str, parameters:tuple=None) -> tuple:
         with Database() as conn:
             cursor = conn.cursor()  
