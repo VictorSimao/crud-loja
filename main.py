@@ -1,7 +1,7 @@
 import sys
 
 from src.views import CategoryView, ProductView
-from setting import init_bd
+from settings import init_bd
 
 class Main:
     def __init__(self):
@@ -11,12 +11,12 @@ class Main:
 
     def run(self):
         while True:
-            self.show_menu()
+            self._show_menu()
             choice = input("Selecione uma das opções acima:")
             self._get_choice(choice)
             
 
-    def show_menu(self):
+    def _show_menu(self):
         print("""O que você deseja fazer?
         1. Listar os produtos
         2. Cadastrar um produto
