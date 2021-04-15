@@ -72,3 +72,27 @@ class ProductView():
         
         for selected_category in selected_categories:
             self.product_category_dao.create(product_id, selected_category)
+    
+    
+    def form_update_product(self):
+        self.show_products()
+        
+        product_id_typed = input("Informe o id do produto a ser atualizado:")
+        product_for_update = self.product_dao.read_by_id(product_id_typed)
+        
+        product_name = input("Escreva o nome novo do produto:")
+        product_description = input("Escreva a descrição nova do produto:")
+        product_price = input("Escreva o preço novo do produto:")
+        
+        product = Product(product_name, product_description, product_price, product_for_update.categories)
+        
+        self.product_dao.update(product_id_typed, product)
+        
+    
+    def form_delete_product(self):
+        self.show_products()
+        
+        product_id_typed = str(input("Informe o id do produto a ser deletado:"))
+        
+        self.product_category_dao.delete(product_id_typed)
+        self.product_dao.delete(product_id_typed)

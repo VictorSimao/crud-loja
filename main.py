@@ -20,9 +20,11 @@ class Main:
         print("""O que você deseja fazer?
         1. Listar os produtos
         2. Cadastrar um produto
-        3. Listar as categorias
-        4. Cadastrar uma categoria
-        5. Sair""")
+        3. Atualizar um produto
+        4. Remover um produto
+        5. Listar as categorias
+        6. Cadastrar uma categoria
+        7. Sair""")
 
 
     def _get_choice(self, choice: int):
@@ -33,12 +35,18 @@ class Main:
             self.product_view.form_create_product()    
                 
         elif choice == "3":
+            self.product_view.form_update_product()
+
+        elif choice == "4":
+            self.product_view.form_delete_product()
+
+        elif choice == "5":
             self.category_view.show_categories()
                 
-        elif choice == "4":
+        elif choice == "6":
             self.category_view.form_create_category()
             
-        elif choice == "5":
+        elif choice == "7":
             sys.exit(1)
             
         else:

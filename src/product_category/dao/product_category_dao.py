@@ -38,3 +38,14 @@ class ProductCategoryDao(Dao):
             # list_categories.append(category)
 
         return list_categories
+    
+    
+        
+    def delete(self, id_product:int):
+        sql = """
+            DELETE FROM product_category
+                WHERE product_id = ?
+        """
+        parameters = (id_product,)     
+        
+        return self.execute_query(sql, parameters)
