@@ -1,27 +1,20 @@
 import sys
 
-from src.category.dao.category_dao import CategoryDAO
-from src.product.dao.product_dao import ProductDAO
-from src.product_category.dao.product_category_dao import ProductCategoryDao
 from src.views import CategoryView, ProductView
+from setting import init_bd
 
 class Main:
     def __init__(self):
         self.category_view = CategoryView()
         self.product_view = ProductView()
 
-        self.controller()
 
-
-    def controller(self):
-
-        CategoryDAO().create_table_category()
-        ProductDAO().create_table_product()
-        ProductCategoryDao().create_table_product_category()
-
+    def run(self):
         while True:
-            self.get_user_input()
-
+            self.show_menu()
+            choice = input("Selecione uma das opções acima:")
+            self._get_choice(choice)
+            
 
     def show_menu(self):
         print("""O que você deseja fazer?
@@ -32,13 +25,7 @@ class Main:
         5. Sair""")
 
 
-    def get_user_input(self):
-        self.show_menu()
-        choice = input("Selecione uma das opções acima:")
-        self.get_choice(choice)
-
-
-    def get_choice(self, choice):
+    def _get_choice(self, choice: int):
         if choice == "1":
             self.product_view.show_products()
             
@@ -59,4 +46,8 @@ class Main:
             self.get_user_input()
 
 
-Main()
+if __name__ == '__main__':
+    init_bd()
+    stage = Main()
+    stage.run()
+    
