@@ -3,6 +3,7 @@ from src.category.model.category_model import Category
 from typing import List
 
 
+
 class CategoryDAO(Dao):
     def create_table_category(self):
         self.execute_query("""
@@ -13,12 +14,14 @@ class CategoryDAO(Dao):
         );
         """)
 
+
     def create(self, category:Category):
         sql = """
         INSERT INTO category ("name", "description") VALUES (?, ?);
         """
         parameters =  (category.name,category.description)     
         return self.insert_data(sql, parameters)
+
 
     def read_all(self)-> List[Category]:
         sql = """
@@ -35,6 +38,7 @@ class CategoryDAO(Dao):
 
         return list_categories
 
+
     def read_by_id(self, id:int) -> Category:
         sql = """
         SELECT * FROM category WHERE id = ?
@@ -47,6 +51,7 @@ class CategoryDAO(Dao):
         category = Category(item[1], item[2], item[0])
         return category
 
+
     def update(self, category:Category):
         sql = """
             UPDATE category
@@ -58,6 +63,7 @@ class CategoryDAO(Dao):
         parameters = (category.name, category.description, category.id)  
 
         return self.execute_query(sql, parameters)
+
 
     def delete(self, id:int):
         sql = """

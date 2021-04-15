@@ -1,126 +1,50 @@
 import sys
 
-from src.category.dao.category_dao import CategoryDAO
-from src.product.dao.product_dao import ProductDAO
-from src.product_category.dao.product_category_dao import ProductCategoryDao
-from src.category.model.category_model import Category
-from src.product.model.product_model import Product
+from src.controller.functions import Functions
 
 class Main:
+
+
     def __init__(self):
-        self.category_dao = CategoryDAO()
-        self.product_dao = ProductDAO()
-        self.product_id = 0
-        self.category_id = 0
-        self.product_category_dao = ProductCategoryDao()
-        self.controller()
-
-
-    def controller(self):
-
-        self.category_dao.create_table_category()
-        self.product_dao.create_table_product()
-        self.product_category_dao.create_table_product_category()
+        self.functions = Functions()
 
         while True:
             self.get_user_input()
 
+
     def get_user_input(self):
-        print("""O que você deseja fazer? Selecione uma das opções abaixo:
-        1. Listar os produtos
-        2. Cadastrar um produto
-        3. Listar as categorias
-        4. Cadastrar uma categoria
-        5. Sair
-        6. Deletar um produto
-        7. Deletar uma categoria
-        8. Editar um produto
-        9. Editar uma categoria """)
-        choice = input()
+        get_choice = self.functions.show_options()
+        choice = get_choice
         self.get_choice(choice)
 
+
     def get_choice(self, choice):
-        if choice == "1":
-            products = self.product_dao.read_all()
-            for pro in products:
-                data = f"{pro.id} - {pro.name} - {pro.description} - {pro.price}"
-                print(data)
+        if choice == "a":
+            self.functions.show_all_products()
             
-
-        elif choice == "2":
-
-            product_name = input("Escreva o nome do produto:")
-            product_description = input("Escreva a descrição do produto:")
-            product_price = input("Escreva o preço do produto:")
-            selected_categories = []
-            while True:
-                print("Selecione uma das categorias abaixo:")
-
-                categories = self.category_dao.read_all()
-                for cat in categories:
-                    data = f"{cat.id} - {cat.name} - {cat.description}"
-                    print(data)
-
+        elif choice == "b":
+            self.functions.create_product()
+        
+        elif choice == "c":
+            self.functions.edit_product()
     
-                selected_categories.append(input())
-                option = input("Você deseja cadastrar mais uma categoria? (s/N)")
-                if option == "s":
-                    continue
-                else:
-                    break
+        elif choice == "d":
+            self.functions.delete_product()
+        
+        elif choice == "e":
+            self.functions.show_all_categories()
             
-
-            product = Product(product_name, product_description, product_price, selected_categories)
-            self.product_id = self.product_dao.create(product)
-            for selected_category in selected_categories:
-                self.product_category_dao.create(self.product_id, selected_category)
+        elif choice == "f":
+            self.functions.create_category()
         
-        elif choice == "3":
-            categories = self.category_dao.read_all()
-            for cat in categories:
-                data = f"{cat.id} - {cat.name} - {cat.description}"
-                print(data)
-        
-        elif choice == "4":
-            category_name = input("Escreva o nome da categoria:")
-            category_description = input("Escreva a descrição da categoria:")
-            category = Category(category_name, category_description)
-            self.category_id = self.category_dao.create(category)
-        elif choice == "5":
+        elif choice == "g":
+            pass           
+           
+        elif choice == "h":
+            self.functions.delete_category()
+            
+        elif choice == "i":
             sys.exit(1)
-        
-        elif choice == "6":
-            print("Produtos: ")
-
-            products = self.product_dao.read_all()
-            for pro in products:
-                data = f"{pro.id} - {pro.name} - {pro.description} - {pro.price}"
-                print(data)
-            
-            option = input("Qual produto você quer deletar? ")
-
-            self.product_dao.delete(option)
-
-
-        elif choice == "7":
-
-            print("Categorias: ")
-            
-            categories = self.category_dao.read_all()
-            for cat in categories:
-                data = f"{cat.id} - {cat.name} - {cat.description}"
-                print(data)
-            
-    
-            option = input("Qual categoria você quer deletar? ")
-            
-            self.category_dao.delete(option)      
-
-        elif choice == "8":
-            pass
-
-        elif choice == "9":
-            pass
 
         else:
             print("Opção inválida")
