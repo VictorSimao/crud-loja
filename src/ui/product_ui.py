@@ -2,6 +2,7 @@ from src.category.dao.category_dao import CategoryDAO
 from src.product.dao.product_dao import ProductDAO
 from src.product_category.dao.product_category_dao import ProductCategoryDao
 from src.product.model.product_model import Product
+from src.ui.category_ui import CategoryInput
 
 class ProductInput:
     def __init__(self):
@@ -9,6 +10,7 @@ class ProductInput:
         self.product_dao = ProductDAO()
         self.product_id = 0
         self.product_category_dao = ProductCategoryDao()
+        self.category_ui = CategoryInput()
 
     def list_products(self):
         products = self.product_dao.read_all()
@@ -23,7 +25,7 @@ class ProductInput:
             selected_categories = []
             while True:
                 print("Selecione uma das categorias abaixo:")
-                self.category_dao.read_all()
+                self.category_ui.list_categories()
                 selected_categories.append(input())
                 option = input("Você deseja cadastrar mais uma categoria? (s/N)")
                 if option == "s":
@@ -48,12 +50,15 @@ class ProductInput:
         product_price = input("Digite um novo valor para o produto:")
         while True:
             print("Selecione uma das categorias abaixo:")
-            self.category_dao.read_all()
+            self.category_ui.list_categories()
             selected_categories.append(input())
             option = input("Você deseja cadastrar mais uma categoria? (s/N)")
             if option == "s":
                 continue
             else:
+                print(selected_categories)
                 break
         product_to_update = Product(product_name, product_description, product_price, selected_categories)
         updated_product = self.product_dao.update(product_to_update, product_id)
+        for selected_category in selected_categories:
+                self.product_category_dao.insert_data_product_category(self.product_id, selected_category)
