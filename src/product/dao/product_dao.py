@@ -27,19 +27,7 @@ class ProductDAO(Dao):
         sql = """
         SELECT product.id, product.name, product.description, product.price, group_concat(category.name)
         FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
-        GROUP BY product.name, product.description, product.price
-        """
-        list_products = []
-        result = self.execute_query_select(sql)
-        [list_products.append(
-            Product(item[1], item[2], item[3], item[4], item[0])) for item in result]
-        return list_products
-
-    def read_all(self, product_id) -> NoReturn:
-        sql = """
-        SELECT product.id, product.name, product.description, product.price, group_concat(category.name)
-        FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
-        GROUP BY product.name, product.description, product.price
+        GROUP BY product.name, product.description, product.price ORDER BY product.id
         """
         list_products = []
         result = self.execute_query_select(sql)

@@ -95,8 +95,7 @@ class Main:
 
     def show_products(self) -> str:
         products = self.product_dao.read_all()
-        return [print(f"{product.id} - {product.name} - {product.description} -
-                        {product.price} - {product.categories}") for product in products]
+        return [print(f"{product.id} - {product.name} - {product.description} - {product.price} - {product.categories}") for product in products]
 
     def register_product(self) -> NoReturn:
         product_name = input("Escreva o nome do produto:")

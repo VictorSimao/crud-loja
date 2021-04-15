@@ -1,5 +1,6 @@
 from src.database.dao import Dao
 from typing import NoReturn
+import sqlite3
 
 
 class ProductCategoryDao(Dao):
