@@ -1,5 +1,6 @@
 from src.database.dao import Dao
 from src.product.model.product_model import Product
+from typing import List
 
 class ProductDAO(Dao):
 
@@ -13,26 +14,60 @@ class ProductDAO(Dao):
             );
         """)
 
-    def insert_data_product(self, product:Product):
-        self.cursor.execute("""
+    def create(self, product:Product):
+        sql = """
         INSERT INTO product (name, description, price) VALUES (?, ?, ?)
-        """, (product.name, product.description, product.price))
-        self.commit()
-        id = self.cursor.lastrowid
-        print("oi", id)
-        return id
+        """
+        parameters = (product.name, product.description, product.price)
+        return self.insert_data(sql, parameters)
 
-    def select_all_data_product(self):
-        self.cursor.execute("""
-        SELECT product.name, product.description, product.price, group_concat(category.name)
-        FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
-        GROUP BY product.name, product.description, product.price
-        """)
+    def read_all(self)-> List[Product]:
+        sql = """
+        SELECT * FROM product
+        """
 
-        for product in self.cursor.fetchall():
-            print(product)
+        list_products = []
+
+        result = self.execute_query_select(sql)
+
+        for item in result:
+
+            product = Product(item[1], item[2], item[3], [], item[0])
+            list_products.append(product)        
+
+        return list_products
+
         
-    def select_data_product(self, product:Product):
-        print(self.cursor.execute("""
+    def read_by_id(self, id:int) -> Product:
+        sql = """
         SELECT * FROM product WHERE id = ?
-        """, product.id))
+        """
+        parameter = id
+
+        result = self.execute_query_select(sql, parameter)
+        item = result[0]
+
+        product = Product(item[1], item[2], item[3], [], item[0])
+        return product
+
+    def update(self, product:Product):
+        sql = """
+            UPDATE product
+                SET
+                    name = ?
+                    ,description = ?
+                    ,price = ?
+                WHERE id = ?
+        """
+        parameters = (product.name, product.description, product.price, product.id)  
+
+        return self.execute_query(sql, parameters)
+
+    def delete(self, id:int):
+        sql = """
+            DELETE FROM product
+                WHERE id = ?
+        """
+        parameters = (id,)     
+        
+        return self.execute_query(sql, parameters)

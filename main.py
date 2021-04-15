@@ -1,80 +1,54 @@
 import sys
 
-from src.category.dao.category_dao import CategoryDAO
-from src.product.dao.product_dao import ProductDAO
-from src.product_category.dao.product_category_dao import ProductCategoryDao
-from src.category.model.category_model import Category
-from src.product.model.product_model import Product
+from src.category.view.category_view import CategoryView
+from src.product.view.product_view import ProductView
 
 class Main:
     def __init__(self):
-        self.category_dao = CategoryDAO()
-        self.product_dao = ProductDAO()
-        self.product_id = 0
-        self.category_id = 0
-        self.product_category_dao = ProductCategoryDao()
+        self.category_view = CategoryView()
+        self.product_view = ProductView()
         self.controller()
 
 
     def controller(self):
 
-        self.category_dao.create_table_category()
-        self.product_dao.create_table_product()
-        self.product_category_dao.create_table_product_category()
-
         while True:
             self.get_user_input()
-        # category = Category('categoryName','cate')
-        # categories = [category]
-        # print(category.name, type(category.name))
-        # last_category = self.category_dao.insert_data_category(category)
-        
-        # self.product_category.insert_data_product_category(last_product,last_category)
 
 
     def get_user_input(self):
         print("""O que você deseja fazer? Selecione uma das opções abaixo:
         1. Listar os produtos
         2. Cadastrar um produto
-        3. Listar as categorias
-        4. Cadastrar uma categoria
-        5. Sair""")
+        3. Atualizar um produto
+        4. Deletar um produto
+        5. Listar as categorias
+        6. Cadastrar uma categoria
+        7. Atualizar um produto
+        8. Deletar um produto
+        9. Sair""")
         choice = input()
         self.get_choice(choice)
+  
 
     def get_choice(self, choice):
         if choice == "1":
-            self.product_dao.select_all_data_product()
+            self.product_view.list_products()
         elif choice == "2":
-            product_name = input("Escreva o nome do produto:")
-            product_description = input("Escreva a descrição do produto:")
-            product_price = input("Escreva o preço do produto:")
-            selected_categories = []
-            while True:
-                print("Selecione uma das categorias abaixo:")
-                self.category_dao.read_all()
-                selected_categories.append(input())
-                option = input("Você deseja cadastrar mais uma categoria? (s/N)")
-                if option == "s":
-                    continue
-                else:
-                    break
-                print(selected_categories)
-            product = Product(product_name, product_description, product_price, selected_categories)
-            self.product_id = self.product_dao.insert_data_product(product)
-            for selected_category in selected_categories:
-                self.product_category_dao.insert_data_product_category(self.product_id, selected_category)
+            self.product_view.create_product()
         elif choice == "3":
-            categories = self.category_dao.read_all()
-            for cat in categories:
-                data = f"{cat.id} - {cat.name} - {cat.description}"
-                print(data)
+            self.product_view.update_product()
         elif choice == "4":
-            category_name = input("Escreva o nome da categoria:")
-            category_description = input("Escreva a descrição da categoria:")
-            category = Category(category_name, category_description)
-            self.category_id = self.category_dao.create(category)
+            self.product_view.delete_product()
         elif choice == "5":
+            self.category_view.list_categories()
+        elif choice == "6":
+            self.category_view.create_category()
+        elif choice == "7":
+            self.category_view.update_category()
+        elif choice == "8":
+            self.category_view.delete_category()
+        elif choice == "9":
             sys.exit(1)
         else:
             print("Opção inválida")
