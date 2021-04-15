@@ -6,3 +6,7 @@ def init_bd():
     CategoryDAO().create_table_category()
     ProductDAO().create_table_product()
     ProductCategoryDao().create_table_product_category()
+    
+
+# Database name
+DATABASE_NAME = 'database.db'
