@@ -17,7 +17,8 @@ class ProductController(ProductDAO):
 
     def update_controller(self):
         id = input('Id: ')
-        self.update(Product(input('Nome: '), input('Descrição: '), input('Price: '), id))
+        self.update(Product(input('Nome: '), input(
+            'Descrição: '), input('Price: '), id))
         return id
 
     def delete_controller(self):
