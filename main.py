@@ -1,6 +1,7 @@
 import sys
 
 from src.category.dao.category_dao import CategoryDAO
+from src.category.controller.category_controller import CategoryController
 from src.product.dao.product_dao import ProductDAO
 from src.product_category.dao.product_category_dao import ProductCategoryDao
 from src.category.model.category_model import Category
@@ -11,6 +12,7 @@ class Main:
     def __init__(self):
         self.category_dao = CategoryDAO()
         self.product_dao = ProductDAO()
+        self.category_controller = CategoryController()
         self.product_id = 0
         self.category_id = 0
         self.product_category_dao = ProductCategoryDao()
@@ -86,10 +88,7 @@ class Main:
                 data = f"{cat.id} - {cat.name} - {cat.description}"
                 print(data)
         elif choice == "4":
-            category_name = input("Escreva o nome da categoria:")
-            category_description = input("Escreva a descrição da categoria:")
-            category = Category(category_name, category_description)
-            self.category_id = self.category_dao.create(category)
+            self.category_controller.create_category()
         elif choice == "5":
             sys.exit(1)
         else:
