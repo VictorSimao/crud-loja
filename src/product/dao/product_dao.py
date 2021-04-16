@@ -31,7 +31,7 @@ class ProductDAO(Dao):
         list_products_with_category = []
         result = self.execute_query_select(sql)
         for item in result:
-            products = Product(item[1], item[2], item[3], item[4], item[0])
+            products = Product(item[1], item[2], item[3], item[0])
             list_products_with_category.append(products)
         return list_products_with_category
 
@@ -45,7 +45,7 @@ class ProductDAO(Dao):
         product = Product(item[1], item[2], item[3], item[4], item[0])
         return product
 
-    def update(self, product: Product):
+    def update_product(self, product: Product):
         sql = (""" 
         UDPATE product
             SET
@@ -63,7 +63,7 @@ class ProductDAO(Dao):
             DELETE FROM product
             WHERE id = ? 
         """)
-        parameters = (id)
+        parameters = tuple(id,)
         return self.execute_query(sql, parameters)
 
     # def select_data_product(self, product:Product):

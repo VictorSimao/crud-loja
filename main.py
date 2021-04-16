@@ -5,25 +5,28 @@ from src.product.dao.product_dao import ProductDAO
 from src.product_category.dao.product_category_dao import ProductCategoryDao
 from src.category.model.category_model import Category
 from src.product.model.product_model import Product
+from src.category.controller.category_controller import CategoryController
 
 
 class Main:
     def __init__(self):
         self.category_dao = CategoryDAO()
-        self.product_dao = ProductDAO()
-        self.product_id = 0
+        #self.product_dao = ProductDAO()
+        #self.product_id = 0
         self.category_id = 0
         self.product_category_dao = ProductCategoryDao()
-        self.controller()
+        self.category_controller = CategoryController()
+        self.controle = self.controller()
 
     def controller(self):
 
         self.category_dao.create_table_category()
-        self.product_dao.create_table_product()
-        self.product_category_dao.create_table_product_category()
+        #self.product_dao.create_table_product()
+        #self.product_category_dao.create_table_product_category()
+        self.get_user_input()
+        self.category_controller.cadastar_category()
 
-        while True:
-            self.get_user_input()
+        #while True:
         # category = Category('categoryName','cate')
         # categories = [category]
         # print(category.name, type(category.name))
@@ -75,10 +78,8 @@ class Main:
                 data = f"{cat.id} - {cat.name} - {cat.description}"
                 print(data)
         elif choice == "4":
-            category_name = input("Escreva o nome da categoria:")
-            category_description = input("Escreva a descrição da categoria:")
-            category = Category(category_name, category_description)
-            self.category_id = self.category_dao.create(category)
+            cadastrar = self.category_controller.cadastar_category()
+            print(cadastrar)
         elif choice == "5":
             sys.exit(1)
         else:

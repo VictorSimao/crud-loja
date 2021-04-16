@@ -12,6 +12,7 @@ class Dao:
             id = cursor.lastrowid
         return id
 
+    # só faz a query no banco sem esperar nenhum retorno
     def execute_query(self, sql:str, parameters:tuple=None) -> NoReturn:
         with Database() as conn:
             cursor = conn.cursor() 
@@ -21,7 +22,7 @@ class Dao:
                 cursor.execute(sql)
             conn.commit()
 
-
+    # tem um retorno, ou seja vem uma informação da tabela
     def execute_query_select(self, sql:str, parameters:tuple=None) -> tuple:
         with Database() as conn:
             cursor = conn.cursor()  
