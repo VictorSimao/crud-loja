@@ -11,7 +11,6 @@ set the queries to save product table on database.
 
 class ProductDAO(Dao):
 
-    
     def create_table_product(self):
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS product (
@@ -46,8 +45,7 @@ class ProductDAO(Dao):
 
         return list_products
 
-        
-    def read_by_id(self, id:int):
+    def read_by_id(self, id: int):
         sql = """
         SELECT * FROM product WHERE id = ?
         """
@@ -68,15 +66,16 @@ class ProductDAO(Dao):
                     ,price = ?
                 WHERE id = ?
         """
-        parameters = (product.name, product.description, product.price, product.id)  
+        parameters = (product.name, product.description,
+                      product.price, product.id)
 
         return self.execute_query(sql, parameters)
 
-    def delete(self, id:int):
+    def delete(self, id: int):
         sql = """
             DELETE FROM product
                 WHERE id = ?
         """
         parameters = (id, )
-        
+
         return self.execute_query(sql, parameters)

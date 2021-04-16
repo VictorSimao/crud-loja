@@ -7,7 +7,6 @@ This class starts the connection with database and close it
 
 class Database:
 
-
     def __enter__(self):
         self.conn = sqlite3.connect('database.db')
         return self.conn
