@@ -83,10 +83,7 @@ class Main:
                 self.product_category_dao.insert_data_product_category(self.product_id, selected_category)
 
         elif choice == "3":
-            categories = self.category_dao.read_all()
-            for cat in categories:
-                data = f"{cat.id} - {cat.name} - {cat.description}"
-                print(data)
+            self.category_controller.read_all_category()
         elif choice == "4":
             self.category_controller.create_category()
         elif choice == "5":

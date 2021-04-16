@@ -13,3 +13,12 @@ class CategoryController:
         category_description = input("Escreva a descrição da categoria:")
         category = Category(category_name, category_description)
         self.category_id = self.category_dao.create(category)
+
+    def read_all_category(self):
+
+        categories = self.category_dao.read_all()
+        for cat in categories:
+            data = f"{cat.id} - {cat.name} - {cat.description}"
+            print(data)
+
+    

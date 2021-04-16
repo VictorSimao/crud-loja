@@ -1,6 +1,4 @@
 criar controller produto
-    criar
-    ler
     atualizar
     deletar
 criar controller categoria
