@@ -7,6 +7,7 @@ class ProductCategoryDao(Dao):
         TODO: refatorar para ajustar ao novo padrão aplicado em category_dao
     '''
     def create_table_product_category(self):
+        # TODO: renomear para create_table
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS product_category (
             product_id INTEGER,

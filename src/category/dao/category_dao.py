@@ -5,7 +5,7 @@ from typing import List
 
 class CategoryDAO(Dao):
     def create_table_category(self):
-        # TODO: renomear para select_data
+        # TODO: renomear para create_table
 
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS category (
