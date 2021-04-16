@@ -7,6 +7,9 @@ from typing import NoReturn
 
 
 class CategoryView():
+    '''
+        TODO: Separar as controllers
+    '''
     def __init__(self):
         self.category_dao = CategoryDAO()
         
@@ -26,6 +29,9 @@ class CategoryView():
         
         
 class ProductView():
+    '''
+        TODO: Separar as controllers
+    '''
     def __init__(self):
         self.product_dao = ProductDAO()
         self.product_category_dao = ProductCategoryDao()        

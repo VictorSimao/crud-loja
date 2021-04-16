@@ -5,6 +5,8 @@ from typing import List
 
 class CategoryDAO(Dao):
     def create_table_category(self):
+        # TODO: renomear para select_data
+
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS category (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -13,14 +15,14 @@ class CategoryDAO(Dao):
         );
         """)
 
-    def create(self, category:Category):
+    def create(self, category: Category):
         sql = """
         INSERT INTO category ("name", "description") VALUES (?, ?);
         """
-        parameters =  (category.name,category.description)     
+        parameters = (category.name, category.description)
         return self.insert_data(sql, parameters)
 
-    def read_all(self)-> List[Category]:
+    def read_all(self) -> List[Category]:
         sql = """
         SELECT * FROM category
         """
@@ -35,11 +37,11 @@ class CategoryDAO(Dao):
 
         return list_categories
 
-    def read_by_id(self, id:int) -> Category:
+    def read_by_id(self, id: int) -> Category:
         sql = """
         SELECT * FROM category WHERE id = ?
         """
-        
+
         # TODO: refatorar o id para (id,)
         parameter = id
 
@@ -49,7 +51,7 @@ class CategoryDAO(Dao):
         category = Category(item[1], item[2], item[0])
         return category
 
-    def update(self, category:Category):
+    def update(self, category: Category):
         sql = """
             UPDATE category
                 SET
@@ -57,15 +59,15 @@ class CategoryDAO(Dao):
                     ,description = ?
                 WHERE id = ?
         """
-        parameters = (category.name, category.description, category.id)  
+        parameters = (category.name, category.description, category.id)
 
         return self.execute_query(sql, parameters)
 
-    def delete(self, id:int):
+    def delete(self, id: int):
         sql = """
             DELETE FROM category
                 WHERE id = ?
         """
-        parameters = (id)     
-        
+        parameters = (id)
+
         return self.execute_query(sql, parameters)

@@ -6,6 +6,7 @@ from src.product_category.dao.product_category_dao import ProductCategoryDao
 class ProductDAO(Dao):
 
     def create_table_product(self):
+        # TODO: renomear para create_table
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS product (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -41,6 +42,7 @@ class ProductDAO(Dao):
 
         
     def select_data_product(self, product:Product):
+        # TODO: renomear para select_data
         print(self.cursor.execute("""
         SELECT * FROM product WHERE id = ?
         """, product.id))
