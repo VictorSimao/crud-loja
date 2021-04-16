@@ -1,10 +1,11 @@
-from src.database.dao import Dao
 from typing import List
-from src.product_category.model.product_category_model import ProductCategoryModel
+
+from src.dao.dao import Dao
+from src.model.product_category_model import ProductCategory
 
 
 class ProductCategoryDao(Dao):
-    def create_table_product_category(self):
+    def create_table(self):
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS product_category (
             product_id INTEGER,
@@ -15,7 +16,7 @@ class ProductCategoryDao(Dao):
             );
         """)
 
-    def insert_data_product_category(self, product_id, category_id) -> int:
+    def create(self, product_id, category_id) -> int:
         sql = """
         INSERT INTO product_category (product_id, category_id) VALUES (?, ?)
         """
@@ -24,7 +25,7 @@ class ProductCategoryDao(Dao):
         id = self.insert_data(sql, parameters)
         return id
 
-    def read_categories_by_product_id(self, product_id) -> List[ProductCategoryModel]:
+    def read_categories_by_product_id(self, product_id) -> List[ProductCategory]:
         sql = """
         SELECT * FROM product_category 
         WHERE product_id = ?  
@@ -34,7 +35,7 @@ class ProductCategoryDao(Dao):
         result = self.execute_query_select(sql, parameter)
 
         for item in result:
-            prod_cat_model = ProductCategoryModel(item[0], item[1])
+            prod_cat_model = ProductCategory(item[0], item[1])
             list_product_category.append(prod_cat_model)
         return list_product_category
 

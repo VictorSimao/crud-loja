@@ -1,9 +1,0 @@
-criar controller produto
-    atualizar
-    deletar
-criar controller categoria
-    criar
-    ler
-    atualizar
-    deletar
-

@@ -1,9 +1,9 @@
-from src.database.dao import Dao
-from src.product.model.product_model import Product
+from src.dao.dao import Dao
+from src.model.product_model import Product
 
 class ProductDAO(Dao):
 
-    def create_table_product(self):
+    def create_table(self):
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS product (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -13,7 +13,7 @@ class ProductDAO(Dao):
             );
         """)
 
-    def create_product(self, product:Product):
+    def create(self, product:Product):
         sql = """
         INSERT INTO product (name, description, price) VALUES (?, ?, ?)
         """
@@ -22,7 +22,7 @@ class ProductDAO(Dao):
 
         return self.insert_data(sql, parameters)
 
-    def read_all_products(self):
+    def read_all(self):
         sql = """
         SELECT * FROM product
         """
@@ -50,7 +50,7 @@ class ProductDAO(Dao):
 
         return product
 
-    def update_product(self, product:Product):
+    def update(self, product:Product):
         sql = """
             UPDATE product 
                 SET 
@@ -63,7 +63,7 @@ class ProductDAO(Dao):
         parameters = (product.name, product.description, product.price, product.id)
         return self.execute_query(sql, parameters)
 
-    def delete_product(self, id:int):
+    def delete(self, id:int):
         sql = """
             DELETE FROM product WHERE id = ?
         """

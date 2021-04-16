@@ -1,10 +1,10 @@
-from src.database.dao import Dao
-from src.category.model.category_model import Category
+from src.dao.dao import Dao
+from src.model.category_model import Category
 from typing import List
 
 
 class CategoryDAO(Dao):
-    def create_table_category(self):
+    def create_table(self):
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS category (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
