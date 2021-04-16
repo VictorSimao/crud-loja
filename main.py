@@ -1,9 +1,11 @@
 import sys
 
 from src.views import CategoryView, ProductView
+
 from settings import init_bd
 
 class Main:
+    
     def __init__(self):
         self.category_view = CategoryView()
         self.product_view = ProductView()
@@ -28,6 +30,12 @@ class Main:
 
 
     def _get_choice(self, choice: int):
+        """
+        Parameters
+        ----------
+        choice : int
+            Number that was entered by the user.
+        """
         if choice == "1":
             self.product_view.show_products()
             
