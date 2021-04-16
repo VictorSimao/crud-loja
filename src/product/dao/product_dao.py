@@ -13,14 +13,14 @@ class ProductDAO(Dao):
             );
         """)
 
-    def create (self, product:Product):
+    def create_product(self, product:Product):
         sql = """
         INSERT INTO product (name, description, price) VALUES (?, ?, ?)
-        """ 
+        """
         parameters = (product.name, product.description, product.price)
         return self.insert_data(sql, parameters)
 
-    def read_all(self) -> List[Product]:
+    def read_all_products(self):
         sql = """
         SELECT * FROM product
         """
@@ -31,21 +31,20 @@ class ProductDAO(Dao):
             list_products.append(product)
         return list_products
 
-        
-    def read_by_id (self, id)
-        sql = """
-        SELECT * FROM product WHERE id = ?
+    def read_by_id_product(self, id:int):
+        sql = """ 
+        SELECT * FROM product WHERE id = ? 
         """
-        parameter = id
+        parameter = tuple(id)
         result = self.execute_query_select(sql, parameter)
         item = result[0]
-        product = Product(item[0],item[1], item[2], item[3])
+        product = Product(item[0], item[1], item[2], item[3])
         return product
 
-    def update (self, product:Product):
+    def update_product(self, product:Product):
         sql = """
-            UPTDATE product
-                SET
+            UPDATE product 
+                SET 
                     name = ?
                     ,description = ?
                     ,price = ?
@@ -54,14 +53,11 @@ class ProductDAO(Dao):
         parameters = (product.name, product.description, product.price, product.id)
         return self.execute_query(sql, parameters)
 
-    def delete (self, id:int):
+    def delete_product(self, id:int):
         sql = """
-            DELETE FROM product
-                WHERE id = ?
+            DELETE FROM product WHERE id = ?
         """
-        parameters = (id, )
-        return self.execute_query(sql, parameters)
+        # parameter = tuple(id)
+        parameter = (id,)
+        return self.execute_query(sql, parameter)
 
-
-
-        
