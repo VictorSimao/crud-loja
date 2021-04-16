@@ -1,7 +1,5 @@
 from src.database.dao import Dao
 from src.product.model.product_model import Product
-from typing import List
-
 
 class ProductDAO(Dao):
 
@@ -34,14 +32,14 @@ class ProductDAO(Dao):
         return list_products
 
         
-    def read_by_id (self, id:int) -> Product:
+    def read_by_id (self, id)
         sql = """
         SELECT * FROM product WHERE id = ?
         """
-        parameters = id
-        result = self.execute_query_select(sql, parameters)
+        parameter = id
+        result = self.execute_query_select(sql, parameter)
         item = result[0]
-        product = Product(item[1], item[2], item[3], item[0])
+        product = Product(item[0],item[1], item[2], item[3])
         return product
 
     def update (self, product:Product):
