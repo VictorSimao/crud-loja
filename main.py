@@ -49,6 +49,7 @@ class Main:
         print("""O que você deseja fazer? Selecione uma das opções abaixo:
         1. Listar os produtos
         2. Cadastrar um produto
+        6. Atualizar categoria
         3. Listar as categorias
         4. Cadastrar uma categoria
         5. Sair""")
@@ -86,6 +87,8 @@ class Main:
             self.category_controller.read_all_category()
         elif choice == "4":
             self.category_controller.create_category()
+        elif choice == "6":
+            self.category_controller.update_category()
         elif choice == "5":
             sys.exit(1)
         else:

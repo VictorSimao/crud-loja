@@ -21,4 +21,15 @@ class CategoryController:
             data = f"{cat.id} - {cat.name} - {cat.description}"
             print(data)
 
-    
+    def update_category(self):
+
+        self.read_all_category()
+        category_id = input("Escolha uma categoria para editar:")
+        category = self.category_dao.read_by_id(category_id)
+        data = f"{category.id} - {category.name} - {category.description}"
+        print(data)
+        category_name = input("Escreva o nome da categoria:")
+        category.name = category_name
+        category_description = input("Escreva a descrição da categoria:")
+        category.description = category_description
+        self.category_dao.update(category)
