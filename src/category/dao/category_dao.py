@@ -39,6 +39,8 @@ class CategoryDAO(Dao):
         sql = """
         SELECT * FROM category WHERE id = ?
         """
+        
+        # TODO: refatorar o id para (id,)
         parameter = id
 
         result = self.execute_query_select(sql, parameter)

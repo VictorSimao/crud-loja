@@ -3,6 +3,9 @@ from src.category.model.category_model import Category
 from typing import List
 
 class ProductCategoryDao(Dao):
+    '''
+        TODO: refatorar para ajustar ao novo padrão aplicado em category_dao
+    '''
     def create_table_product_category(self):
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS product_category (
@@ -28,6 +31,8 @@ class ProductCategoryDao(Dao):
         sql = """
         SELECT * FROM product_category WHERE product_id = ?
         """
+        
+        # TODO: refatorar o id para (id,)
         parameter = id
         list_categories = []
 
@@ -42,6 +47,10 @@ class ProductCategoryDao(Dao):
     
         
     def delete(self, id_product:int):
+        '''
+            TODO: renomear o nome da função para delete_by_id_product
+            TODO: escrever novo método para deletar com id_product e id_category
+        '''
         sql = """
             DELETE FROM product_category
                 WHERE product_id = ?

@@ -53,6 +53,7 @@ class ProductDAO(Dao):
         WHERE product.id = ?
         GROUP BY product.id, product.name, product.description, product.price
         """
+        # TODO: refatorar o id para (id,)
         parameter = id
 
         result = self.execute_query_select(sql, parameter)
