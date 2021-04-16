@@ -3,21 +3,24 @@ from ..dao.category_dao import CategoryDAO
 from typing import NoReturn
 
 
-class CategoryController(CategoryDAO):
-    def create_controller(self):
-        return self.create(Category(input('Nome: '), input('Descrição: ')))
+class CategoryController:
+    def __init__(self):
+        self.category_dao = CategoryDAO()
 
-    def read_controller(self) -> NoReturn:
-        categories = self.read_all()
+    def create_category(self):
+        return self.category_dao.create(Category(input('Nome: '), input('Descrição: ')))
+
+    def read_category(self) -> NoReturn:
+        categories = self.category_dao.read_all()
         print("\n\n=============== Categorias =================")
         print("ID - NOME - DESCRIÇÃO")
         for cat in categories:
             data = f"{cat.id} - {cat.name} - {cat.description}"
             print(data)
 
-    def update_controller(self) -> NoReturn:
-        return self.update(Category(input('Nome: '), input('Descrição: '), input('Id: ')))
+    def update_category(self) -> NoReturn:
+        return self.category_dao.update(Category(input('Nome: '), input('Descrição: '), input('Id: ')))
 
-    def delete_controller(self):
+    def delete_category(self):
         print('Qual categoria desejar deletar: ')
-        return self.delete((input(),))
+        return self.category_dao.delete((input(),))

@@ -33,30 +33,30 @@ Opção: """)
 
     def get_choice(self, choice):
         if choice == "1":  # Listar Produtos
-            self.product_controller.read_controller()
+            self.product_controller.read_product()
         elif choice == "2":  # Cadastrar Produto
-            product_id = self.product_controller.create_controller()
-            self.category_controller.read_controller()
-            self.product_category_controller.create_controller(product_id)
+            product_id = self.product_controller.create_product()
+            self.category_controller.read_category()
+            self.product_category_controller.create_prod_cat(product_id)
         elif choice == "3":  # Atualizar Produto
-            self.product_controller.read_controller()
-            product_id = self.product_controller.update_controller()
-            self.category_controller.read_controller()
-            self.product_category_controller.update_controller(product_id)
+            self.product_controller.read_product()
+            product_id = self.product_controller.update_product()
+            self.category_controller.read_category()
+            self.product_category_controller.update_prod_cat(product_id)
         elif choice == "4":  # Deletar Produto
-            self.product_controller.read_controller()
-            product_id = self.product_controller.delete_controller()
-            self.product_category_controller.delete_controller(product_id)
+            self.product_controller.read_product()
+            product_id = self.product_controller.delete_product()
+            self.product_category_controller.delete_prod_cat(product_id)
         elif choice == "5":  # Listar Categorias
-            self.category_controller.read_controller()
+            self.category_controller.read_category()
         elif choice == "6":  # Cadastrar Categoria
-            self.category_controller.create_controller()
+            self.category_controller.create_category()
         elif choice == "7":  # Atualizar Categoria
-            self.category_controller.read_controller()
-            self.category_controller.update_controller()
+            self.category_controller.read_category()
+            self.category_controller.update_category()
         elif choice == "8":  # Deletar Categoria
-            self.category_controller.read_controller()
-            self.category_controller.delete_controller()
+            self.category_controller.read_category()
+            self.category_controller.delete_category()
         elif choice == "x":
             sys.exit(1)
         else:

@@ -3,25 +3,28 @@ from src.product.model.product_model import Product
 from typing import NoReturn
 
 
-class ProductController(ProductDAO):
-    def create_controller(self):
-        return self.create(Product(input('Nome: '), input('Descrição: '), input('Valor: ')))
+class ProductController:
+    def __init__(self):
+        self.product_dao = ProductDAO()
 
-    def read_controller(self) -> NoReturn:
-        products = self.read_all()
+    def create_product(self):
+        return self.product_dao.create(Product(input('Nome: '), input('Descrição: '), input('Valor: ')))
+
+    def read_product(self) -> NoReturn:
+        products = self.product_dao.read_all()
         print("\n\n=============== Produtos =================")
         print("ID - NOME - PREÇO - DESCRIÇÃO - CATEGORIAS")
         for prod in products:
             data = f"{prod.id} - {prod.name} - {prod.price} - {prod.description} - {prod.categories}"
             print(data)
 
-    def update_controller(self):
+    def update_product(self):
         id = input('Id: ')
-        self.update(Product(input('Nome: '), input(
+        self.product_dao.update(Product(input('Nome: '), input(
             'Descrição: '), input('Price: '), id))
         return id
 
-    def delete_controller(self):
+    def delete_product(self):
         id = int(input('Id Produto: '))
-        self.delete((id,))
+        self.product_dao.delete((id,))
         return id
