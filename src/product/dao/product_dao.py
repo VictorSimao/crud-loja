@@ -35,7 +35,7 @@ class ProductDAO(Dao):
 
     def read_by_id(self, id: int):
         sql = """
-        SSELECT product.id, product.name, product.description, product.price, group_concat(category.name)
+        SELECT product.id, product.name, product.description, product.price, group_concat(category.name)
         FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
         WHERE id = ?
         GROUP BY product.name, product.description, product.price
@@ -45,7 +45,7 @@ class ProductDAO(Dao):
         result = self.execute_query_select(sql, parameter)
         item = result[0]
 
-        product = Product(item[0], item[1], item[2], item[3], item[4])
+        product = Product(item[1], item[2], item[3], item[4], item[0])
         return product
 
     def update(self, product: Product):

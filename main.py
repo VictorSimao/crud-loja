@@ -38,7 +38,7 @@ Opção: """)
             product_id = self.product_controller.create_controller()
             self.category_controller.read_controller()
             self.product_category_controller.create_controller(product_id)
-        elif choice == "3":  # Atualizar produto
+        elif choice == "3":  # Atualizar Produto
             self.product_controller.read_controller()
             product_id = self.product_controller.update_controller()
             self.category_controller.read_controller()
