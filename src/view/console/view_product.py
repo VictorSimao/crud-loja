@@ -34,16 +34,20 @@ class ViewProduct:
     def read(self):
         products = self.controller.read()
         for prod in products:
-            data = f"{prod.id} - {prod.name} - {prod.description} - {prod.price} - {prod.categories}"
+            prod_cat = self.controller_prod_cat.read(prod.id)
+            data = f"{prod.id} - {prod.name} - {prod.description} - {prod.price} - {prod_cat}"
             print(data)
 
     def update(self):
-        #inputs
-        #get by id
-        #inputs
-        self.controller.update()
+        self.read()
+        product_id = input("Escolha um produto para editar:")
+        product = self.controller.read_by_id(product_id)
+        product.name = input("Escreva um novo nome para o produto:")
+        product.description = input("Escreve uma nova descrição:")
+        product.price = input("Digite um novo valor:")
+        self.controller.update(product)
 
     def delete(self):
         self.read()
-        product_id = int(input('escolha um produto que deseja deletar:'))
+        product_id = int(input('Escolha um produto que deseja deletar:'))
         self.controller.delete(product_id)

@@ -27,5 +27,5 @@ class ViewCategory:
 
     def delete(self):
         self.read()
-        category_id = int(input('escolha uma categoria que deseja deletar:'))
+        category_id = int(input('Escolha uma categoria que deseja deletar:'))
         self.controller.delete(category_id)

@@ -15,9 +15,12 @@ class ProductController:
         list_models = self.dao.read_all()
         return list_models
 
-    def update(self):
-        model = Product()
-        self.dao.update_product(model)
+    def read_by_id(self, product_id):
+        product = self.dao.read_by_id(product_id)
+        return product     
+
+    def update(self, product):
+        self.dao.update(product)
 
     def delete(self, product_id):
         self.dao.delete(product_id)

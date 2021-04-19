@@ -7,13 +7,11 @@ class ProductCategoryController:
         self.dao = ProductCategoryDao()
 
     def create(self, product_id, category_id):
-        # product_category = ProductCategory(product_id, category_id)
         product_category = self.dao.create(product_id, category_id)
 
-    def read(self):
-        id = 0
-        list_models = self.dao.read_categories_by_product_id(id)
-        return list_models
+    def read(self, product_id):
+        cat_by_prod = self.dao.read_categories_by_product_id(product_id)
+        return cat_by_prod
 
     def delete(self, product_id:int, category_id:int=None):
         if category_id:

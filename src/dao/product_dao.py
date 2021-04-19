@@ -37,15 +37,14 @@ class ProductDAO(Dao):
         
         return list_products
 
-    def read_by_id_product(self, id:int):
+    def read_by_id(self, id:int):
         sql = """ 
         SELECT * FROM product WHERE id = ? 
         """
 
-        parameter = tuple(id)
+        parameter = (id,)
         result = self.execute_query_select(sql, parameter)
         item = result[0]
-
         product = Product(item[0], item[1], item[2], item[3])
 
         return product
