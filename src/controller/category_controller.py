@@ -25,3 +25,4 @@ class CategoryController:
 
     def delete(self, category_id):
         self.dao.delete(category_id)
+        

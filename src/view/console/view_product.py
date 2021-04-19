@@ -23,3 +23,4 @@ class ViewProduct:
     def delete(self):
         #inputs
         self.controller.delete()
+        
