@@ -16,11 +16,11 @@ class ProductCategoryDao(Dao):
             );
         """)
 
-    def create(self, product_id, category_id) -> int:
+    def create(self, product_category: ProductCategory) -> int:
         sql = """
         INSERT INTO product_category (product_id, category_id) VALUES (?, ?)
         """
-        parameters = (product_id, category_id)
+        parameters = (product_category.product_id, product_category.category_id)
 
         id = self.insert_data(sql, parameters)
         return id

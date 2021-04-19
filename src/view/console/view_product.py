@@ -1,10 +1,13 @@
 from src.controller.product_controller import ProductController
 from src.controller.product_category_controller import ProductCategoryController
+from src.controller.category_controller import CategoryController
 
+from src.model.product_model import Product
 
 class ViewProduct:
     def __init__(self):
         self.controller = ProductController()
+        self.controller_category = CategoryController()
         self.controller_prod_cat = ProductCategoryController()
 
     def create(self):
@@ -12,26 +15,23 @@ class ViewProduct:
         product_description = input("Escreva a descrição do produto:")
         product_price = input("Escreva o preço do produto:")
         selected_categories = []
+        
         while True:
             print("Selecione uma das categorias abaixo:")
-            categories = self.category_dao.read_all()
+            categories = self.controller_category.read()
             for cat in categories:
                 data = f"{cat.id} - {cat.name} - {cat.description}"
                 print(data)
             selected_categories.append(input())
+            
             option = input("Você deseja cadastrar mais uma categoria? (s/N)")
+            
             if option == "s":
                 continue
             else:
                 break
-            print(selected_categories)
 
-        product = Product(product_name, product_description, product_price, selected_categories)
-        self.product_id = self.product_dao.create_product(product)
-        for selected_category in selected_categories:
-            self.product_category_dao.insert_data_product_category(self.product_id, selected_category)
-
-        self.controller.create()
+        self.controller.create(product_name, product_description, product_price, selected_categories)
 
     def read(self):
         products = self.controller.read()
