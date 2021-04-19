@@ -7,12 +7,14 @@ class ViewProduct:
         self.controller_prod_cat = ProductCategoryController()
 
     def create(self):
-        #inputs
+        # create
         self.controller.create()
 
     def read(self):
-        self.controller.read()
-        #return list
+        products = self.controller.read()
+        for prod in products:
+            data = f"{prod.id} - {prod.name} - {prod.description} - {prod.price}"
+            print(data)
 
     def update(self):
         #inputs

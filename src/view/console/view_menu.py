@@ -40,7 +40,7 @@ class ViewMenu:
                     self.set_screen(crud_option, f"{' '*20} Modulo de {modules[choice]} {' '*20}", True)    
                  
     def get_module(self, module):
-        self.module = View_Product() if module == 'Product' else View_Category()
+        self.module = ViewProduct() if module == 'Product' else View_Category()
 
 
     def print_menu(self, menu, message):
