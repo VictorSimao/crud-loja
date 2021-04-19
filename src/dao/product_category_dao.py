@@ -4,7 +4,7 @@ from src.dao.dao import Dao
 from src.model.product_category_model import ProductCategory
 
 
-class ProductCategoryDao(Dao):
+class ProductCategoryDAO(Dao):
     def create_table(self):
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS product_category (
@@ -39,12 +39,15 @@ class ProductCategoryDao(Dao):
             list_product_category.append(prod_cat_model)
         return list_product_category
 
-    def delete(self, product_id: int):
+    def delete_by_product_id(self, product_id: int):
         sql = """
-        DELETE FROM product_category WHERE product_id = ?    
+            DELETE FROM product_category
+                WHERE product_id = ?
         """
-        parameter = (product_id,)
+        parameter = (product_id,)     
+        
         return self.execute_query(sql, parameter)
+
 
     def delete_category_by_product_id(self, product_id: int, category_id: int):
         sql = """

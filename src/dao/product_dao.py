@@ -42,11 +42,11 @@ class ProductDAO(Dao):
         SELECT * FROM product WHERE id = ? 
         """
 
-        parameter = tuple(id)
+        parameter = (id,)
         result = self.execute_query_select(sql, parameter)
         item = result[0]
 
-        product = Product(item[0], item[1], item[2], item[3])
+        product = Product(item[1], item[2], item[3], id = item[0])
 
         return product
 

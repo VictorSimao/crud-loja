@@ -1,6 +1,6 @@
 from src.controller.category_controller import CategoryController
 
-class View_Category:
+class ViewCategory:
     def __init__(self):
         self.controller = CategoryController()
 
@@ -9,11 +9,13 @@ class View_Category:
         description = input("Escreva a descrição da categoria:")
         self.controller.create(name, description)
 
+
     def read(self):
         categories = self.controller.read()
         for cat in categories:
             data = f"{cat.id} - {cat.name} - {cat.description}"
             print(data)
+
 
     def update(self):
         self.read()
@@ -24,6 +26,7 @@ class View_Category:
         category.name = input("Escreva o nome da categoria:")
         category.description = input("Escreva a descrição da categoria:")
         self.controller.update(category)
+
 
     def delete(self):
         self.read()

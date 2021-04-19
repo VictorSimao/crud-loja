@@ -47,6 +47,24 @@ class CategoryDAO(Dao):
         category = Category(item[1], item[2], item[0])
         return category
 
+    def read_categories_by_product_id(self, id:int)-> List[Category]:
+        sql = """
+        SELECT cat.* 
+            FROM category AS cat 
+            INNER JOIN product_category as pd ON cat.id = pd.category_id
+            AND pd.product_id = ? 
+        """
+        parameter = (id,)
+        categories = []
+
+        result = self.execute_query_select(sql, parameter)
+
+        for item in result:
+            category = Category(item[1], item[2], item[0])
+            categories.append(category)
+
+        return categories
+
     def update(self, category: Category):
         sql = """
             UPDATE category
