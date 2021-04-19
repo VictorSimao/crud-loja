@@ -13,7 +13,10 @@ set the queries to save in category table on database.
 
 class CategoryDAO(Dao):
 
-    def create_table_category(self):
+    def __init__(self):
+        self.create_table()
+
+    def create_table(self):
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS category (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -48,7 +51,7 @@ class CategoryDAO(Dao):
         sql = """
         SELECT * FROM category WHERE id = ?
         """
-        parameter = id
+        parameter = (id, )
 
         result = self.execute_query_select(sql, parameter)
         item = result[0]

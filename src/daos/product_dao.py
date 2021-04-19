@@ -11,7 +11,10 @@ set the queries to save product table on database.
 
 class ProductDAO(Dao):
 
-    def create_table_product(self):
+    def __init__(self):
+        self.create_table()
+
+    def create_table(self):
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS product (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

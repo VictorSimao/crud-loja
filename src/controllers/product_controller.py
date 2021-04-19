@@ -28,77 +28,48 @@ class ProductController:
             'price': 0.0,
             'categories': []
         }
-        self.create_products_table()
 
-    def create_products_table(self):
-        self.product_dao.create_table_product()
-        self.product_category_dao.create_table_product_category()
-
-    def create_new_product(self):
-        self.product['name'] = input("\nEscreva o nome do produto: ")
-        self.product['description'] = input(
-            "\nEscreva a descrição do produto: ")
-        self.product['price'] = input("\nEscreva o preço do produto: ")
-
-        self.get_categories()
+    def create(self, product):
         new_product = Product(
-            self.product['name'],
-            self.product['description'],
-            self.product['price'],
-            self.product['categories']
+            product['name'],
+            product['description'],
+            product['price'],
+            product['categories']
         )
-        self.product['id'] = self.product_dao.create(new_product)
-        self.create_product_category()
+        product['id'] = self.product_dao.create(new_product)
+        self.__create_product_category(product)
 
-    def get_all_products(self):
+    def read(self):
         products = self.product_dao.read_all()
-        format_print(products)
+        return products
 
-    def get_categories(self):
-        while True:
-            print("\nSelecione uma das categorias abaixo:\n")
-            categories = self.category_dao.read_all()
-            format_print(categories)
+    def read_by_id(self, id):
+        return self.category_dao.read_by_id(id)
 
-            selected_category = input()
-            self.product['categories'].append(selected_category)
-            option = input("\nVocê deseja cadastrar mais uma categoria? (s/N)")
-            if option == "s":
-                continue
-            else:
-                break
-
-    def create_product_category(self):
-        for selected_category in self.product['categories']:
-            self.product_category_dao.create(
-                self.product['id'], selected_category)
-
-    def update_product(self):
-        self.product['id'] = input("Qual o id do produto a ser atualizado? ")
-        self.product['name'] = input("Qual o novo nome do produto? ")
-        self.product['description'] = input(
-            "Qual a nova descrição do produto? ")
-        self.product['price'] = input("Qual o novo preço do produto? ")
-        more_categories = input(
-            "Deseja adicionar categorias ao produto? (s/N) ")
-
-        if more_categories == "s":
-            self.get_categories()
-        categories = self.product['categories'] if self.product['categories'] else None
+    def update(self, product):
+        categories = product['categories'] if product['categories'] else None
 
         updated_product = Product(
-            self.product['name'],
-            self.product['description'],
-            self.product['price'],
+            product['name'],
+            product['description'],
+            product['price'],
             categories,
-            self.product['id']
+            product['id']
         )
 
         if categories:
-            self.create_product_category()
+            self.__create_product_category(product)
 
         self.product_dao.update(updated_product)
 
-    def delete_product(self):
-        self.product['id'] = input("Qual o id do produto a ser removido? ")
-        self.product_dao.delete(self.product['id'])
+    def delete(self, id):
+        self.product_dao.delete(id)
+
+    def get_categories(self):
+        categories = self.category_dao.read_all()
+        return categories
+
+    def __create_product_category(self, product):
+        for selected_category in product['categories']:
+            self.product_category_dao.create(
+                product['id'], selected_category)
