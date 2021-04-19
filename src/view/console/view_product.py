@@ -10,12 +10,9 @@ class ViewProduct:
         self.controller_category = CategoryController()
         self.controller_prod_cat = ProductCategoryController()
 
-    def create(self):
-        product_name = input("Escreva o nome do produto:")
-        product_description = input("Escreva a descrição do produto:")
-        product_price = input("Escreva o preço do produto:")
+    def __get_selected_categories():
         selected_categories = []
-        
+
         while True:
             print("Selecione uma das categorias abaixo:")
             categories = self.controller_category.read()
@@ -30,7 +27,15 @@ class ViewProduct:
                 continue
             else:
                 break
+        
+        return selected_categories
 
+    def create(self):
+        product_name = input("Escreva o nome do produto:")
+        product_description = input("Escreva a descrição do produto:")
+        product_price = input("Escreva o preço do produto:")
+        selected_categories = self.__get_selected_categories()
+        
         self.controller.create(product_name, product_description, product_price, selected_categories)
 
     def read(self):
@@ -39,9 +44,11 @@ class ViewProduct:
         for prod in products:
             products_categories = self.controller_prod_cat.read_by_id(prod.id)
             list_categories = []
+            
             for prod_cat in products_categories:
                 category = self.controller_category.read_by_id(prod_cat.category_id)
                 list_categories.append(category)
+                
             prod.categories = list_categories
             print(prod)
 
