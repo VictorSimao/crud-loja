@@ -7,4 +7,4 @@ class Product:
         self.categories = categories
 
     def __str__(self):
-        return f"{self.id} - {self.name} - {self.description} - {self.price} - {[str(cat) for cat in self.categories]}"
+        return f"{self.id} - {self.name} - {self.description} - {self.price} - {self.categories}"

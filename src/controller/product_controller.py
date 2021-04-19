@@ -9,11 +9,10 @@ class ProductController:
 
     def create(self, name, description, price):
         model = Product(name, description, price)
-        self.dao.create(model)
-        return model.id
+        return self.dao.create(model)
 
     def read(self):
-        list_models = self.dao.read_all()
+        list_models = self.dao.read()
         return list_models
     
 

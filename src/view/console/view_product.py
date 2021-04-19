@@ -37,8 +37,8 @@ class View_Product:
                 category_id=int(selected_category), product_id=product
             )
 
-    def read(self):
 
+    def read(self):
         [print(product) for product in self.controller.read()]
         # return list
 

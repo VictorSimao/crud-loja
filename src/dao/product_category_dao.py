@@ -43,7 +43,7 @@ class ProductCategoryDao(Dao):
     def read_all(self):
         sql ="""SELECT * FROM product_category"""
         result = self.execute_query_select(sql)
-        return [str(ProductCategory(item[1], item[0])) for item in result]
+        return [ProductCategory(item[1], item[0]) for item in result]
 
 
     def delete(self, product_id: int):
