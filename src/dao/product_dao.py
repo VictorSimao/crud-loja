@@ -59,7 +59,7 @@ class ProductDAO(Dao):
                     ,price = ?
                 WHERE id = ?
         """
-
+        # TODO: falta corrigir a atualização de categorias.
         parameters = (product.name, product.description, product.price, product.id)
         return self.execute_query(sql, parameters)
 
