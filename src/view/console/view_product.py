@@ -28,16 +28,16 @@ class ViewProduct:
                 break
         print(selected_categories)
         product = self.controller.create(name, description, price, categories)
-        print(product)
         for category in selected_categories:
-            print(category)
             self.controller_prod_cat.create(product, category)
         return product
 
     def read(self):
         products = self.controller.read()
+        categories = ''
         for prod in products:
-            data = f"{prod.id} - {prod.name} - {prod.description} - {prod.price} - {prod.categories}"
+            categories = self.controller.read_categories_by_id(prod.id)
+            data = f"{prod.id} - {prod.name} - {prod.description} - {prod.price} - {categories}"
             print(data)
 
     def update(self):

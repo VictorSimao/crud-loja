@@ -39,17 +39,20 @@ class ProductDAO(Dao):
         
         return list_products
 
-    def read_by_id_product(self, id:int) -> Product:
+    def read_categories_by_id_product(self, id:int) -> str:
         sql = """ 
-        SELECT * FROM product WHERE id = ? 
+            SELECT 
+                group_concat(c.name)
+            FROM product p
+            JOIN product_category pc ON (p.id = pc.product_id)
+            JOIN category c ON (c.id = pc.category_id)
+            WHERE p.id = ?
         """
-
         parameter = (id,)
         result = self.execute_query_select(sql, parameter)
         item = result[0]
-
-        product = Product(item[0], item[1], item[2], item[3])
-        return product
+        categories_by_product = item[0]
+        return str(categories_by_product)
 
     def update(self, product:Product):
         sql = """
