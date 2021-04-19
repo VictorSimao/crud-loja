@@ -11,7 +11,10 @@ class ViewProduct:
         self.controller.create()
 
     def read(self):
-        self.controller.read()
+        products = self.controller.read()
+        for prod in products:
+            data = f"{prod.id} - {prod.name} - {prod.description} - {prod.price}"
+            print(data)
         #return list
 
     def update(self):
