@@ -1,6 +1,7 @@
 import os
 
 from .view_product import ViewProduct
+
 from .view_category import View_Category
 
 modules = {
@@ -9,22 +10,22 @@ modules = {
     '0': 'Sair'
 }
 crud_option = {
-    '1' : 'Create',
-    '2' : 'Read',
-    '3' : 'Update',
-    '4' : 'Delete',
-    '0' : 'Voltar'
+    '1': 'Create',
+    '2': 'Read',
+    '3': 'Update',
+    '4': 'Delete',
+    '0': 'Voltar'
 }
+
 
 class ViewMenu:
 
     def __init__(self):
         self.module = None
 
-
     def execute(self):
         self.set_screen(modules, f"{' '*20} Modulo Principal {' '*20}", False)
-    
+   
     def set_screen(self, menu, message, sub_menu):
         valid = False
         choice = None
@@ -40,8 +41,7 @@ class ViewMenu:
                     self.set_screen(crud_option, f"{' '*20} Modulo de {modules[choice]} {' '*20}", True)    
                  
     def get_module(self, module):
-        self.module = View_Product() if module == 'Product' else View_Category()
-
+        self.module = ViewProduct() if module == 'Product' else View_Category()
 
     def print_menu(self, menu, message):
         os.system('clear')
@@ -61,14 +61,14 @@ class ViewMenu:
 
     def crud(self, choice):
         if choice == '1':
-            #create
+            # create
             self.module.create()
         elif choice == '2':
             #read
             self.module.read()
         elif choice == '3':
-            #update
+            # update
             self.module.update()
         elif choice == '4':
-            #delete
+            # delete
             self.module.delete()

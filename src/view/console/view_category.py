@@ -1,5 +1,6 @@
 from src.controller.category_controller import CategoryController
 
+
 class View_Category:
     def __init__(self):
         self.controller = CategoryController()
