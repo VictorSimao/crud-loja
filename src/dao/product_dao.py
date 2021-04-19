@@ -37,7 +37,7 @@ class ProductDAO(Dao):
         
         return list_products
 
-    def read_by_id_product(self, id:int):
+    def read_by_id(self, id:int):
         sql = """ 
         SELECT * FROM product WHERE id = ? 
         """
