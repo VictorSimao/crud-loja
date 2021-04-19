@@ -3,5 +3,6 @@ class Category:
         self.name = name
         self.description = description
         self.id = id
-        
-        
+
+    def __str__(self):
+        return f"{self.id} - {self.name} - {self.description}"

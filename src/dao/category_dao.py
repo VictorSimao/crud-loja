@@ -1,12 +1,16 @@
-from src.database.dao import Dao
-from src.category.model.category_model import Category
+from src.dao.dao import Dao
+from src.model.category_model import Category
 from typing import List
 
 
 class CategoryDAO(Dao):
+<<<<<<< HEAD:src/category/dao/category_dao.py
     def create_table_category(self):
         # TODO: renomear para create_table
 
+=======
+    def create_table(self):
+>>>>>>> main:src/dao/category_dao.py
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS category (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -41,9 +45,13 @@ class CategoryDAO(Dao):
         sql = """
         SELECT * FROM category WHERE id = ?
         """
+<<<<<<< HEAD:src/category/dao/category_dao.py
 
         # TODO: refatorar o id para (id,)
         parameter = id
+=======
+        parameter = (id,)
+>>>>>>> main:src/dao/category_dao.py
 
         result = self.execute_query_select(sql, parameter)
         item = result[0]

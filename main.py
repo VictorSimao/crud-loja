@@ -1,5 +1,6 @@
-import sys
+from src.view.view_console import ViewConsole
 
+<<<<<<< HEAD
 from src.views import CategoryView, ProductView
 
 from settings import init_bd
@@ -67,3 +68,7 @@ if __name__ == '__main__':
     stage = Main()
     stage.run()
     
+=======
+view = ViewConsole()
+view.execute()
+>>>>>>> main
