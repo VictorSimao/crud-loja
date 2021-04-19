@@ -1,4 +1,4 @@
-from src.view.view_console import ViewConsole
+from src.view.console.view_menu import ViewMenu
 
-view = ViewConsole()
-view.execute()
+console = ViewMenu()
+console.execute()
