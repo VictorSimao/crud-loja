@@ -1,10 +1,10 @@
-from src.database.dao import Dao
-from src.category.model.category_model import Category
+from src.dao.dao import Dao
+from src.model.category_model import Category
 from typing import List
 
 
 class CategoryDAO(Dao):
-    def create_table_category(self):
+    def create_table(self):
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS category (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -35,11 +35,13 @@ class CategoryDAO(Dao):
 
         return list_categories
 
-    def read_by_id(self, category_id: int) -> Category:
+    def read_by_id(self, id: int) -> Category:
         sql = """
         SELECT * FROM category WHERE id = ?
         """
-        result = self.execute_query_select(sql, category_id)
+        parameter = (id,)
+
+        result = self.execute_query_select(sql, parameter)
         item = result[0]
 
         category = Category(item[1], item[2], item[0])
@@ -62,6 +64,6 @@ class CategoryDAO(Dao):
             DELETE FROM category
                 WHERE id = ?
         """
-        parameters = (id)
+        parameters = (id,)
 
         return self.execute_query(sql, parameters)
