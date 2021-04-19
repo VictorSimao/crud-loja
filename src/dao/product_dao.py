@@ -1,6 +1,7 @@
 from src.dao.dao import Dao
 from src.model.product_model import Product
 
+
 class ProductDAO(Dao):
 
     def create_table(self):
@@ -13,7 +14,7 @@ class ProductDAO(Dao):
             );
         """)
 
-    def create(self, product:Product):
+    def create(self, product: Product):
         sql = """
         INSERT INTO product (name, description, price) VALUES (?, ?, ?)
         """
@@ -34,23 +35,22 @@ class ProductDAO(Dao):
         for item in result:
             product = Product(item[1], item[2], item[3], item[0])
             list_products.append(product)
-        
+
         return list_products
 
-    def read_by_id_product(self, id:int):
+    def read_by_id(self, id: int):
         sql = """ 
         SELECT * FROM product WHERE id = ? 
         """
+        parameter = (id,)
 
-        parameter = tuple(id)
         result = self.execute_query_select(sql, parameter)
         item = result[0]
 
-        product = Product(item[0], item[1], item[2], item[3])
-
+        product = Product(item[1], item[2], item[3], item[0])
         return product
 
-    def update(self, product:Product):
+    def update(self, product: Product):
         sql = """
             UPDATE product 
                 SET 
@@ -60,10 +60,11 @@ class ProductDAO(Dao):
                 WHERE id = ?
         """
 
-        parameters = (product.name, product.description, product.price, product.id)
+        parameters = (product.name, product.description,
+                      product.price, product.id)
         return self.execute_query(sql, parameters)
 
-    def delete(self, id:int):
+    def delete(self, id: int):
         sql = """
             DELETE FROM product WHERE id = ?
         """
@@ -71,4 +72,3 @@ class ProductDAO(Dao):
         # parameter = tuple(id)
         parameter = (id,)
         return self.execute_query(sql, parameter)
-

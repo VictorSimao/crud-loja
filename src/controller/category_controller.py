@@ -14,13 +14,13 @@ class CategoryController:
 
     def read(self):
         categories = self.dao.read_all()
-        return categories  
-        
+        return categories
+
     def read_by_id(self, category_id):
         category = self.dao.read_by_id(category_id)
-        return category               
+        return category
 
-    def update(self, category):        
+    def update(self, category):
         self.dao.update(category)
 
     def delete(self, category_id):
