@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class Database:
 
     def __enter__(self):
