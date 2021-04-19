@@ -7,33 +7,21 @@ class CategoryController:
     def __init__(self):
         self.dao = CategoryDAO()
 
-    def create(self):
-
-        category_name = input("Escreva o nome da categoria:")
-        category_description = input("Escreva a descrição da categoria:")
-        category = Category(category_name, category_description)
-        self.category_id = self.dao.create(category)
+    def create(self, name, description):
+        category = Category(name, description)
+        category_id = self.dao.create(category)
+        return category_id
 
     def read(self):
-
         categories = self.dao.read_all()
-        for cat in categories:
-            data = f"{cat.id} - {cat.name} - {cat.description}"
-            print(data)
-
-    def update(self):
-
-        self.read_all_category()
-        category_id = input("Escolha uma categoria para editar:")
+        return categories  
+        
+    def read_by_id(self, category_id):
         category = self.dao.read_by_id(category_id)
-        data = f"{category.id} - {category.name} - {category.description}"
-        print(data)
-        category_name = input("Escreva o nome da categoria:")
-        category.name = category_name
-        category_description = input("Escreva a descrição da categoria:")
-        category.description = category_description
+        return category               
+
+    def update(self, category):        
         self.dao.update(category)
 
-    def delete(self):
-        id = 0
-        self.dao.delete(id)
+    def delete(self, category_id):
+        self.dao.delete(category_id)
