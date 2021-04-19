@@ -44,5 +44,6 @@ class ViewProduct:
         self.controller.update()
 
     def delete(self):
-        #inputs
-        self.controller.delete()
+        self.read()
+        product_id = int(input('escolha um produto que deseja deletar:'))
+        self.controller.delete(product_id)
