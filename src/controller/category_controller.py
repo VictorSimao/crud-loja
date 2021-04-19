@@ -6,6 +6,7 @@ class CategoryController:
 
     def __init__(self):
         self.dao = CategoryDAO()
+        self.dao.create_table()
 
     def create(self, name, description):
         category = Category(name, description)

@@ -5,6 +5,7 @@ class ProductController:
 
     def __init__(self):
         self.dao = ProductDAO()
+        self.dao.create_table()
 
     def create(self, name, description, price, categories):
         product = Product(name, description, price, categories)
