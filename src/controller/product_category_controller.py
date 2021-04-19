@@ -7,11 +7,10 @@ class ProductCategoryController:
         self.dao = ProductCategoryDao()
 
     def create(self):
-        model = Product()
+        model = ProductCategory()
         self.dao.create(model)
-
-    def read(self):
-        id = 0
+    
+    def read_by_id(self, id: int = 0):
         list_models = self.dao.read_categories_by_product_id(id)
         return list_models
 
