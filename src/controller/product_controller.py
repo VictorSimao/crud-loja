@@ -11,7 +11,7 @@ class ProductController:
         self.dao.create_product(model)
 
     def read(self):
-        list_models = self.dao.read_all_products()
+        list_models = self.dao.read_all()
         return list_models
 
     def update(self):
