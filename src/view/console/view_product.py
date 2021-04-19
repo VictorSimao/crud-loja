@@ -12,29 +12,29 @@ class ViewProduct:
         name = input("Escreva o nome do produto:")
         description = input("Escreva a descrição do produto:")
         price = input("Escreva o preço do produto:")
-        categories = []
+        selected_categories = []
         while True:
             print("Selecione uma das categorias abaixo:")
             categories = self.controller_cat.read()
             for cat in categories:
                 data = f"{cat.id} - {cat.name} - {cat.description}"
                 print(data)
-            categories.append(input())
+            selected_categories.append(input())
             option = input("Você deseja cadastrar mais uma categoria? (s/N)")
             if option == "s":
                 continue
             else:
                 break
-            print(categories)
 
-        product = self.controller.create(name, description, price, categories)
-        for category in categories:
-            self.controller_prod_cat.create(product, category.id)
+        product = self.controller.create(name, description, price, selected_categories)
+        for category in selected_categories:
+            print(category)
+            self.controller_prod_cat.create(product, category)
 
     def read(self):
         products = self.controller.read()
         for prod in products:
-            data = f"{prod.id} - {prod.name} - {prod.description} - {prod.price}"
+            data = f"{prod.id} - {prod.name} - {prod.description} - {prod.price} - {prod.categories}"
             print(data)
 
     def update(self):

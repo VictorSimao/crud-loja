@@ -7,8 +7,8 @@ class ProductCategoryController:
         self.dao = ProductCategoryDao()
 
     def create(self, product_id, category_id):
-        product_category = ProductCategory(product_id, category_id)
-        self.dao.create(product_category)
+        # product_category = ProductCategory(product_id, category_id)
+        product_category = self.dao.create(product_id, category_id)
 
     def read(self):
         id = 0
