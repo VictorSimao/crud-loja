@@ -29,6 +29,6 @@ class ProductController:
         model = Product()
         self.product_dao.update_product(model)
 
-    def delete(self):
-        id = 0
-        self.product_dao.delete_product(id)
+    def delete(self, id: int):
+        self.product_dao.delete(id)
+        self.product_category_dao.delete(id)

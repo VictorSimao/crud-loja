@@ -10,7 +10,7 @@ class ViewProduct:
         self.controller_category = CategoryController()
         self.controller_prod_cat = ProductCategoryController()
 
-    def __get_selected_categories():
+    def __get_selected_categories(self):
         selected_categories = []
 
         while True:
@@ -59,5 +59,6 @@ class ViewProduct:
         self.controller.update()
 
     def delete(self):
-        # inputs
-        self.controller.delete()
+        self.read()
+        id = input("Informe o id do produto que deseja deletar?")
+        self.controller.delete(id)
