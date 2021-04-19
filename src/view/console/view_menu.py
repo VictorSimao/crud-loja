@@ -1,6 +1,6 @@
 import os
 
-from .view_product import ViewProduct
+from .view_product import View_Product
 from .view_category import View_Category
 
 modules = {
