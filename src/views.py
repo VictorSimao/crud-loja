@@ -9,6 +9,7 @@ from typing import NoReturn
 class CategoryView():
     '''
         TODO: Separar as controllers
+        TODO: Criar uma só view chamada ViewConsole
     '''
     def __init__(self):
         self.category_dao = CategoryDAO()
