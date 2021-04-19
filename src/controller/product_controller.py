@@ -21,13 +21,16 @@ class ProductController:
             product_category = ProductCategory(self.product_id, selected_category)
             self.product_category_dao.create(product_category)
 
+
     def read(self):
         list_models = self.product_dao.read_all()
         return list_models
 
+
     def update(self, product_id, product_name, product_description, product_price, selected_categories):
         model = Product(product_name, product_description, product_price, id=product_id, categories=selected_categories)
         self.product_dao.update(model)
+
 
     def delete(self, id: int):
         self.product_dao.delete(id)
