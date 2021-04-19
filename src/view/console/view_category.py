@@ -1,6 +1,6 @@
 from src.controller.category_controller import CategoryController
 
-class View_Category:
+class ViewCategory:
     def __init__(self):
         self.controller = CategoryController()
 
@@ -13,11 +13,11 @@ class View_Category:
         categories = self.controller.read()
         for cat in categories:
             data = f"{cat.id} - {cat.name} - {cat.description}"
-            print(data)
+            print(data) 
 
     def update(self):
         self.read()
-        category_id = input("Escolha uma categoria para editar:")
+        category_id = input("Escolha uma categoria para editar: ")
         category = self.controller.read_by_id(category_id)
         data = f"{category.id} - {category.name} - {category.description}"
         print(data)

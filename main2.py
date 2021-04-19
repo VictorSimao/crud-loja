@@ -37,9 +37,7 @@ class Main:
         if choice == "1":
             self.get_product_category()
         elif choice == "2":
-            product_name = input("Escreva o nome do produto:")
-            product_description = input("Escreva a descrição do produto:")
-            product_price = input("Escreva o preço do produto:")
+            
             selected_categories = []
             while True:
                 print("Selecione uma das categorias abaixo:")

@@ -10,10 +10,9 @@ class ProductCategoryController:
         model = Product()
         self.dao.create(model)
 
-    def read(self):
-        id = 0
-        list_models = self.dao.read_categories_by_product_id(id)
-        return list_models
+    def read(self, id):
+        categories = self.dao.read_categories_by_product_id(id)
+        return categories    
 
     def delete(self, product_id:int, category_id:int=None):
         if category_id:
