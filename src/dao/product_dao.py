@@ -24,7 +24,9 @@ class ProductDAO(Dao):
 
     def read_all(self):
         sql = """
-        SELECT * FROM product
+        SELECT product.id, product.name, product.description, product.price, group_concat(category.name)
+        FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
+        GROUP BY product.name, product.description, product.price ORDER BY product.id
         """
 
         list_products = []
@@ -32,20 +34,20 @@ class ProductDAO(Dao):
         result = self.execute_query_select(sql)
 
         for item in result:
-            product = Product(item[1], item[2], item[3], item[0])
+            product = Product(name=item[1],description=item[2], price=item[3], id=item[0], categories=item[4])
             list_products.append(product)
         
         return list_products
 
-    def read_by_id(self, id:int):
+    def read_by_id(self, product_id:int):
         sql = """ 
         SELECT * FROM product WHERE id = ? 
         """
 
-        parameter = (id,)
+        parameter = (product_id,)
         result = self.execute_query_select(sql, parameter)
         item = result[0]
-        product = Product(item[0], item[1], item[2], item[3])
+        product = Product(item[1], item[2], item[3], item[0])
 
         return product
 
@@ -60,6 +62,7 @@ class ProductDAO(Dao):
         """
 
         parameters = (product.name, product.description, product.price, product.id)
+
         return self.execute_query(sql, parameters)
 
     def delete(self, id:int):

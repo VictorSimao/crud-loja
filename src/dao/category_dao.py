@@ -35,11 +35,11 @@ class CategoryDAO(Dao):
 
         return list_categories
 
-    def read_by_id(self, id: int) -> Category:
+    def read_by_id(self, category_id: int) -> Category:
         sql = """
         SELECT * FROM category WHERE id = ?
         """
-        parameter = (id,)
+        parameter = (category_id,)
 
         result = self.execute_query_select(sql, parameter)
         item = result[0]
