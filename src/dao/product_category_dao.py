@@ -22,8 +22,8 @@ class ProductCategoryDao(Dao):
         """
         parameters = (product_id, category_id)
 
-        id = self.insert_data(sql, parameters)
-        return id
+        # id = self.insert_data(sql, parameters)
+        return self.insert_data(sql, parameters)
 
     def read_categories_by_product_id(self, product_id) -> List[ProductCategory]:
         sql = """
