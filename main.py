@@ -1,5 +1,6 @@
-import sys
+from src.view.view_console import ViewConsole
 
+<<<<<<< HEAD
 from src.category.dao.category_dao import CategoryDAO
 from src.product.dao.product_dao import ProductDAO
 from src.product_category.dao.product_category_dao import ProductCategoryDao
@@ -88,3 +89,7 @@ class Main:
 
 
 Main()
+=======
+view = ViewConsole()
+view.execute()
+>>>>>>> main
