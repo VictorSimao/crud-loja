@@ -7,14 +7,15 @@ class ProductController:
     def __init__(self):
         self.dao = ProductDAO()
 
-    def create(self):
-        model = Product()
-        self.dao.create_product(model)
+    def create(self, name, description, price):
+        model = Product(name, description, price)
+        self.dao.create(model)
         return model.id
 
     def read(self):
         list_models = self.dao.read_all()
         return list_models
+    
 
     def read_by_id(self, product_id: int):
         return self.dao.read_by_id(product_id)
