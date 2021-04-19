@@ -37,10 +37,10 @@ class ViewProduct:
         products = self.controller.read()
         
         for prod in products:
-            products_categories = self.product_category_dao.read_categories_by_product_id(prod.id,)
+            products_categories = self.controller_prod_cat.read_by_id(prod.id)
             list_categories = []
             for prod_cat in products_categories:
-                category = self.category_dao.read_by_id(prod_cat.category_id)
+                category = self.controller_category.read_by_id(prod_cat.category_id)
                 list_categories.append(category)
             prod.categories = list_categories
             print(prod)
