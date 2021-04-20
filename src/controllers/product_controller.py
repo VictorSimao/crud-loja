@@ -6,8 +6,6 @@ from src.daos.product_category_dao import ProductCategoryDao
 
 from src.models.product_model import Product
 
-from src.utils.utils import format_print
-
 
 """
 This class serves to control the data between user inputs and all the other 
