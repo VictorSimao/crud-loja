@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 
 from src.controllers.category_controller import CategoryController
+from src.controllers.product_controller import ProductController
 
 
 app = Flask(__name__)
@@ -11,7 +12,9 @@ def home():
 
 @app.route('/product')
 def product():
-    return render_template('product.html')
+    controller = ProductController()
+    data = controller.read()
+    return render_template('product.html', title="Product", data=data)
 
 @app.route('/category')
 def category():
@@ -50,6 +53,54 @@ def category_delete():
 
     return redirect('/category')
 
+# --------------------------------------------------
+
+@app.route('/product/form')
+def product_create():
+    product_id = request.args.get('id')
+    if product_id:
+        controller = ProductController()
+        data = controller.read_by_id(product_id)
+        return render_template('product_form.html', title="Product Update", data=data)
+    return render_template('product_form.html', title="Product Create")
+
+
+@app.route('/product/save')
+def product_save():
+    product_id = request.args.get('id')
+    name = request.args.get('name')
+    description = request.args.get('description')
+    price = request.args.get('price')
+    categories = request.args.get('categories')
+
+    product_dict = {
+        'id': 0,
+        'name': '',
+        'description': '',
+        'price': 0.0,
+        'categories': []
+    }
+    if not categories:
+        product_dict["categories"] = None
+    product_dict["name"] = name
+    product_dict["description"] = description
+    product_dict["price"] = price
+    product_dict["categories"] = categories
+    controller = ProductController()
+    if product_id:
+        product_dict['id'] = product_id
+        controller.update(product_dict)
+    else:
+        controller.create(product_dict)
+
+    return redirect('/product')
+
+@app.route('/product/delete')
+def product_delete():
+    product_id = request.args.get('id')
+    controller = ProductController()
+    controller.delete(product_id)
+    return redirect('/product')
 
 if __name__ == "__main__":
     app.run(debug=True)

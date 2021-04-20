@@ -8,5 +8,5 @@ class Main:
         # console = ViewMenu()
         # console.execute()
         app.run(debug=True)
-        
+
 Main.run()
