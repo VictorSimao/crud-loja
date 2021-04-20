@@ -1,4 +1,5 @@
 # crud-loja
+<<<<<<< HEAD
 
 Buscando Solução 
 
@@ -11,3 +12,6 @@ e também podem fornecer as funcionalidades de importações relativas(dentro do
 Contras- ás vezes as importações podem ficar bastante detalhadas, isso dependendo da complexidade do diretório.
 
 # Importações relativas:
+=======
+python3 main.py
+>>>>>>> main
