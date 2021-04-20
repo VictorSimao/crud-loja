@@ -1,5 +1,5 @@
 """
-This class convert an object to Category type.
+This class converts an object to Category type.
 """
 
 

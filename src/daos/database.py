@@ -1,7 +1,7 @@
 import sqlite3
 
 """
-This class starts the connection with database and close it
+This class starts the connection with database and closes it
 """
 
 
