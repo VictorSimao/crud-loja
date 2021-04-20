@@ -139,10 +139,10 @@ dmypy.json
 cython_debug/
 
 # SQlite
-.db
+*.db
 
 # Vscode
-.vscode
+*.vscode
 
 #Pycharm
 .idea
