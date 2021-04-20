@@ -11,8 +11,45 @@ def home():
 
 @app.route('/product')
 def product():
-    return render_template('product.html')
+    controller = CategoryController()
+    data = controller.read()
+    return render_template('category.html', title="Product", data=data)
 
+@app.route('/product/form')
+def product_create():
+    # TODO: refactor
+    category_id = request.args.get('id')
+    if category_id:
+        controller = CategoryController()
+        data = controller.read_by_id(category_id)
+        return render_template('category_form.html', title="Category Update", data=data)
+    return render_template('category_form.html', title="Category Create")
+
+@app.route('/product/save')
+def product_save():
+    # TODO: refactor
+    category_id = request.args.get('id')
+    name = request.args.get('name')
+    description = request.args.get('description')
+
+    controller = CategoryController()
+    if category_id:
+        controller.update(category_id, name, description)
+    else:
+        controller.create(name, description)
+
+    return redirect('/category')
+
+@app.route('/product/delete')
+def product_delete():
+    # TODO: refactor
+    category_id = request.args.get('id')
+    controller = CategoryController()
+    controller.delete(category_id)
+
+    return redirect('/category')
+
+# Pages category
 @app.route('/category')
 def category():
     controller = CategoryController()
@@ -49,6 +86,8 @@ def category_delete():
     controller.delete(category_id)
 
     return redirect('/category')
+
+
 
 
 if __name__ == "__main__":
