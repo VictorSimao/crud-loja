@@ -1,18 +1,49 @@
 from flask import Flask, render_template, request, redirect
 
 from src.controllers.category_controller import CategoryController
+from src.controllers.product_controller import ProductController
 
 
 app = Flask(__name__)
 
+# HOME
 @app.route('/')
 def home():
     return render_template('home.html')
 
+# PRODUCT
 @app.route('/product')
 def product():
-    return render_template('product.html')
+    controller = ProductController()
+    data = controller.read()
+    return render_template('product.html', title="Product", data=data)
 
+@app.route('/product/form')
+def product_create():
+    product_id = request.args.get('id')
+    if product_id:
+        controller = ProductController()
+        data = controller.read_by_id(product_id)
+        return render_template('product_form.html', title="Product Update", data=data)
+    return render_template('product_form.html', title="Product Create")
+
+@app.route('/product/save')
+def product_save():
+    product_id = request.args.get('id')
+    name = request.args.get('name')
+    description = request.args.get('description')
+    price = request.args.get('price')
+    categories = 'Cat'
+
+    controller = ProductController()
+    if product_id:
+        controller.update(product_id, name, description, price)
+    else:
+        controller.create(name, description, price, categories)
+
+    return redirect('/product')
+
+# CATEGORY
 @app.route('/category')
 def category():
     controller = CategoryController()
