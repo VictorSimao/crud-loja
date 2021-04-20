@@ -1,6 +1,7 @@
+from typing import List
+
 from src.dao.dao import Dao
 from src.model.category_model import Category
-from typing import List
 
 
 class CategoryDAO(Dao):
@@ -24,26 +25,20 @@ class CategoryDAO(Dao):
         sql = """
         SELECT * FROM category
         """
-
         list_categories = []
-
         result = self.execute_query_select(sql)
-
         for item in result:
             category = Category(item[1], item[2], item[0])
             list_categories.append(category)
-
         return list_categories
 
-    def read_by_id(self, id: int) -> Category:
+    def read_by_id(self, product_id: int) -> Category:
         sql = """
         SELECT * FROM category WHERE id = ?
         """
-        parameter = (id,)
-
+        parameter = (product_id,)
         result = self.execute_query_select(sql, parameter)
         item = result[0]
-
         category = Category(item[1], item[2], item[0])
         return category
 
@@ -56,14 +51,12 @@ class CategoryDAO(Dao):
                 WHERE id = ?
         """
         parameters = (category.name, category.description, category.id)
-
         return self.execute_query(sql, parameters)
 
-    def delete(self, id: int):
+    def delete(self, product_id: int):
         sql = """
             DELETE FROM category
                 WHERE id = ?
         """
-        parameters = (id,)
-
+        parameters = (product_id,)
         return self.execute_query(sql, parameters)
