@@ -8,14 +8,14 @@
 </head>
 <body>
     <h1>{{title}}</h1>
-    <form action="/category/save"> 
+    <form action="/product/save"> 
         id: <input type="text" name="id" id="id" value="{%if data %}{{data.id}}{%endif%}" readonly><br />
         name: <input type="text" name="name" id="name" value="{%if data %}{{data.name}}{%endif%}"> <br />
         description: <input type="text" name="description" id="description" value="{%if data %}{{data.description}}{%endif%}"><br />
         price: <input type="text" name="price" id="price" value="{%if data %}{{data.price}}{%endif%}"><br />
-        categories: <select>{%for item in data.categories%}<option>{{item}}</option>{%endfor%}</select>
+        categories: <select>{% for item in data.categories %}<option>{{item}}</option>{% endfor %}</select>
         <input type="submit" value="Save">
     </form>
-    <a href="/category">Voltar para o módulo categoria</a>
+    <a href="/product">Voltar para o módulo produto</a>
 </body>
 </html>
