@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 
 from src.controllers.category_controller import CategoryController
+from src.controllers.product_controller import ProductController
 
 
 app = Flask(__name__)
@@ -11,7 +12,9 @@ def home():
 
 @app.route('/product')
 def product():
-    return render_template('product.html')
+    controller = ProductController()
+    data = controller.read()
+    return render_template('product.html', title="Product", data=data)
 
 @app.route('/category')
 def category():
@@ -28,19 +31,51 @@ def category_create():
         return render_template('category_form.html', title="Category Update", data=data)
     return render_template('category_form.html', title="Category Create")
 
+@app.route('/product/form')
+def product_create():
+    product_id = request.args.get('id')
+    controller = ProductController()
+    category_controller = CategoryController()
+    categories = category_controller.read()
+    if product_id:
+        data = controller.read_by_id(product_id)
+        return render_template('product_form.html', title="Product Update", data=data, categories=categories)
+    return render_template('product_form.html', title="Product Create", categories=categories)
+
+
 @app.route('/category/save')
 def category_save():
-    category_id = request.args.get('id')
-    name = request.args.get('name')
-    description = request.args.get('description')
+    category = {
+        'id': request.args.get('id'),
+        'name': request.args.get('name'),
+        'description': request.args.get('description'),
+    }
 
     controller = CategoryController()
-    if category_id:
-        controller.update(category_id, name, description)
+    if category['id']:
+        controller.update(category)
     else:
-        controller.create(name, description)
+        controller.create(category)
 
     return redirect('/category')
+
+@app.route('/product/save')
+def product_save():
+    product = {
+        'id': request.args.get('id'),
+        'name': request.args.get('name'),
+        'description': request.args.get('description'),
+        'price': request.args.get('price'),
+        'categories': request.args.get('categories')
+    }
+
+    controller = ProductController()
+    if product['id']:
+        controller.update(product)
+    else:
+        controller.create(product)
+
+    return redirect('/product')
 
 @app.route('/category/delete')
 def category_delete():
@@ -49,6 +84,14 @@ def category_delete():
     controller.delete(category_id)
 
     return redirect('/category')
+
+@app.route('/product/delete')
+def product_delete():
+    product_id = request.args.get('id')
+    controller = ProductController()
+    controller.delete(product_id)
+
+    return redirect('/product')
 
 
 if __name__ == "__main__":
