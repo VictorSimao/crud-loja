@@ -9,7 +9,7 @@ class ViewProduct:
         self.controller_prod_cat = ProductCategoryController()
         self.category_dao = CategoryDAO()
 
-    def get_all_categories(self):
+    def __get_all_categories(self):
         categories = self.category_dao.read_all()
         for cat in categories:
             data = f"{cat.id} - {cat.name} - {cat.description}"
@@ -19,7 +19,7 @@ class ViewProduct:
         select_categories = []
         while True:
             print('Categorias: ')
-            self.get_all_categories()
+            self.__get_all_categories()
 
             select_categories.append(
                 input('Selecione uma das categorias listada: '))
