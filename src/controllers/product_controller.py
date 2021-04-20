@@ -44,7 +44,7 @@ class ProductController:
         return products
 
     def read_by_id(self, id:int):
-        return self.category_dao.read_by_id(id)
+        return self.product_dao.read_by_id(id)
 
     def update(self, product:dict):
         categories = product['categories'] if product['categories'] else None

@@ -38,6 +38,7 @@ class ProductView:
         more_categories = input(
             "Deseja adicionar categorias ao produto? (s/N) ")
 
+        
         if more_categories == "s":
             self.__get_categories()
 
@@ -53,11 +54,22 @@ class ProductView:
             print("\nSelecione uma das categorias abaixo:\n")
             categories = self.controller.get_categories()
             format_print(categories)
-
             selected_category = input()
-            self.product['categories'].append(selected_category)
+            is_valid = self.__validate_category(selected_category)
+
+            if is_valid:
+                self.product['categories'].append(selected_category)
+                
             option = input("\nVocê deseja cadastrar mais uma categoria? (s/N)")
             if option == "s":
                 continue
             else:
                 break
+
+    def __validate_category(self, selected_category):
+        this_product_categories = self.controller.read_by_id(self.product['id'])
+        prod_cats = this_product_categories.categories.split(',')
+        if selected_category in prod_cats:
+            return False
+        
+        return True
