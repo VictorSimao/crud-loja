@@ -24,15 +24,16 @@ class ProductDAO(Dao):
 
     def read_all(self):
         sql = """
-        SELECT * FROM product
+        SELECT product.id, product.name, product.description, product.price, group_concat(category.name)
+        FROM product LEFT JOIN product_category ON product_id = product.id LEFT JOIN category ON category_id = category.id
+        GROUP BY product.name, product.description, product.price
+        ORDER BY product.id
         """
-
         list_products = []
-
         result = self.execute_query_select(sql)
 
         for item in result:
-            product = Product(item[1], item[2], item[3], item[0])
+            product = Product(item[1], item[2], item[3], item[4], item[0])
             list_products.append(product)
         
         return list_products
