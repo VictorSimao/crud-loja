@@ -5,19 +5,23 @@ from src.controllers.category_controller import CategoryController
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def home():
     return render_template('home.html')
 
+
 @app.route('/product')
 def product():
     return render_template('product.html')
+
 
 @app.route('/category')
 def category():
     controller = CategoryController()
     data = controller.read()
     return render_template('category.html', title="Category", data=data)
+
 
 @app.route('/category/form')
 def category_create():
@@ -27,6 +31,7 @@ def category_create():
         data = controller.read_by_id(category_id)
         return render_template('category_form.html', title="Category Update", data=data)
     return render_template('category_form.html', title="Category Create")
+
 
 @app.route('/category/save')
 def category_save():
@@ -41,6 +46,7 @@ def category_save():
         controller.create(name, description)
 
     return redirect('/category')
+
 
 @app.route('/category/delete')
 def category_delete():
