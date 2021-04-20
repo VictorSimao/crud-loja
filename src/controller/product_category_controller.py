@@ -6,13 +6,12 @@ class ProductCategoryController:
     def __init__(self):
         self.dao = ProductCategoryDao()
 
-    def create(self):
-        model = Product()
-        self.dao.create(model)
+    def create(self, product_id, category_id):
+        product_category = self.dao.create(product_id, category_id)
 
-    def read(self, id):
-        categories = self.dao.read_categories_by_product_id(id)
-        return categories    
+    def read(self, product_id):
+        cat_by_prod = self.dao.read_categories_by_product_id(product_id)
+        return cat_by_prod    
 
     def delete(self, product_id:int, category_id:int=None):
         if category_id:
