@@ -1,0 +1,34 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+    <h1>{{title}}</h1>
+    <a href="/category/form">Novo Produto</a>
+    <table class="table table_bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Categories</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %} 
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.price}} </td>
+                    <td>{{item.categories}}</td>
+                    <td><a href="/product/form?id={{item.id}}">Update</a></td>
+                    <td><a href="/product/delete?id={{item.id}}">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/">Voltar para o inicio</a>
+
+{% endblock %}

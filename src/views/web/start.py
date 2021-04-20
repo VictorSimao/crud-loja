@@ -2,25 +2,27 @@ from flask import Flask, render_template, request, redirect
 
 from src.controllers.category_controller import CategoryController
 
+from src.controllers.product_controller import ProductController
+
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('base.html')
 
 
-@app.route('/product')
-def product():
-    return render_template('product.html')
+#@app.route('/product')
+#def product():
+ #   return render_template('product/product.html')
 
 
 @app.route('/category')
 def category():
     controller = CategoryController()
     data = controller.read()
-    return render_template('category.html', title="Category", data=data)
+    return render_template('category/category.html', title="Category", data=data)
 
 
 @app.route('/category/form')
@@ -29,8 +31,8 @@ def category_create():
     if category_id:
         controller = CategoryController()
         data = controller.read_by_id(category_id)
-        return render_template('category_form.html', title="Category Update", data=data)
-    return render_template('category_form.html', title="Category Create")
+        return render_template('category/category_form.html', title="Category Update", data=data)
+    return render_template('category/category_form.html', title="Category Create")
 
 
 @app.route('/category/save')
@@ -55,6 +57,15 @@ def category_delete():
     controller.delete(category_id)
 
     return redirect('/category')
+
+
+@app.route('/product')
+def product():
+    controller = ProductController()
+    data = controller.read()
+    return render_template('product/product.html', title="Product", data=data)
+
+
 
 
 if __name__ == "__main__":
