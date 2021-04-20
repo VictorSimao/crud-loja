@@ -1,4 +1,11 @@
-from src.view.console.view_menu import ViewMenu
+from src.views.console.view_menu import ViewMenu
 
-console = ViewMenu()
-console.execute()
+class Main:
+
+    @staticmethod
+    def run():
+        console = ViewMenu()
+        console.execute()
+
+
+Main.run()
