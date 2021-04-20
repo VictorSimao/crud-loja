@@ -13,7 +13,7 @@ class CategoryController:
     def __init__(self):
         self.category_dao = CategoryDAO()
 
-    def create(self, category):
+    def create(self, category:dict):
         new_category = Category(
             category['name'],
             category['description']
@@ -25,10 +25,10 @@ class CategoryController:
         categories = self.category_dao.read_all()
         return categories
 
-    def read_by_id(self, id):
+    def read_by_id(self, id:int):
         return self.category_dao.read_by_id(id)
 
-    def update(self, category):
+    def update(self, category:dict):
 
         updated_category = Category(
             category['name'],
@@ -38,5 +38,5 @@ class CategoryController:
 
         self.category_dao.update(updated_category)
 
-    def delete(self, id):
+    def delete(self, id:int):
         self.category_dao.delete(id)
