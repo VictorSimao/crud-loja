@@ -1,3 +1,4 @@
+
 class Product:
     def __init__(self, name, description, price, id=None, categories=[]):
         self.name = name

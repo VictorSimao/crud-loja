@@ -1,5 +1,4 @@
 
-
 class ProductCategory:
     def __init__(self, product_id, category_id):
         self.product_id = product_id

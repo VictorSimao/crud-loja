@@ -1,6 +1,7 @@
 from src.dao.product_dao import ProductDAO
 from src.model.product_model import Product
 
+
 class ProductController:
 
     def __init__(self):
@@ -17,7 +18,7 @@ class ProductController:
         return products
 
     def read_by_id(self, product_id):
-        product = self.dao.read_by_id_product(product_id)        
+        product = self.dao.read_by_id_product(product_id)
         return product
 
     def update(self, product):

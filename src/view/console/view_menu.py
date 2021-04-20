@@ -61,17 +61,12 @@ class ViewMenu:
 
     def crud(self, choice):
         if choice == '1':
-            # create
             self.module.create()
         elif choice == '2':
-            # read
             self.module.read()
         elif choice == '3':
-            # update
             self.module.update()
         elif choice == '4':
-            # delete
             self.module.delete()
         elif choice == '0':
-            # back menu
             self.execute()

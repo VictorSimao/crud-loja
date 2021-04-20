@@ -21,11 +21,9 @@ class ProductCategoryDao(Dao):
         INSERT INTO product_category (product_id, category_id) VALUES (?, ?)
         """
         parameters = (product_id, category_id)
-
         id = self.insert_data(sql, parameters)
         return id
 
- 
     def read_categories_by_product_id(self, product_id) -> List[ProductCategory]:
         sql = """
         SELECT * FROM product_category 
@@ -34,7 +32,6 @@ class ProductCategoryDao(Dao):
         list_product_category = []
         parameter = (product_id,)
         result = self.execute_query_select(sql, parameter)
-
         for item in result:
             prod_cat_model = ProductCategory(item[0], item[1])
             list_product_category.append(prod_cat_model)

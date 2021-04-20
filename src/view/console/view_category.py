@@ -1,5 +1,6 @@
 from src.controller.category_controller import CategoryController
 
+
 class View_Category:
     def __init__(self):
         self.controller = CategoryController()
@@ -17,15 +18,15 @@ class View_Category:
 
     def update(self):
         self.read()
-        category_id = input("Escolha uma categoria para editar:")
+        category_id = int(input("Escolha uma categoria para editar:"))
         category = self.controller.read_by_id(category_id)
         data = f"{category.id} - {category.name} - {category.description}"
         print(data)
-        category.name = input("Escreva o nome da categoria:")
-        category.description = input("Escreva a descrição da categoria:")
+        category.name = str(input("Escreva o nome da categoria:"))
+        category.description = str(input("Escreva a descrição da categoria:"))
         self.controller.update(category)
 
     def delete(self):
         self.read()
-        category_id = int(input('escolha uma categoria que deseja deletar:'))
+        category_id = int(input("Escolha uma categoria que deseja deletar:"))
         self.controller.delete(category_id)
