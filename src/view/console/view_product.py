@@ -4,6 +4,7 @@ from src.controller.product_category_controller import ProductCategoryController
 
 
 class ViewProduct:
+
     def __init__(self):
         self.controller = ProductController()
         self.controller_prod_cat = ProductCategoryController()
@@ -15,7 +16,7 @@ class ViewProduct:
             data = f"{cat.id} - {cat.name} - {cat.description}"
             print(data)
 
-    def typed_categories(self):
+    def __typed_categories(self):
         select_categories = []
         while True:
             print('Categorias: ')
@@ -37,7 +38,7 @@ class ViewProduct:
         description = input("Escreva a descrição do produto: ")
         price = input("Escreva o preço do produto: ")
 
-        select_categories = self.typed_categories()
+        select_categories = self.__typed_categories()
         product = self.controller.create(name, description, price,
                                          select_categories)
 
@@ -53,7 +54,7 @@ class ViewProduct:
                    f"  - {pro.price} - Categorias: {pro.categories}"
             print(data)
         return prod_categories
-    
+ 
     def update(self):
         self.read()
         product_id = input('Selecione um produto que deseja alterar: ')

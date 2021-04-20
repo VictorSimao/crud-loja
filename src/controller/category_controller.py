@@ -15,7 +15,7 @@ class CategoryController:
     def read(self):
         categories = self.dao.read_all()
         return categories  
-        
+     
     def read_by_id(self, category_id):
         category = self.dao.read_by_id(category_id)
         return category               
