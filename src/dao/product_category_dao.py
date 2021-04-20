@@ -45,11 +45,10 @@ class ProductCategoryDao(Dao):
         parameter = (product_id,)
         return self.execute_query(sql, parameter)
 
-    def delete_category_by_product_id(self, product_id: int, category_id: int):
+    def delete_category_by_product_id(self, product_id: int):
         sql = """
         DELETE FROM product_category 
         WHERE product_id = ? 
-        AND category_id = ?     
         """
-        parameters = (product_id, category_id)
+        parameters = (product_id,)
         return self.execute_query(sql, parameters)

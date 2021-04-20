@@ -46,7 +46,20 @@ class ViewProduct:
         product.name = input("Escreva um novo nome para o produto:")
         product.description = input("Escreve uma nova descrição:")
         product.price = float(input("Digite um novo valor:"))
-        self.controller.update(product)
+        selected_categories = []
+        while True:
+            print("Selecione uma das categorias abaixo:")
+            categories = self.controller_cat.read()
+            for cat in categories:
+                data = f"{cat.id} - {cat.name} - {cat.description}"
+                print(data)
+            selected_categories.append(input())
+            option = input("Você deseja cadastrar mais uma categoria? (s/N)")
+            if option == "s":
+                continue
+            else:
+                break
+        self.controller.update(product, selected_categories)
 
     def delete(self):
         self.read()
