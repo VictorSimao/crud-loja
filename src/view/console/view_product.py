@@ -1,5 +1,4 @@
 from src.dao.category_dao import CategoryDAO
-from src.dao.product_dao import Product
 from src.controller.product_controller import ProductController
 from src.controller.product_category_controller import ProductCategoryController
 
@@ -14,13 +13,6 @@ class ViewProduct:
         categories = self.category_dao.read_all()
         for cat in categories:
             data = f"{cat.id} - {cat.name} - {cat.description}"
-            print(data)
-
-    def get_all_products(self):
-        products = self.product_dao.read_all()
-        for pro in products:
-            data = f"{pro.id} - {pro.name} - {pro.description}" \
-                   f"  - {pro.price} - Categorias: {pro.categories}"
             print(data)
 
     def typed_categories(self):
@@ -43,9 +35,9 @@ class ViewProduct:
     def create(self):
         name = input("Escreva o nome do produto: ")
         description = input("Escreva a descrição do produto: ")
-        price = input("Escreva o preço do produto: ")         
-        select_categories = self.typed_categories()
+        price = input("Escreva o preço do produto: ")
 
+        select_categories = self.typed_categories()
         product = self.controller.create(name, description, price,
                                          select_categories)
 
@@ -61,13 +53,17 @@ class ViewProduct:
                    f"  - {pro.price} - Categorias: {pro.categories}"
             print(data)
         return prod_categories
-        
+    
     def update(self):
-        # inputs
-        # get by id
-        # inputs
-        self.controller.update()
+        self.read()
+        product_id = input('Selecione um produto que deseja alterar: ')
+        name = input("Escreva o nome da categoria:")
+        description = input("Escreva a descrição da categoria:")
+        price = input('EScreva o novo preco')
+        self.controller.update(product_id, name, description, price)
 
     def delete(self):
-        #inputs
-        self.controller.delete()
+        self.read()
+        id_product = int(input("Informe o produto que deseja deletar ?"))
+        self.controller.delete(id_product)
+        print(f'Produto com id {id_product} deletado ')

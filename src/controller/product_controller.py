@@ -16,8 +16,12 @@ class ProductController:
         products = self.dao.read_all()
         return products
 
-    def update(self, product):
-        self.dao.update(product)
+    def read_by_id(self, product_id):
+        product = self.dao.read_by_id_product(product_id)
+        return product  
+
+    def update(self, product_id, name, description, price):
+        self.dao.update(product_id, name, description, price)
 
     def delete(self, product_id):
         self.dao.delete(product_id)

@@ -15,6 +15,10 @@ class ProductCategoryController:
         product_category = self.dao.read_categories_by_product_id
         return product_category
 
+    def read_by_id(self, product_id):
+        product = self.dao.read_by_id(product_id)
+        return product   
+
     def delete(self, product_id: int, category_id: int=None):
         if category_id:
             self.dao.delete_category_by_product_id(product_id, category_id)
