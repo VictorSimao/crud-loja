@@ -41,10 +41,16 @@ class ViewProduct:
             print(data)
 
     def update(self):
-        #inputs
-        #get by id
-        #inputs
-        self.controller.update()
+        self.read()
+        product_id = input('\nInforme o código do produto que você deseja alterar: ')
+        product = self.controller.read_by_id(product_id)
+        data = f"{product.id} - {product.name} - {product.description} - {product.price}"
+        print(data)
+        product.name = input("Novo nome: ")
+        product.description = input("Nova descrição: ")
+        product.price = input("Novo preço: ")
+        print(product)
+        self.controller.update(product)
 
     def delete(self):
         self.read()

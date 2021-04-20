@@ -19,6 +19,10 @@ class ProductController:
         product = self.dao.read_categories_by_id_product(product_id)
         return product
 
+    def read_by_id(self, product_id):
+        product = self.dao.read_by_id(product_id)
+        return product
+        
     def update(self, product):
         # model = Product()
         # self.dao.update_product(model)

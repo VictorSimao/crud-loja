@@ -39,6 +39,19 @@ class ProductDAO(Dao):
         
         return list_products
 
+    def read_by_id(self, id:int):
+        sql = """
+            SELECT 
+                * 
+            FROM product 
+            WHERE id = ?
+        """
+        parameter = (id,)
+        result = self.execute_query_select(sql, parameter)
+        item = result[0]
+        product = Product(item[1], item[2], item[3], item[0])
+        return product
+
     def read_categories_by_id_product(self, id:int) -> str:
         sql = """ 
             SELECT 
