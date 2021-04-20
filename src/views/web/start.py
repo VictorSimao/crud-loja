@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 
 from src.controllers.category_controller import CategoryController
+from src.controllers.product_controller import ProductController
 
 
 app = Flask(__name__)
@@ -11,7 +12,18 @@ def home():
 
 @app.route('/product')
 def product():
-    return render_template('product.html')
+    controller = ProductController()
+    data = controller.read()
+    return render_template('product.html', title="Product", data=data)
+
+@app.route('/product/form')
+def product_create():
+    product_id = request.args.get('id')
+    if product_id:
+        controller = ProductController()
+        data = controller.read_by_id(product_id)
+        return render_template('product_form.html', title="Product Update", data=data)
+    return render_template('product_form.html', title="Product Create")
 
 @app.route('/category')
 def category():
