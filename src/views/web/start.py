@@ -58,6 +58,18 @@ def category_delete():
 
     return redirect('/category')
 
+@app.route('/product/form')
+def product_create():
+    product_id = request.args.get('id')
+    if product_id:
+        controller = ProductController()
+        data = controller.read_by_id(product_id)
+        return render_template('product/product_form.html', title="Product Update", data=data)
+    return render_template('product/product_form.html', title="Product Create")
+
+
+
+
 
 @app.route('/product')
 def product():
@@ -66,6 +78,13 @@ def product():
     return render_template('product/product.html', title="Product", data=data)
 
 
+@app.route('/product/delete')
+def product_delete():
+    product_id = request.args.get('id')
+    controller = ProductController()
+    controller.delete(product_id)
+
+    return redirect('/product')
 
 
 if __name__ == "__main__":

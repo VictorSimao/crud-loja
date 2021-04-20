@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>{{title}}</h1>
+    <form  class="section-content"  action="/product/save"> 
+        <div class="container">
+        id: <input type="text" name="id" id="id" value="{%if data %}{{data.id}}{%endif%}" readonly><br />
+        name: <input type="text" name="name" id="name" value="{%if data %}{{data.name}}{%endif%}"> <br />
+        description: <input type="text" name="description" id="description" value="{%if data %}{{data.description}}{%endif%}"><br />
+        price: <input type="text" name="price" id="price" value="{%if data %}{{data.price}}{%endif%}"><br />
+        categories: <select class="form-control" name="categories" id="categories">
+        <option  {{categories}} </option> 
+        </select>
+        <input type="submit" value="Save">
+        </div>
+    </form>
+    <a href="/produto">Voltar para o módulo produtos</a>
+
+{% endblock %}
