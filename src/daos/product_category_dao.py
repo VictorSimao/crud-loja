@@ -1,4 +1,4 @@
-from src.database.dao import Dao
+from src.daos.dao import Dao
 
 
 """
