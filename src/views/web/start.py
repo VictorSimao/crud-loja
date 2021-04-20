@@ -19,12 +19,12 @@ def product():
 @app.route('/product/form')
 def product_create():
     # TODO: refactor
-    category_id = request.args.get('id')
-    if category_id:
-        controller = CategoryController()
-        data = controller.read_by_id(category_id)
-        return render_template('category_form.html', title="Category Update", data=data)
-    return render_template('category_form.html', title="Category Create")
+    id = request.args.get('id')
+    if id:
+        controller = ProductController()
+        data = controller.read_by_id(id)
+        return render_template('product_form.html', title="Product Update", data=data)
+    return render_template('product_form.html', title="Product Create")
 
 @app.route('/product/save')
 def product_save():
@@ -43,7 +43,6 @@ def product_save():
 
 @app.route('/product/delete')
 def product_delete():
-    # TODO: refactor
     id = request.args.get('id')
     controller = ProductController()
     controller.delete(id)
