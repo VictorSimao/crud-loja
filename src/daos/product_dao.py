@@ -61,7 +61,7 @@ class ProductDAO(Dao):
         result = self.execute_query_select(sql, parameter)
         item = result[0]
 
-        product = Product(item[1], item[2], item[3], item[4], item[0])
+        product = Product(item[1], item[2], item[3], [item[4], item[5]], item[0])
         return product
 
     def update(self, product):
