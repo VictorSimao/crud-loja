@@ -47,6 +47,18 @@ class CategoryDAO(Dao):
 
         return list_categories
 
+    def select_name(self):
+        sql = """
+        SELECT category.name FROM category
+        """
+        list_names = []
+        result = self.execute_query_select(sql)
+
+        for item in result:
+            list_names.append(item)
+        
+        return list_names
+
     def read_by_id(self, id: int) -> Category:
         sql = """
         SELECT * FROM category WHERE id = ?

@@ -24,6 +24,10 @@ class CategoryController:
     def read(self):
         categories = self.category_dao.read_all()
         return categories
+    
+    def select_name(self):
+        categories = self.category_dao.select_name()
+        return categories
 
     def read_by_id(self, id:int):
         return self.category_dao.read_by_id(id)

@@ -17,57 +17,22 @@ class ProductController:
 
     def __init__(self):
         self.product_dao = ProductDAO()
-        self.category_dao = CategoryDAO()
-        self.product_category_dao = ProductCategoryDao()
-        self.product = {
-            'id': 0,
-            'name': '',
-            'description': '',
-            'price': 0.0,
-            'categories': []
-        }
 
-    def create(self, product:dict):
-        new_product = Product(
-            product['name'],
-            product['description'],
-            product['price'],
-            product['categories']
-        )
-        product['id'] = self.product_dao.create(new_product)
-        self.__create_product_category(product)
-
+    def create(self, name, description, price, categories):
+        product = Product(name, description, price, categories)
+        product_id = self.product_dao.create(product)
+        return product_id
+        
     def read(self):
-        products = self.product_dao.read_all()
-        return products
+        list_models = self.product_dao.read_all()
+        return list_models
 
-    def read_by_id(self, id:int):
-        return self.product_dao.read_by_id(id)
+    def read_by_id(self, product_id):
+        product = self.product_dao.read_by_id(product_id)
+        return product
 
-    def update(self, product:dict):
-        categories = product['categories'] if product['categories'] else None
+    def update(self, product):
+        self.product_dao.update(product)
 
-        updated_product = Product(
-            product['name'],
-            product['description'],
-            product['price'],
-            categories,
-            product['id']
-        )
-
-        if categories:
-            self.__create_product_category(product)
-
-        self.product_dao.update(updated_product)
-
-    def delete(self, id:int):
-        self.product_dao.delete(id)
-
-    def get_categories(self):
-        categories = self.category_dao.read_all()
-        return categories
-
-    def __create_product_category(self, product:dict):
-        for selected_category in product['categories']:
-            self.product_category_dao.create(
-                product['id'], selected_category)
+    def delete(self, product_id):
+        self.product_dao.delete(product_id)
