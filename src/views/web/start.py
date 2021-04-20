@@ -44,11 +44,11 @@ def product_save():
 @app.route('/product/delete')
 def product_delete():
     # TODO: refactor
-    category_id = request.args.get('id')
-    controller = CategoryController()
-    controller.delete(category_id)
+    id = request.args.get('id')
+    controller = ProductController()
+    controller.delete(id)
 
-    return redirect('/category')
+    return redirect('/product')
 
 # Pages category
 @app.route('/category')
