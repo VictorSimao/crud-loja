@@ -40,7 +40,8 @@ class ProductController:
 
         return product_categorie
 
-    def update(self, product, categories_id):
+    def update(self, id, name, description, price, categories_id):
+        product = Product(name, description, price, id=id)
         product_id = self.product_dao.update(product)
 
         self.product_category_dao.delete_by_product_id(product.id)
@@ -51,5 +52,5 @@ class ProductController:
         return product_id
 
     def delete(self, id):
-        self.product_category_dao.delete(id)       
+        self.product_category_dao.delete_by_product_id(id)       
         self.product_dao.delete(id)

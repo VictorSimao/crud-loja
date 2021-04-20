@@ -20,7 +20,8 @@ class CategoryController:
         category = self.dao.read_by_id(category_id)
         return category               
 
-    def update(self, category):        
+    def update(self, id, name, description):
+        category = Category(name, description, id)        
         self.dao.update(category)
 
     def delete(self, category_id):
