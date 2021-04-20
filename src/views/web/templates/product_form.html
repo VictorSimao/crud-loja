@@ -5,6 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Olist - {{title}} </title>
+    <style>
+        /* option:checked:before { content: "✓" } */
+       option:before { content: "☐ " }
+       option:checked:before { content: "☑ " }
+    </style>
 </head>
 <body>
     <h1>{{title}}</h1>
@@ -13,7 +18,7 @@
         name: <input type="text" name="name" id="name" value="{%if data %}{{data.name}}{%endif%}"> <br />
         description: <input type="text" name="description" id="description" value="{%if data %}{{data.description}}{%endif%}"><br />
         price: <input type="text" name="price" id="price" value="{%if data %}{{data.price}}{%endif%}"><br />
-        categories: <select>{% for item in data.categories %}<option>{{item}}</option>{% endfor %}</select>
+        categories: <select multiple size="5" style="width: 200px">{%if categories %}{% for item in categories %}<option>{{item.name}}</option>{% endfor %}{% endif %}</select>
         <input type="submit" value="Save">
     </form>
     <a href="/product">Voltar para o módulo produto</a>

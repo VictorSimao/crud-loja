@@ -27,15 +27,10 @@ class ProductController:
             'categories': []
         }
 
-    def create(self, product:dict):
-        new_product = Product(
-            product['name'],
-            product['description'],
-            product['price'],
-            product['categories']
-        )
-        product['id'] = self.product_dao.create(new_product)
-        self.__create_product_category(product)
+    def create(self, name, description, price, categories):
+        product = Product(name, description, price, categories)
+        product_id = self.product_dao.create(product)
+        return product_id
 
     def read(self):
         products = self.product_dao.read_all()
@@ -44,15 +39,14 @@ class ProductController:
     def read_by_id(self, id:int):
         return self.product_dao.read_by_id(id)
 
-    def update(self, product:dict):
-        categories = product['categories'] if product['categories'] else None
+    def update(self, product_id, name, description, price, categories):
 
         updated_product = Product(
-            product['name'],
-            product['description'],
-            product['price'],
+            name,
+            description,
+            price,
             categories,
-            product['id']
+            product_id
         )
 
         if categories:
