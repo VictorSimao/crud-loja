@@ -2,6 +2,11 @@ from .database import Database
 
 from typing import NoReturn
 
+"""
+This class abstracts all connections with database to execute the queries
+passed by specific DAOs
+"""
+
 
 class Dao:
 
@@ -17,7 +22,7 @@ class Dao:
         with Database() as conn:
             cursor = conn.cursor()
             if parameters:
-                result = cursor.execute(sql, parameters)
+                cursor.execute(sql, parameters)
             else:
                 cursor.execute(sql)
             conn.commit()
@@ -28,9 +33,10 @@ class Dao:
             cursor = conn.cursor()
             result = ()
             if parameters:
-                result = cursor.execute(sql, parameters)
-                result = cursor.fetchall()
+                cursor.execute(sql, parameters)
             else:
                 cursor.execute(sql)
-                result = cursor.fetchall()
+
+            result = cursor.fetchall()
+
         return result

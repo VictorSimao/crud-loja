@@ -1,7 +1,7 @@
 import os
 
-from .view_product import ViewProduct
-from .view_category import ViewCategory
+from .product_view import ProductView
+from .category_view import CategoryView
 
 modules = {
     '1': 'Product',
@@ -40,7 +40,7 @@ class ViewMenu:
                     self.set_screen(crud_option, f"{' '*20} Modulo de {modules[choice]} {' '*20}", True)    
                  
     def get_module(self, module):
-        self.module = ViewProduct() if module == 'Product' else ViewCategory()
+        self.module = ProductView() if module == 'Product' else CategoryView()
 
 
     def print_menu(self, menu, message):
