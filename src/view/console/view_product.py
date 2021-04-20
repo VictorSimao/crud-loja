@@ -2,7 +2,7 @@ from src.controller.product_controller import ProductController
 from src.controller.product_category_controller import ProductCategoryController
 
 
-class View_Product:
+class ViewProduct:
     def __init__(self):
         self.controller = ProductController()
         self.controller_prod_cat = ProductCategoryController()
