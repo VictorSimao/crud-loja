@@ -25,7 +25,7 @@
                     <td>{{item.id}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.description}}</td>
-                    <td><a href="/category/form?id={{item.id}}">Update</a></td>
+                    <td><a href="/category/form?id={{item.id}}"  >Update</a></td>
                     <td><a href="/category/delete?id={{item.id}}">Delete</a></td>
                 </tr>
             {% endfor %}
@@ -34,3 +34,19 @@
     <a href="/">Voltar para o inicio</a>
 </body>
 </html>
+<!-- <script>
+    function funcao1()
+        {
+            var x;
+            var r=confirm("Tem certeza que deseja deletar!!");
+            if (r==true)
+        {
+                x="Sim!";
+        }
+            else
+        {
+                x="Não!";
+        }
+            document.getElementById("grid").innerHTML=x;
+        }
+</script> -->
