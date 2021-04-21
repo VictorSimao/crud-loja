@@ -10,24 +10,32 @@
     <h1>{{title}}</h1>
     <form action="/product/save"> 
 
-        id: <input type="text" name="id" id="id" value="{%if data %}{{data.id}}{%endif%}" readonly><br />
-        name: <input type="text" name="name" id="name" value="{%if data %}{{data.name}}{%endif%}"> <br />
-        description: <input type="text" name="description" id="description" value="{%if data %}{{data.description}}{%endif%}"><br />
-        price: <input type="text" name="price" id="price" value="{%if data %}{{data.price}}{%endif%}"> <br />
+        id: <input type="text" name="id" id="id" value="{%if data_product %}{{data_product.id}}{%endif%}" readonly><br />
+        name: <input type="text" name="name" id="name" value="{%if data_product %}{{data_product.name}}{%endif%}"> <br />
+        description: <input type="text" name="description" id="description" value="{%if data_product %}{{data_product.description}}{%endif%}"><br />
+        price: <input type="text" name="price" id="price" value="{%if data_product %}{{data_product.price}}{%endif%}"> <br />
+
+
+        {%if data_product %}
+            <label for="cars">Categorias do produto</label>
+            <ul>
+
+            {% for cat in data_product.categories %}
+                <li>{{cat}}</li>
+            {% endfor %}
+            </ul>
+        {%endif%}
 
         <label for="cars">Selecione as categorias</label>
 
-        {%if data %}
+        <select size="8" name="categories" id="categories" multiple>
 
-            <select name="categories" id="categories" multiple>
+            {% for cat in data_category %}
+                <option width="30" value="{{cat.id}}">{{cat.id}}. {{cat.name}}</option>
+            {% endfor %}
 
-                {% for cat in data.categories %}
-                    <option width="30" value="{{cat}}">{{cat}}</option>
-                {% endfor %}
+        </select>
 
-            </select>
-
-        {%endif%}
         <input type="submit" value="Save">
     </form>
     <a href="/product">Voltar para o módulo produto</a>

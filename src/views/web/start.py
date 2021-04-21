@@ -24,8 +24,11 @@ def product_create():
     id = request.args.get('id')
     if id:
         controller = ProductController()
-        data = controller.read_by_id(id)
-        return render_template('product_form.html', title="Product Update", data=data)
+        data_product = controller.read_by_id(id)
+        
+        controller = CategoryController()
+        data_category = controller.read()
+        return render_template('product_form.html', title="Product Update", data_product=data_product, data_category=data_category)
     return render_template('product_form.html', title="Product Create")
 
 
