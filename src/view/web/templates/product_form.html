@@ -16,10 +16,9 @@
 
         <select name= "cat" multiple data-live-search="true">
         {% for category in categories: %}
-            <option value="{{category.id}}">{{category}}</option>
+            <option {% if category.selected %} selected="selected"{% endif %} value="{{category.id}}">{{category}}</option>
         {% endfor %}
         </select>
-        
         <input type="submit" value="Save">
     </form>
 

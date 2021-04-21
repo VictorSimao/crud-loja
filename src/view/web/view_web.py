@@ -26,7 +26,12 @@ def product_form():
     if product_id:
         product_controller = ProductController()
         product = product_controller.read_by_id(product_id)
-        return render_template('product_form.html', title="Product Update", product=product, categories=categories)
+        categories_selection = []
+        for category in categories:
+            if any(prod_cat.id == category.id for prod_cat in product.categories):
+                category.selected = True
+            categories_selection.append(category)
+        return render_template('product_form.html', title="Product Update", product=product, categories=categories_selection)
     return render_template('product_form.html', title="Product Create", categories=categories)
 
 @app.route('/product/save')
