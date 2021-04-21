@@ -5,12 +5,30 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Olist</title>
+        <link rel="stylesheet" href="../static/css/style.css">
     </head>
-    <body>
-        <h1>Olist</h1> 
-        <ul>
-            <li><a href='/product'>Product</a></li>
-            <li><a href='/category'>Category</a></li>
-        </ul>
+    <body class="body" id="body">
+        <header>
+            <div id="logo">
+                <a href="/">
+                    OLIST
+                </a>
+            </div>
+            <div id="menu">
+                <ul>
+                    <li>
+                        <a href='/product'>Product</a>
+                    </li>
+                    <li>
+                        <a href='/category'>Category</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <div id="content">
+            {% block content %}
+                <p>Olá visitante</p>
+            {% endblock %}
+        </div>
     </body>
 </html>
