@@ -40,7 +40,8 @@ def product_save():
     name = request.args.get('name')
     description = request.args.get('description')
     price = request.args.get('price')
-    categories = request.args.get('categories')
+    args_dict = request.args.to_dict(flat=False)
+    categories = args_dict.get('categories', None)
 
     controller = ProductController()
     if product_id:
