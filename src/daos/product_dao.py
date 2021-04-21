@@ -1,6 +1,7 @@
 from src.database.dao import Dao
 
 from src.models.product_model import Product
+from src.models.category_model import Category
 
 
 """
@@ -39,11 +40,24 @@ class ProductDAO(Dao):
         ORDER BY product.id
         """
 
+        sql = """
+        SELECT product.id, product.name, product.description, product.price, group_concat(category.id ||'-'|| category.name||'-'|| category.description)
+        FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id 
+        GROUP BY product.name, product.description, product.price 
+        ORDER BY product.id
+        """
+
         list_products = []
         result = self.execute_query_select(sql)
 
         for item in result:
-            product = Product(item[1], item[2], item[3], item[4], item[0])
+            a = item[4].split(',')
+            this_item = []
+            for b in a:
+                d = b.split('-')
+                e = Category(d[0], d[1], d[2])
+                this_item.append(e)
+            product = Product(item[1], item[2], item[3], this_item, item[0])
             list_products.append(product)
 
         return list_products
