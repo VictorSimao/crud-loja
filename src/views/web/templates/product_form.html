@@ -16,7 +16,7 @@
         {%if data %}
         categories: <span>{{data.categories[1]}}</span><br />
         {%endif%}
-        new categories: <select type="text" name="categories" id="categories">
+        new categories: <select type="text" name="categories" id="categories" multiple>
             {% for cat in categories %}
             <option value={{cat.id}}>{{cat.name}}</option>
             {% endfor %}

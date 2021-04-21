@@ -61,14 +61,17 @@ def category_save():
 
 @app.route('/product/save')
 def product_save():
+    args_dict = request.args.to_dict(flat=False)
+    categories = args_dict.get('categories', None)
+
     product = {
         'id': request.args.get('id'),
         'name': request.args.get('name'),
         'description': request.args.get('description'),
         'price': request.args.get('price'),
-        'categories': request.args.get('categories')
+        'categories': categories
     }
-
+    
     controller = ProductController()
     if product['id']:
         controller.update(product)
