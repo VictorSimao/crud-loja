@@ -1,9 +1,21 @@
-from src.dao.dao import Dao
-from src.model.category_model import Category
+from src.daos.dao import Dao
+
+from src.models.category_model import Category
+
 from typing import List
 
 
+"""
+This class makes a communication between category controller data and
+set the queries to save in category table on database.
+"""
+
+
 class CategoryDAO(Dao):
+
+    def __init__(self):
+        self.create_table()
+
     def create_table(self):
         self.execute_query("""
         CREATE TABLE IF NOT EXISTS category (
@@ -22,7 +34,7 @@ class CategoryDAO(Dao):
 
     def read_all(self) -> List[Category]:
         sql = """
-        SELECT * FROM category
+        SELECT * FROM category ORDER BY id
         """
 
         list_categories = []
@@ -39,7 +51,7 @@ class CategoryDAO(Dao):
         sql = """
         SELECT * FROM category WHERE id = ?
         """
-        parameter = (id,)
+        parameter = (id, )
 
         result = self.execute_query_select(sql, parameter)
         item = result[0]
@@ -64,6 +76,6 @@ class CategoryDAO(Dao):
             DELETE FROM category
                 WHERE id = ?
         """
-        parameters = (id,)
+        parameters = (id, )
 
         return self.execute_query(sql, parameters)

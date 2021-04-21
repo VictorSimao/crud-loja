@@ -2,10 +2,16 @@ from .database import Database
 
 from typing import NoReturn
 
+"""
+This class abstracts all connections with database to execute the queries
+passed by specific DAOs
+"""
+
 
 class Dao:
 
-    def insert_data(self, sql: str, parameters: tuple) -> int:
+
+    def insert_data(self, sql:str, parameters:tuple) -> int :      
         with Database() as conn:
             cursor = conn.cursor()
             cursor.execute(sql, parameters)
@@ -15,9 +21,9 @@ class Dao:
 
     def execute_query(self, sql: str, parameters: tuple = None) -> NoReturn:
         with Database() as conn:
-            cursor = conn.cursor()
-            if parameters:
-                result = cursor.execute(sql, parameters)
+            cursor = conn.cursor() 
+            if parameters:    
+                cursor.execute(sql, parameters)
             else:
                 cursor.execute(sql)
             conn.commit()
@@ -26,10 +32,11 @@ class Dao:
         with Database() as conn:
             cursor = conn.cursor()
             result = ()
-            if parameters:
-                result = cursor.execute(sql, parameters)
-                result = cursor.fetchall()
+            if parameters:   
+                cursor.execute(sql, parameters)
             else:
                 cursor.execute(sql)
-                result = cursor.fetchall()
+
+            result = cursor.fetchall()
+
         return result
