@@ -39,7 +39,6 @@ def product_save():
         'categories': request.args.get('categories')
     }
 
-    # print(product['id'])
     controller = ProductController()
     if product['id']:
         controller.update(product)

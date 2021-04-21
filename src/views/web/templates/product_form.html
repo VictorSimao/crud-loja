@@ -5,17 +5,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
+    
+    <style>
+        .container{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          
+        }
+        
+        h1{
+          margin-bottom: 50px;
+        }
+
+        label{
+            font-size: 25px;
+            
+        }
+        select{
+            width: 200px;
+        }
+
+        .button{
+        background-color: blue;
+        width: 80px;
+        height: 30px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 18px;
+        font-family:Arial, Helvetica, sans-serif sans-serif;
+        cursor: pointer;
+        }
+  
+        
+  
+      </style>
 </head>
 <body>
 
-    <h1>{{title}}</h1>
+    <div class="container">
+        <h1>{{title}}</h1>
 
     <form action="/product/save">
 
-        id: <input type="text" name="id" id="id" value="{%if data %}{{data.id}}{%endif%}" readonly> <br>
-        name: <input type="text" name="name" id="name" value="{%if data %}{{data.name}}{%endif%}"> <br>
-        description: <input type="text" name="description" id="description" value="{%if data %}{{data.description}}{%endif%}"><br>
-        price: <input type="text" name="price" id="price" value="{%if data %}{{data.price}}{%endif%}"> <br>
+        <label for="id">Id: </label>
+       <input type="text" name="id" id="id" value="{%if data %}{{data.id}}{%endif%}" readonly placeholder="Id gerado automático"> <br>
+
+       <label for="name">Name:</label>
+        <input type="text" name="name" id="name" value="{%if data %}{{data.name}}{%endif%}"> <br>
+
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" value="{%if data %}{{data.description}}{%endif%}"><br>
+
+        <label for="price">Price:</label>
+        <input type="text" name="price" id="price" value="{%if data %}{{data.price}}{%endif%}"> <br>
 
         <!-- <p>Selecione 1 ou várias categorias:</p>
         <label for="categories">Escolha:</label>
@@ -26,18 +71,22 @@
         {%if data %}
         categories: <span>{{data.categories[1]}}</span><br />
         {%endif%}
-        new categories: <select type="text" name="categories" id="categories">
+        <label for="categories">New categories:</label>
+        <select type="text" name="categories" id="categories">
             {% for cat in categories %}
             <option value={{cat.id}}>{{cat.name}}</option>
             {% endfor %}
         </select> 
 
+        <br><br>
 
-        <input type="submit" value="Save">
+
+        <input type="submit" value="Save" class="button">
         
 
-        <a href="/product">Voltar para o módulo produto</a>
+        <a href="/product"><input type="button" value="Voltar" class="button"></a>
     </form>
+    </div>
     
 </body>
 </html>
