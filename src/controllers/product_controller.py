@@ -1,6 +1,3 @@
-
-    args_dict = request.args.to_dict(flat=False)
-    categories = args_dict.get('categories', None)
 from src.daos.product_dao import ProductDAO
 
 from src.daos.category_dao import CategoryDAO
