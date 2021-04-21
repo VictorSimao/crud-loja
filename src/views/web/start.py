@@ -37,7 +37,7 @@ def product_save():
 
     controller = ProductController()
     if product_id:
-        controller.update({'id':product_id, 'name':name, 'description':description, 'price':price, 'categories':categories})
+        controller.update({'name':name, 'description':description, 'price':price, 'categories':categories, 'id':product_id})
     else:
         controller.create({'name':name, 'description':description, 'price':price, 'categories':categories})
     
