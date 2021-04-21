@@ -33,9 +33,12 @@ class ProductDAO(Dao):
 
     def read_all(self):
         sql = """
-        SELECT product.id, product.name, product.description, product.price, group_concat(category.name)
-        FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
-        GROUP BY product.name, product.description, product.price
+        SELECT product.id, product.name, product.description, product.price,
+        group_concat(category.name), group_concat(category.description),
+        group_concat(category.id)
+        FROM product JOIN product_category ON product_id = product.id JOIN
+        category ON category_id = category.id
+        GROUP BY category_id
         ORDER BY product.id
         """
 
@@ -50,8 +53,10 @@ class ProductDAO(Dao):
 
     def read_by_id(self, id: int):
         sql = """
-        SELECT product.id, product.name, product.description, product.price, group_concat(category.id), group_concat(category.name)
-        FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
+        SELECT product.id, product.name, product.description, product.price,
+        group_concat(category.id), group_concat(category.name)
+        FROM product JOIN product_category ON product_id = product.id JOIN
+        category ON category_id = category.id
         WHERE product.id = ?
         GROUP BY product.name, product.description, product.price
         ORDER BY product.id

@@ -41,7 +41,7 @@ def product_save():
         'name': request.args.get('name'),
         'description': request.args.get('description'),
         'price': request.args.get('price'),
-        'categories': request.args.get('categories')
+        'categories': request.args.group_concat('categories')
     }
     controller = ProductController()
     if product['id']:

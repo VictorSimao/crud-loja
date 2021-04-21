@@ -8,7 +8,7 @@ from src.models.product_model import Product
 
 
 """
-This class serves to control the data between user inputs and all the other 
+This class serves to control the data between user inputs and all the other
 DAOs.
 """
 
@@ -27,7 +27,7 @@ class ProductController:
             'categories': []
         }
 
-    def create(self, product:dict):
+    def create(self, product: dict):
         new_product = Product(
             product['name'],
             product['description'],
@@ -41,10 +41,10 @@ class ProductController:
         products = self.product_dao.read_all()
         return products
 
-    def read_by_id(self, id:int):
+    def read_by_id(self, id: int):
         return self.product_dao.read_by_id(id)
 
-    def update(self, product:dict):
+    def update(self, product: dict):
         categories = product['categories'] if product['categories'] else None
 
         updated_product = Product(
@@ -60,14 +60,14 @@ class ProductController:
 
         self.product_dao.update(updated_product)
 
-    def delete(self, id:int):
+    def delete(self, id: int):
         self.product_dao.delete(id)
 
     def get_categories(self):
         categories = self.category_dao.read_all()
         return categories
 
-    def __create_product_category(self, product:dict):
+    def __create_product_category(self, product: dict):
         for selected_category in product['categories']:
             self.product_category_dao.create(
                 product['id'], selected_category)
