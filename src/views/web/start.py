@@ -3,11 +3,14 @@ from flask import Flask, render_template, request, redirect
 from src.controllers.category_controller import CategoryController
 from src.controllers.product_controller import ProductController
 
+import pdb
+
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return render_template('home.html')
+
 
 @app.route('/product')
 def product():
@@ -28,15 +31,15 @@ def product_create():
 def product_save():
     product_id = request.args.get('id')
     name = request.args.get('name')
-    description = request.args.get('descrition')
+    description = request.args.get('description')
     price = request.args.get('price')
     categories = request.args.get('categories')
 
     controller = ProductController()
     if product_id:
-        controller.update(product_id, name, description, price, categories)
+        controller.update({'id':product_id, 'name':name, 'description':description, 'price':price, 'categories':categories})
     else:
-        controller.create(name, description, price, categories)
+        controller.create({'name':name, 'description':description, 'price':price, 'categories':categories})
     
     return redirect('/product')
 
