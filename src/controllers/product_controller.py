@@ -71,3 +71,4 @@ class ProductController:
         for selected_category in product['categories']:
             self.product_category_dao.create(
                 product['id'], selected_category)
+                

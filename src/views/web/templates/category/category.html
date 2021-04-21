@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>{{title}}</h1>
-    <a href="/category/form">Nova categoria</a>
+    <a class="btn btn-secondary" href="/category/form">Nova categoria</a>
     <table class="table table_bordered">
         <thead>
             <tr>
@@ -19,12 +19,12 @@
                     <td>{{item.id}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.description}}</td>
-                    <td><a href="/category/form?id={{item.id}}">Update</a></td>
-                    <td><a href="/category/delete?id={{item.id}}">Delete</a></td>
+                    <td><a  class="btn btn-success" href="/category/form?id={{item.id}}">Update</a></td>
+                    <td><a class="btn btn-danger href="/category/delete?id={{item.id}}">Delete</a></td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="/">Voltar para o inicio</a>
+    <a class="btn btn-secondary" href="/">Voltar para o inicio</a>
 
 {% endblock %}

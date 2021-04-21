@@ -65,11 +65,3 @@ class ProductView:
                 continue
             else:
                 break
-
-    def __validate_category(self, selected_category):
-        this_product_categories = self.controller.read_by_id(self.product['id'])
-        prod_cats = this_product_categories.categories.split(',')
-        if selected_category in prod_cats:
-            return False
-        
-        return True

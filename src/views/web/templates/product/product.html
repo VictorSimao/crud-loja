@@ -2,7 +2,8 @@
 
 {% block content %}
     <h1>{{title}}</h1>
-    <a href="/product/form">Novo Produto</a>
+    <a class="btn btn-info" href="/product/form">Novo Produto</a>
+    <br>
     <table class="table table_bordered">
         <thead>
             <tr>
@@ -23,12 +24,12 @@
                     <td>{{item.description}}</td>
                     <td>{{item.price}} </td>
                     <td>{{item.categories}}</td>
-                    <td><a href="/product/form?id={{item.id}}">Update</a></td>
-                    <td><a href="/product/delete?id={{item.id}}">Delete</a></td>
+                    <td><a class="btn btn-success" href="/product/form?id={{item.id}}">Update</a></td>
+                    <td><a class="btn btn-danger" href="/product/delete?id={{item.id}}">Delete</a></td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="/">Voltar para o inicio</a>
+    <a class="btn btn-secondary" href="/">Voltar para o inicio</a>
 
 {% endblock %}

@@ -13,11 +13,6 @@ def home():
     return render_template('base.html')
 
 
-#@app.route('/product')
-#def product():
- #   return render_template('product/product.html')
-
-
 @app.route('/category')
 def category():
     controller = CategoryController()
@@ -60,12 +55,38 @@ def category_delete():
 
 @app.route('/product/form')
 def product_create():
+    controller = CategoryController()
+    categories = controller.read()
     product_id = request.args.get('id')
     if product_id:
         controller = ProductController()
         data = controller.read_by_id(product_id)
-        return render_template('product/product_form.html', title="Product Update", data=data)
-    return render_template('product/product_form.html', title="Product Create")
+        return render_template('product/product_form.html', title="Product Update", data=data, categories=categories) 
+    return render_template('product/product_form.html', title="Product Create", categories=categories)
+
+
+
+@app.route('/product/save')
+def product_save():
+    args_dict = request.args.to_dict(flat=False)
+    categories = args_dict.get('categories')
+    product = {
+        'id': request.args.get('id'),
+        'name': request.args.get('name'),
+        'description': request.args.get('description'),
+        'price': request.args.get('price'),
+        'categories':categories
+        }
+
+
+    controller = ProductController()
+    if product['id']:
+        controller.update(product)
+    else:
+        controller.create(product)
+    return redirect('/product')
+
+
 
 
 
@@ -76,6 +97,7 @@ def product():
     controller = ProductController()
     data = controller.read()
     return render_template('product/product.html', title="Product", data=data)
+
 
 
 @app.route('/product/delete')
