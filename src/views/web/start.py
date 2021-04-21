@@ -40,6 +40,14 @@ def product_save():
     
     return redirect('/product')
 
+@app.route('/product/delete')
+def product_delete():
+    product_id = request.args.get('id')
+    controlller = ProductController()
+    controlller.delete(product_id)
+
+    return redirect('/product')
+
 @app.route('/category')
 def category():
     controller = CategoryController()
