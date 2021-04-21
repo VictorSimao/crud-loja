@@ -29,17 +29,19 @@ def product_create():
 
 @app.route('/product/save')
 def product_save():
+    dict_args = request.args.to_dict(flat=False)
+    categories = dict_args.get('categories')
     product_id = request.args.get('id')
     name = request.args.get('name')
     description = request.args.get('description')
     price = request.args.get('price')
-    categories = request.args.get('categories')
 
     controller = ProductController()
     if product_id:
         controller.update(product_id, name, description, price, categories)
     else:
         controller.create(name, description, price, categories)
+        print(name, description, price, categories)
 
     return redirect('/product')
 
