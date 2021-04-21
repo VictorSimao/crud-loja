@@ -36,17 +36,32 @@ def product_create():
 @app.route('/product/save')
 def product_save():
     # TODO: refactor
-    category_id = request.args.get('id')
+    id = request.args.get('id')
     name = request.args.get('name')
     description = request.args.get('description')
+    price = request.args.get('price')
+    categories = request.args.get('categories')
 
-    controller = CategoryController()
-    if category_id:
-        controller.update(category_id, name, description)
+    controller = ProductController()
+    if id:
+        produtct = {
+            'id': id,
+            'name': name,
+            'description': description,
+            'price': price,
+            'categories': categories            
+        }
+        controller.update(produtct)
     else:
-        controller.create(name, description)
+        produtct = {
+            'name': name,
+            'description': description,
+            'price': price,
+            'categories': categories            
+        }
+        controller.create(produtct)
 
-    return redirect('/category')
+    return redirect('/product')
 
 @app.route('/product/delete')
 def product_delete():
