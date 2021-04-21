@@ -23,7 +23,7 @@ def product_create():
     controller = ProductController()
     category = CategoryController()
     categories = category.read()
-  
+
     if product_id:
         data = controller.read_by_id(product_id)
         return render_template('product_form.html', title="Product Update", data=data, categories=categories)
@@ -39,7 +39,7 @@ def product_save():
         'categories': request.args.get('categories')
     }
 
-    print(product['id'])
+    # print(product['id'])
     controller = ProductController()
     if product['id']:
         controller.update(product)
