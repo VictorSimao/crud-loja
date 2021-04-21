@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Olist-product</title>
-</head>
-<body>
-    <h1>Product</h1> 
-    <ul>
-        <li><a href='/product/create'>Create</a></li>
-        <li><a href='/product/read'>Read</a></li>
-        <li><a href='/product/update'>Update</a></li>
-        <li><a href='/product/delete'>Delete</a></li>
-    </ul>
+  </head>
+  <body>
+    <h1>{{title}}</h1>
 
-    <a href="/">Voltar menu principal</a>
-</body>
+    <a href="/product/form">Novo Produto</a>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+
+      <tbody>
+       {% for item in data %}   
+        <tr>
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.categories}}</td>
+          <td><a href="/product/form?id={{item.id}}">Update</a></td>
+          <td><a href="/product/delete?id={{item.id}}">Delete</a></td>
+        </tr>
+       {% endfor %}   
+
+      </tbody>
+    </table>
+  </body>
 </html>

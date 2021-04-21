@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+<body>
+
+    <h1>{{title}}</h1>
+
+    <form action="/product/save">
+
+        id: <input type="text" name="id" id="id" value="{%if data %}{{data.id}}{%endif%}"> <br>
+        name: <input type="text" name="name" id="name" value="{%if data %}{{data.name}}{%endif%}"> <br>
+        description: <input type="text" name="description" id="description" value="{%if data %}{{data.description}}{%endif%}"><br>
+        price: <input type="text" name="price" id="price" value="{%if data %}{{data.price}}{%endif%}"> <br>
+       
+        categories: <select name="categories" id="categories">
+          
+            <option value="{%if data %}{{data.categories[1]}}{%endif%}">{%if data %}{{data.categories}}{%endif%}</option>
+          
+        </select>
+
+        <input type="submit" value="Save"> <br><br>
+
+        <a href="/product">Voltar para o módulo produto</a>
+    </form>
+    
+</body>
+</html>

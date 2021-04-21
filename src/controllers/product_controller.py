@@ -29,11 +29,11 @@ class ProductController:
 
     def create(self, product:dict):
         new_product = Product(
-            product['name'],
-            product['description'],
-            product['price'],
-            product['categories']
-        )
+             product['name'],
+             product['description'],
+             product['price'],
+             product['categories']
+         )
         product['id'] = self.product_dao.create(new_product)
         self.__create_product_category(product)
 
