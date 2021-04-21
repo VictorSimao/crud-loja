@@ -1,3 +1,6 @@
+
+    args_dict = request.args.to_dict(flat=False)
+    categories = args_dict.get('categories', None)
 from src.daos.product_dao import ProductDAO
 
 from src.daos.category_dao import CategoryDAO
@@ -38,7 +41,7 @@ class ProductController:
         return self.product_dao.read_by_id(id)
 
     def update(self, product:dict):
-        categories = self.__validate_category(product)
+        categories = product.get('categories', None)
 
         updated_product = Product(
             product['name'],
@@ -64,12 +67,3 @@ class ProductController:
         for selected_category in product['categories']:
             self.product_category_dao.create(
                 product['id'], selected_category)
-            
-    def __validate_category(self, product:dict):
-        if not product['categories']:
-            return
-
-        this_product_categories = self.read_by_id(product['id'])
-        prod_cats = this_product_categories.categories[0].split(',')
-        categories_to_add = [value for value in product['categories'] if value not in prod_cats]
-        return categories_to_add
