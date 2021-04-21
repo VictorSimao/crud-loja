@@ -6,9 +6,11 @@ from src.controllers.product_controller import ProductController
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def home():
     return render_template('home.html')
+
 
 @app.route('/product')
 def product():
@@ -16,15 +18,16 @@ def product():
     data = controller.read()
     return render_template('product.html', title="Product", data=data)
 
+
 @app.route('/product/form')
 def product_create():
-    # TODO: refactor
     id = request.args.get('id')
     if id:
         controller = ProductController()
         data = controller.read_by_id(id)
         return render_template('product_form.html', title="Product Update", data=data)
     return render_template('product_form.html', title="Product Create")
+
 
 @app.route('/product/save')
 def product_save():
