@@ -3,12 +3,19 @@
 {% block content %}
 
     <h1>{{title}}</h1>
-    <form   action="/product/save"> 
+    <form  class="form-group" action="/product/save"> 
         <div class="form-group">
-        id: <input  class="form-group" type="text" name="id" id="id" value="{%if data %}{{data.id}}{%endif%}" readonly><br />
-        name: <input class="form-group" type="text" name="name" id="name" value="{%if data %}{{data.name}}{%endif%}"> <br />
-        description: <input class="form-group" type="text" name="description" id="description" value="{%if data %}{{data.description}}{%endif%}"><br />
-        price: <input  class="form-group" type="text" name="price" id="price" value="{%if data %}{{data.price}}{%endif%}"><br />
+            <label for="exampleFormControlInput1">ID</label>
+            <input  class="form-group" type="text" name="id" id="id"  value="{%if data %}{{data.id}}{%endif%}" readonly><br />
+        
+            <label for="exampleFormControlInput1">Nome</label>
+            <input class="form-group" type="text" name="name" id="name" placeholder="Digite o nome do produto..." value="{%if data %}{{data.name}}{%endif%}"> <br />
+
+            <label for="exampleFormControlInput1">Descrição</label>
+            <input class="form-group" type="text" name="description" id="description"placeholder="Digite a descrição..."  value="{%if data %}{{data.description}}{%endif%}"><br />
+
+            <label for="exampleFormControlInput1">Preço</label>
+            <input  class="form-group" type="text" name="price" id="price"placeholder="Digite o preço..."  value="{%if data %}{{data.price}}{%endif%}"><br />
         categories: 
         <select class="form-control" id="categories" name="categories" multiple>
         {% for item in categories %}
@@ -20,8 +27,8 @@
        
 
         <input  class="btn btn-success" type="submit" value="Save">
-        </div>
+    </div>
     </form>
-    <a href="/product">Voltar para o módulo produtos</a>
+<a href="/product">Voltar para o módulo produtos</a>
 
 {% endblock %}
