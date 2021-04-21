@@ -27,15 +27,12 @@ class ProductController:
             'categories': []
         }
 
-    def create(self, product:dict):
-        new_product = Product(
-            product['name'],
-            product['description'],
-            product['price'],
-            product['categories']
-        )
-        product['id'] = self.product_dao.create(new_product)
-        self.__create_product_category(product)
+    def create(self, name, description, price, categories):
+        product = Product(name, description, price, categories)
+        product_id = self.product_dao.create(product)
+
+        return product_id
+
 
     def read(self):
         products = self.product_dao.read_all()

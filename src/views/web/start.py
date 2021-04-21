@@ -19,6 +19,29 @@ def product():
     return render_template('product.html', title="Product", data=data)
 
 
+@app.route('/product/form')
+def product_create():
+    product_id = request.args.get('id')
+    if product_id:
+        controller = ProductController()
+        data = controller.read_by_id(product_id)
+        return render_template('product_form.html', title='Product Update', data=data)
+    return render_template('product_form.html', title='Product Create')
+
+
+@app.route('/product/save')
+def product_save():
+    product_id = request.args.get('id')
+    name = request.args.get('name')
+    description = request.args.get('description')
+    price = request.args.get('price')
+    categories = ['Joelma']
+
+    controller = ProductController()
+    controller.create(name, description, price, categories)
+    return redirect('/product')
+
+
 @app.route('/product/delete')
 def product_delete():
     product_id = request.args.get('id')
