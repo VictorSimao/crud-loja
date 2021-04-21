@@ -13,7 +13,18 @@
         name: <input type="text" name="name" id="name" value="{%if data %}{{data.name}}{%endif%}"> <br /><br />
         description: <input type="text" name="description" id="description" value="{%if data %}{{data.description}}{%endif%}"><br /><br />
         price: <input type="text" name="price" id="price" value="{%if data %}{{data.price}}{%endif%}"> <br /><br />
-        categories: <input type="text" name="categories" id="categories" value="{%if data %}{{data.categories}}{%endif%}"> <br /><br />
+        <!-- categories: <input type="text" name="categories" id="categories" value="{%if data %}{{data.categories}}{%endif%}"> <br /><br /> -->
+         
+        <label for="category">Select a category: </label>
+        <br /><br />
+        <select multiple name="categories" id="categories" value="{% if categories%}{{categories}}{%endif%}">
+            {% for item in categories %}
+                <option value="{{item.id}}">{{item.name}}</option>
+            {% endfor %}
+        </select>
+        <br /><br />
+        
+
         <input type="submit" value="Save"><br /><br />
     </form>
     <a href="/product">Voltar ao módulo de produtos</a>

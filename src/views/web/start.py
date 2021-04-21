@@ -57,12 +57,15 @@ def category_delete():
 
 @app.route('/product/form')
 def product_create():
+    controller_category = CategoryController()
+    categories = controller_category.read()
+    # render_template('product.html', title="Categories", data=categories)
     product_id = request.args.get('id')
     if product_id:
         controller = ProductController()
         data = controller.read_by_id(product_id)
-        return render_template('product_form.html', title="Product Update", data=data)
-    return render_template('product_form.html', title="Product Create")
+        return render_template('product_form.html', title="Product Update", data=data, categories=categories)
+    return render_template('product_form.html', title="Product Create", categories=categories)
 
 
 @app.route('/product/save')
@@ -71,7 +74,8 @@ def product_save():
     name = request.args.get('name')
     description = request.args.get('description')
     price = request.args.get('price')
-    categories = request.args.get('categories')
+    dict_args = request.args.to_dict(flat=False)
+    categories = dict_args.get('categories')
 
     product_dict = {
         'id': 0,
@@ -80,12 +84,15 @@ def product_save():
         'price': 0.0,
         'categories': []
     }
-    if not categories:
-        product_dict["categories"] = None
+    # if not categories:
+       # product_dict["categories"] = None
     product_dict["name"] = name
     product_dict["description"] = description
     product_dict["price"] = price
     product_dict["categories"] = categories
+    
+    # return render_template('category.html', title="Category", data=data)
+
     controller = ProductController()
     if product_id:
         product_dict['id'] = product_id
