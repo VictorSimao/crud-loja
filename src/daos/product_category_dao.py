@@ -31,3 +31,8 @@ class ProductCategoryDao(Dao):
 
         id = self.insert_data(sql, parameters)
         return id
+
+    def read(self):
+        sql = """ SELECT * from product_category """
+
+        list_result = self.

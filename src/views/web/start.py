@@ -12,11 +12,6 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/product')
-def product():
-    return render_template('product.html')
-
-
 @app.route('/category')
 def category():
     controller = CategoryController()
@@ -37,8 +32,10 @@ def category_create():
 @app.route('/category/save')
 def category_save():
     category_id = request.args.get('id')
+
     name = request.args.get('name')
     description = request.args.get('description')
+
 
     controller = CategoryController()
     if category_id:
@@ -58,14 +55,23 @@ def category_delete():
     return redirect('/category')
 
 
+@app.route('/product')
+def product():
+    controller = ProductController()
+    data = controller.read()
+    return render_template('product.html', data=data, title="Product")
+
+
 @app.route('/product/form')
 def product_create():
     product_id = request.args.get('id')
+    category_controller = CategoryController()
+    categories = category_controller.read()
     if product_id:
         controller = ProductController()
-        data = controller.read_by_id(category_id)
-        return render_template('product_form.html', title="Product Update", data=data)
-    return render_template('product_form.html', title="Product Create")
+        data = controller.read_by_id(product_id)
+        return render_template('product_form.html', title="Product Update", data=data, categories=categories)
+    return render_template('product_form.html', title="Product Create", categories=categories)
 
 
 @app.route('/product/save')
@@ -74,15 +80,20 @@ def product_save():
     name = request.args.get('name')
     price = request.args.get('price')
     description = request.args.get('description')
-    categories = request.args.get('categories')
-
-    
-
+    categories = request.args.getlist('categories')
+    categories = [int(cat_id) for cat_id in categories]
+    product = {
+        "id": product_id,
+        "name": name,
+        "price": price,
+        "description": description,
+        "categories": categories,
+    }
     controller = ProductController()
     if product_id:
-        controller.update(category_id, name, price, description)
+        controller.update(product)
     else:
-        controller.create(name, price, description)
+        controller.create(product)
 
     return redirect('/product')
 

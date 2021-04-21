@@ -8,13 +8,13 @@
 </head>
 <body>
     <h1>{{title}}</h1>
-    <form action="/category/save"> 
+    <form action="/product/save"> 
         id: <input type="text" name="id" id="id" value="{%if data %}{{data.id}}{%endif%}" readonly><br />
         name: <input type="text" name="name" id="name" value="{%if data %}{{data.name}}{%endif%}"> <br />
         price: <input type="text" name="price" id="price" value="{%if data %}{{data.price}}{%endif%}"> <br />
         description: <input type="text" name="description" id="description" value="{%if data %}{{data.description}}{%endif%}"><br />
-        { % for item in categories% }
-            categories: <input type="checkbox" name="categories" id="categories" value="{%if item %}{{categories}}{%endif%}"><br />
+        {% for item in categories %}
+            {%if item %}{{item.name}}{%endif%}<input type="checkbox" name="categories" id="categories" value="{%if data %}{{data.categories}}{%elif item %}{{item.id}}{%endif%}"><br />
         {% endfor %}
         <input type="submit" value="Save">
     </form>
