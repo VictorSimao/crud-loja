@@ -22,14 +22,15 @@ def product():
 @app.route('/product/form')
 def product_create():
     id = request.args.get('id')
+    controller = CategoryController()
+    data_category = controller.read()
+    
     if id:
         controller = ProductController()
         data_product = controller.read_by_id(id)
         
-        controller = CategoryController()
-        data_category = controller.read()
         return render_template('product_form.html', title="Product Update", data_product=data_product, data_category=data_category)
-    return render_template('product_form.html', title="Product Create")
+    return render_template('product_form.html', title="Product Create", data_category=data_category)
 
 
 @app.route('/product/save')
