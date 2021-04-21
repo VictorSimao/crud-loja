@@ -5,6 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Olist-product</title>
+
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+    <style>
+      table{
+        width: 60%;
+        border-collapse: collapse;
+        
+      }
+
+      td ,th{
+        border: solid 2px gray;
+        padding: 10px;
+      }
+    </style>
   </head>
   <body>
     <h1>{{title}}</h1>
@@ -19,6 +34,7 @@
           <th>Description</th>
           <th>Price</th>
           <th>Category</th>
+          <th colspan="2">Actions</th>
         </tr>
       </thead>
 
@@ -37,5 +53,8 @@
 
       </tbody>
     </table>
+
+    <a href="/">Voltar para o inicio</a>
+
   </body>
 </html>

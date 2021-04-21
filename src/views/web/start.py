@@ -20,22 +20,14 @@ def product():
 @app.route('/product/form')
 def product_create():
     product_id = request.args.get('id')
+    controller = ProductController()
+    category = CategoryController()
+    categories = category.read()
+  
     if product_id:
-        controller = ProductController()
-        data = controller.read(product_id)
-        return render_template ('product_form.html', title='Product Update', data = data)
-    return render_template ('product_form.html', title='Product Create')
-
-# @app.route('/product/form')
-# def product_create():
-#     product_id = request.args.get('id')
-#     controller = ProductController()
-#     category_controller = CategoryController()
-#     categories = category_controller.read()
-#     if product_id:
-#         data = controller.read_by_id(product_id)
-#         return render_template('product_form.html', title="Product Update", data=data, categories=categories)
-#     return render_template('product_form.html', title="Product Create", categories=categories)
+        data = controller.read_by_id(product_id)
+        return render_template('product_form.html', title="Product Update", data=data, categories=categories)
+    return render_template('product_form.html', title="Product Create", categories=categories)
 
 @app.route('/product/save')
 def product_save():
@@ -47,6 +39,7 @@ def product_save():
         'categories': request.args.get('categories')
     }
 
+    print(product['id'])
     controller = ProductController()
     if product['id']:
         controller.update(product)

@@ -5,12 +5,51 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Olist</title>
+        <link rel="stylesheet" href="style.css" type="text/css">
+      
+        <style>
+            input{
+                background-color: blue;
+                width: 200px;
+                height: 50px;
+                margin-bottom: 20px;
+                border: none;
+                border-radius: 10px;
+                color: white;
+                font-size: 25px;
+                font-family:Arial, Helvetica, sans-serif sans-serif;
+            }
+
+            .container{
+                text-align: center;
+                background-color: #eee;
+                width: 600px;
+                height: 600px;
+                margin: 100px auto;
+                border-radius: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            h1{
+                font-size: 60px;
+            }
+
+           
+        </style>
     </head>
     <body>
-        <h1>Olist</h1> 
-        <ul>
-            <li><a href='/product'>Product</a></li>
-            <li><a href='/category'>Category</a></li>
-        </ul>
+       <div class="container">
+        <header>
+            <h1>Olist</h1> 
+        </header>
+
+        <div class="menu">
+            <a href="product"><input type="button" value="Product"> <br></a>
+            <a href="/category"><input type="button" value="Category"></a>
+
+        </div>
+       </div>
+       
     </body>
 </html>

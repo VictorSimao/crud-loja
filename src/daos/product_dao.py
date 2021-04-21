@@ -59,8 +59,8 @@ class ProductDAO(Dao):
         parameter = (id, )
 
         result = self.execute_query_select(sql, parameter)
-        item = result[0]
-
+        item = result
+      
         product = Product(item[1], item[2], item[3], item[4], item[0])
         return product
 
