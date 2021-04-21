@@ -27,9 +27,9 @@ class ProductController:
         list_models = self.product_dao.read_all()
         return list_models
 
-    def read_by_id(self, product_id):
-        product = self.product_dao.read_by_id(product_id)
-        return product
+    def read_by_id(self, id:int):
+        return self.product_dao.read_by_id(product_id)
+         
 
     def update(self, product):
         self.product_dao.update(product)

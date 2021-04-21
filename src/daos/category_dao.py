@@ -27,7 +27,7 @@ class CategoryDAO(Dao):
 
     def create(self, category: Category):
         sql = """
-        INSERT INTO category ("name", "description") VALUES (?, ?);
+        INSERT INTO category (name, description) VALUES (?, ?);
         """
         parameters = (category.name, category.description)
         return self.insert_data(sql, parameters)
@@ -47,17 +47,17 @@ class CategoryDAO(Dao):
 
         return list_categories
 
-    def select_name(self):
-        sql = """
-        SELECT category.name FROM category
-        """
-        list_names = []
-        result = self.execute_query_select(sql)
+    # def select_name(self):
+    #     sql = """
+    #     SELECT category.name FROM category
+    #     """
+    #     list_names = []
+    #     result = self.execute_query_select(sql)
 
-        for item in result:
-            list_names.append(item)
+    #     for item in result:
+    #         list_names.append(item)
         
-        return list_names
+    #     return list_names
 
     def read_by_id(self, id: int) -> Category:
         sql = """
