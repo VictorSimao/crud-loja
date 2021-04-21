@@ -51,12 +51,12 @@ class ProductDAO(Dao):
         result = self.execute_query_select(sql)
 
         for item in result:
-            a = item[4].split(',')
+            each_category = item[4].split(',')
             this_item = []
-            for b in a:
-                d = b.split('-')
-                e = Category(d[0], d[1], d[2])
-                this_item.append(e)
+            for items in each_category:
+                values = items.split('-')
+                cat = Category(values[0], values[1], values[2])
+                this_item.append(cat)
             product = Product(item[1], item[2], item[3], this_item, item[0])
             list_products.append(product)
 
