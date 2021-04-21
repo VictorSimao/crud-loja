@@ -56,7 +56,7 @@ class ProductController:
         )
 
         if categories:
-            self.__create_product_category(product)
+            self.__update_product_category(product)
 
         self.product_dao.update(updated_product)
 
@@ -70,4 +70,9 @@ class ProductController:
     def __create_product_category(self, product:dict):
         for selected_category in product['categories']:
             self.product_category_dao.create(
+                product['id'], selected_category)
+    
+    def __update_product_category(self, product:dict):
+        for selected_category in product['categories']:
+            self.product_category_dao.update(
                 product['id'], selected_category)
