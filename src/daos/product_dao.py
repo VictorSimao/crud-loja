@@ -51,7 +51,7 @@ class ProductDAO(Dao):
     def read_by_id(self, id: int):
         sql = """
         SELECT product.id, product.name, product.description, product.price, group_concat(category.id), group_concat(category.name)
-        FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
+        FROM product LEFT JOIN product_category ON product_id = product.id  LEFT JOIN category ON category_id = category.id
         WHERE product.id = ?
         GROUP BY product.name, product.description, product.price
         ORDER BY product.id
