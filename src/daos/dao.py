@@ -18,15 +18,14 @@ class Dao:
             id = cursor.lastrowid
         return id
 
-    def execute_query(self, sql: str, parameters: tuple = None):
+    def execute_query(self, sql:str, parameters:tuple=None) -> NoReturn:
         with Database() as conn:
-            cursor = conn.cursor()
-            if parameters:
+            cursor = conn.cursor() 
+            if parameters:    
                 cursor.execute(sql, parameters)
             else:
                 cursor.execute(sql)
             conn.commit()
-        return result
 
     def execute_query_select(self, sql: str, parameters: tuple = None) -> tuple:
         with Database() as conn:

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olist - {{title}} </title>
+</head>
+<body>
+    <h1>{{title}}</h1>
+    <form action="/product/save" name="form"> 
+        id: <input type="text" name="id" id="id" value="{%if data %}{{data.id}}{%endif%}" readonly><br />
+        name: <input type="text" name="name" id="name" value="{%if data %}{{data.name}}{%endif%}"> <br />
+        description: <input type="text" name="description" id="description" value="{%if data %}{{data.description}}{%endif%}"><br />
+        price: <input type="text" name="price" value="{%if data %}{{data.price}}{%endif%}" id=""><br />
+        categories: <input type="text" name="categories" id="categories" value="{%if data %}{{data.categories.name}}{%endif%}" readonly>
+        <h3>Selecione as categorias desejadas:</h3>
+        {% for item in data_category %}
+            <input type="checkbox" name="categories" id="{{item.id}}" value="{{item.id}}">
+            <label for="categories">{{item.id}} {{item.name}}</label></br>
+        {% endfor %}
+        </br>
+        <input type="submit" value="Save">
+    </form>
+    </br>
+    <a href="/product">Voltar para o módulo produto</a>
+</body>
+</html>

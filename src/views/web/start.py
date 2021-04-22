@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 
 from src.controllers.category_controller import CategoryController
+from src.controllers.product_controller import ProductController
 
 
 app = Flask(__name__)
@@ -11,7 +12,41 @@ def home():
 
 @app.route('/product')
 def product():
-    return render_template('product.html')
+    controller = ProductController()
+    data = controller.read()
+    return render_template('product.html', title="Product", data=data)
+
+@app.route('/product/form')
+def product_create():
+    product_id = request.args.get('id')
+    category_controller = CategoryController()
+    category_data = category_controller.read()
+    if product_id:
+        controller = ProductController()
+        data = controller.read_by_id(product_id)
+        return render_template('product_form.html', title="Product Update", data=data, data_category=category_data)
+    return render_template('product_form.html', title="Product Create", data_category=category_data)
+
+@app.route('/product/save')
+def product_save():
+    product_id = request.args.get('id')
+    name = request.args.get('name')
+    description = request.args.get('description')
+    price = request.args.get('price')
+    data = request.args.getlist("categories")
+    controller = ProductController()
+    if product_id:
+        controller.update(product_id, name, description, price, data)
+    else:
+        controller.create(name, description, price, data)
+    return redirect('/product')
+
+@app.route('/product/delete')
+def product_delete():
+    product_id = request.args.get('id')
+    controller = ProductController()
+    controller.delete(product_id)
+    return redirect('/product')
 
 @app.route('/category')
 def category():
@@ -39,7 +74,6 @@ def category_save():
         controller.update(category_id, name, description)
     else:
         controller.create(name, description)
-
     return redirect('/category')
 
 @app.route('/category/delete')
@@ -47,7 +81,6 @@ def category_delete():
     category_id = request.args.get('id')
     controller = CategoryController()
     controller.delete(category_id)
-
     return redirect('/category')
 
 
