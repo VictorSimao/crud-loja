@@ -55,7 +55,7 @@ class ProductDAO(Dao):
             this_item = []
             for items in each_category:
                 values = items.split('-')
-                cat = Category(values[0], values[1], values[2])
+                cat = Category(values[1], values[2], values[0])
                 this_item.append(cat)
             product = Product(item[1], item[2], item[3], this_item, item[0])
             list_products.append(product)
