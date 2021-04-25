@@ -10,30 +10,28 @@ passed by specific DAOs
 
 class Dao:
 
-
-    def insert_data(self, sql:str, parameters:tuple) -> int :      
+    def insert_data(self, sql: str, parameters: tuple) -> int:
         with Database() as conn:
-            cursor = conn.cursor() 
-            cursor.execute(sql,parameters)
+            cursor = conn.cursor()
+            cursor.execute(sql, parameters)
             conn.commit()
             id = cursor.lastrowid
         return id
 
-    def execute_query(self, sql:str, parameters:tuple=None) -> NoReturn:
+    def execute_query(self, sql: str, parameters: tuple = None) -> NoReturn:
         with Database() as conn:
-            cursor = conn.cursor() 
-            if parameters:    
+            cursor = conn.cursor()
+            if parameters:
                 cursor.execute(sql, parameters)
             else:
                 cursor.execute(sql)
             conn.commit()
 
-
-    def execute_query_select(self, sql:str, parameters:tuple=None) -> tuple:
+    def execute_query_select(self, sql: str, parameters: tuple = None) -> tuple:
         with Database() as conn:
-            cursor = conn.cursor()  
+            cursor = conn.cursor()
             result = ()
-            if parameters:   
+            if parameters:
                 cursor.execute(sql, parameters)
             else:
                 cursor.execute(sql)
@@ -41,4 +39,3 @@ class Dao:
             result = cursor.fetchall()
 
         return result
-    

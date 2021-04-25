@@ -22,33 +22,29 @@ def product():
 @app.route('/product/form')
 def product_create():
     product_id = request.args.get('id')
-    controller = ProductController()
     category_controller = CategoryController()
     categories = category_controller.read()
     if product_id:
         controller = ProductController()
         data = controller.read_by_id(product_id)
-        return render_template('product_form.html', title="Product Update",
+        return render_template('product_form.html', title='Product Update',
                                data=data, categories=categories)
-    return render_template('product_form.html', title="Product Create",
+    return render_template('product_form.html', title='Product Create',
                            categories=categories)
 
 
 @app.route('/product/save')
 def product_save():
-    product = {
-        'id': request.args.get('id'),
-        'name': request.args.get('name'),
-        'description': request.args.get('description'),
-        'price': request.args.get('price'),
-        'categories': request.args.group_concat('categories')
-    }
+    product_id = request.args.get('id')
+    name = request.args.get('name')
+    description = request.args.get('description')
+    price = request.args.get('price')
+    data = request.args.getlist("categories")
     controller = ProductController()
-    if product['id']:
-        controller.update(product)
+    if product_id:
+        controller.update(product_id, name, description, price, data)
     else:
-        controller.create(product)
-
+        controller.create(name, description, price, data)
     return redirect('/product')
 
 
@@ -57,7 +53,6 @@ def product_delete():
     product_id = request.args.get('id')
     controller = ProductController()
     controller.delete(product_id)
-
     return redirect('/product')
 
 
@@ -74,7 +69,8 @@ def category_create():
     if category_id:
         controller = CategoryController()
         data = controller.read_by_id(category_id)
-        return render_template('category_form.html', title="Category Update", data=data)
+        return render_template('category_form.html', title="Category Update",
+                               data=data)
     return render_template('category_form.html', title="Category Create")
 
 
@@ -89,7 +85,6 @@ def category_save():
         controller.update(category_id, name, description)
     else:
         controller.create(name, description)
-
     return redirect('/category')
 
 

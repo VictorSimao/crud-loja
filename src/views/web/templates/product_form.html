@@ -6,7 +6,9 @@
         name: <input type="text" name="name" id="name" value="{%if data %}{{data.name}}{%endif%}"> <br />
         description: <input type="text" name="description" id="description" value="{%if data %}{{data.description}}{%endif%}"><br />
         price: <input type="text" name="price" id="price" value="{%if data %}{{data.price}}{%endif%}"><br />
-        categories: <input type="text" name="categories" id="inputCategories" value="{%if data %}{{data.categories}}{%endif%}" readonly><br />
+        <!-- {%if data %}
+            categories: <input type="text" name="categories" id="inputCategories" value="{% for item in data.categories %}{{item.name}}{% endfor %}" readonly><br />
+        {%endif%} -->
         <div>
             <select name="categories" id="categories">
                 {% for item in categories %}
@@ -17,5 +19,4 @@
         <button type="submit" value="Save">Save</button>
     </form>
     <a href="/product">Voltar para o módulo produto</a>
-{% endblock %} -->
-
+{% endblock %}

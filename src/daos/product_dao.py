@@ -1,6 +1,7 @@
 from src.daos.dao import Dao
 
 from src.models.product_model import Product
+from src.models.category_model import Category
 
 
 """
@@ -33,20 +34,29 @@ class ProductDAO(Dao):
 
     def read_all(self):
         sql = """
-        SELECT product.id, product.name, product.description, product.price,
-        group_concat(category.name), group_concat(category.description),
-        group_concat(category.id)
-        FROM product JOIN product_category ON product_id = product.id JOIN
-        category ON category_id = category.id
-        GROUP BY category_id
-        ORDER BY product.id
+        SELECT
+            p.id
+            ,p.name
+            ,p.description
+            ,p.price
+            ,pc.product_id
+            ,c.id
+            ,c.name
+            ,c.description
+        FROM product as p
+        LEFT JOIN product_category as pc
+        ON pc.product_id = p.id
+        LEFT JOIN category as c
+        ON pc.category_id = c.id
         """
 
+        result = Dao().execute_query_select(sql)
+        products = [p[:4] for p in result]
+        categories = [c[4:] for c in result]
         list_products = []
-        result = self.execute_query_select(sql)
-
-        for item in result:
-            product = Product(item[1], item[2], item[3], item[4], item[0])
+        for prod in set(products):
+            prod_cats = [Category(c[2], c[3], c[1]) for c in categories if c[0] == prod[0]]
+            product = Product(prod[1], prod[2], prod[3], prod_cats, prod[0])
             list_products.append(product)
 
         return list_products
@@ -54,19 +64,22 @@ class ProductDAO(Dao):
     def read_by_id(self, id: int):
         sql = """
         SELECT product.id, product.name, product.description, product.price,
-        group_concat(category.id), group_concat(category.name)
-        FROM product JOIN product_category ON product_id = product.id JOIN
-        category ON category_id = category.id
+        group_concat(category.id ||';'|| category.name ||';'|| category.description)
+        FROM product LEFT JOIN product_category ON product_id = product.id
+        LEFT JOIN category ON category_id = category.id
         WHERE product.id = ?
         GROUP BY product.name, product.description, product.price
         ORDER BY product.id
         """
         parameter = (id, )
-
+        categories = []
         result = self.execute_query_select(sql, parameter)
         item = result[0]
-
-        product = Product(item[1], item[2], item[3], item[4], item[0])
+        if item[4]:
+            categories = [c.split(';') for c in item[4].split(',')]
+            categories = [Category(category[1], category[2], category[0])
+                          for category in categories]
+        product = Product(item[1], item[2], item[3], categories, item[0])
         return product
 
     def update(self, product):

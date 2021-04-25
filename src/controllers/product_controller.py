@@ -27,15 +27,12 @@ class ProductController:
             'categories': []
         }
 
-    def create(self, product: dict):
-        new_product = Product(
-            product['name'],
-            product['description'],
-            product['price'],
-            product['categories']
-        )
-        product['id'] = self.product_dao.create(new_product)
-        self.__create_product_category(product)
+    def create(self, id: int, name: str, description: str, price: int,
+               categories: list = None):
+        product = Product(name, description, price, categories)
+        product_id = self.product_dao.create(product)
+        self.__create_product_category(product_id, categories)
+        return product_id
 
     def read(self):
         products = self.product_dao.read_all()
@@ -44,20 +41,12 @@ class ProductController:
     def read_by_id(self, id: int):
         return self.product_dao.read_by_id(id)
 
-    def update(self, product: dict):
-        categories = product['categories'] if product['categories'] else None
-
-        updated_product = Product(
-            product['name'],
-            product['description'],
-            product['price'],
-            categories,
-            product['id']
-        )
-
+    def update(self, id: int, name: str, description: str, price: int,
+               categories: list = None):
+        updated_product = Product(name, description, price, categories, id)
         if categories:
-            self.__create_product_category(product)
-
+            self.__delete_product_category(id)
+            self.__create_product_category(id, categories)
         self.product_dao.update(updated_product)
 
     def delete(self, id: int):
@@ -67,7 +56,14 @@ class ProductController:
         categories = self.category_dao.read_all()
         return categories
 
-    def __create_product_category(self, product: dict):
-        for selected_category in product['categories']:
-            self.product_category_dao.create(
-                product['id'], selected_category)
+    def __create_product_category(self, product_id: int, categories: int):
+        for selected_category in categories:
+            self.product_category_dao.create(product_id, selected_category)
+
+    def __delete_product_category(self, product_id: int,
+                                  category_id: int = None):
+        if category_id:
+            self.product_category_dao.delete_category_by_product_id(
+                product_id, category_id)
+        else:
+            self.product_category_dao.delete(product_id)

@@ -1,15 +1,15 @@
 {% extends 'home.html' %}
 {% block content %}
     <h1>{{title}}</h1>
-    <a href="/product/form">Novo produto</a>
+    <a href="/product/form">Novo Produto</a>
     <table>
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>price</th>
-                <th>category</th>
+                <th>Price</th>
+                <th>Categories</th>
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
@@ -22,9 +22,11 @@
                     <td>{{item.description}}</td>
                     <td>{{item.price}}</td>
                     <td> 
+                        {% for cat in item.categories %}
                         <div>
-                            <label value="{{item.categories}}-">{{item.categories.id}}</label>
+                            <label value="{{cat.id}}-">{{cat.name}}</label>
                         </div>
+                        {% endfor %}
                     </td>
                     <td><a href="/product/form?id={{item.id}}"  >Update</a></td>
                     <td><a href="/product/delete?id={{item.id}}">Delete</a></td>
@@ -34,5 +36,3 @@
     </table>
     <a href="/">Voltar para o inicio</a>
 {% endblock %}
-
-
