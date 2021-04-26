@@ -74,7 +74,7 @@ def product_save():
     name = request.args.get('name')
     description = request.args.get('description')
     price = request.args.get('price')
-    dict_args = request.args.to_dict(flat=False)
+    dict_args = request.args.to_dict(flat=False) # ou usar get list
     categories = dict_args.get('categories')
 
     product_dict = {
