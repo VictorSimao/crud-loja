@@ -30,7 +30,7 @@ class ProductController:
     def create(self, name, description, price, categories):
         product = Product(name, description, price, categories)
         product_id = self.product_dao.create(product)
-
+        self.__create_product_category(product_id, categories)
         return product_id
 
 
@@ -41,19 +41,19 @@ class ProductController:
     def read_by_id(self, id:int):
         return self.product_dao.read_by_id(id)
 
-    def update(self, product:dict):
-        categories = product['categories'] if product['categories'] else None
+    def update(self, product_id, name, description, price, categories):
+        categories = categories if categories else None
 
         updated_product = Product(
-            product['name'],
-            product['description'],
-            product['price'],
+            name,
+            description,
+            price,
             categories,
-            product['id']
+            product_id
         )
 
         if categories:
-            self.__create_product_category(product)
+            self.__create_product_category(product_id, categories)
 
         self.product_dao.update(updated_product)
 
@@ -64,7 +64,7 @@ class ProductController:
         categories = self.category_dao.read_all()
         return categories
 
-    def __create_product_category(self, product:dict):
-        for selected_category in product['categories']:
+    def __create_product_category(self, product_id, categories):
+        for selected_category in categories:
             self.product_category_dao.create(
-                product['id'], selected_category)
+                product_id, selected_category)

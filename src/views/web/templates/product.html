@@ -21,7 +21,11 @@
                     <td>{{item.name}}</td>
                     <td>{{item.description}}</td>
                     <td>{{item.price}}</td>
-                    <td>{{item.categories}}</td>
+                    <td width="300">
+                        {%for cat in item.categories%}
+                            {{cat.name}}
+                        {%endfor%}
+                    </td>
                     <td><a href="/product/form?id={{item.id}}">Update</a></td>
                     <td><a href="/product/delete?id={{item.id}}">Delete</a></td>
                 </tr>

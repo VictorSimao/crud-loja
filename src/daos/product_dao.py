@@ -2,6 +2,8 @@ from src.daos.dao import Dao
 
 from src.models.product_model import Product
 
+from src.models.category_model import Category
+
 
 """
 This class makes a communication between product controller data and
@@ -50,31 +52,34 @@ class ProductDAO(Dao):
         """
 
         result = Dao().execute_query_select(sql)
-        products = [ p[:4] for p in result ]                                     
-        categories = [ c[4:] for c in result ] 
-        list_products = []
-        for prod in set(products):   
-            prod_cats = [Category(c[2], c[3], c[1]) for c in categories if c[0]==prod[0]]
-            product = Product( prod[1], prod[2], prod[3], prod_cats , prod[0] )
-            list_products.append(product)
-
+        list_products = self.parse_product(result)
+        
         return list_products
 
     def read_by_id(self, id: int):
         sql = """
-        SELECT product.id, product.name, product.description, product.price, group_concat(category.id), group_concat(category.name)
-        FROM product JOIN product_category ON product_id = product.id JOIN category ON category_id = category.id
-        WHERE product.id = ?
-        GROUP BY product.name, product.description, product.price
-        ORDER BY product.id
+        SELECT 
+            p.id
+            ,p.name
+            ,p.description
+            ,p.price
+            ,pc.product_id
+            ,c.id
+            ,c.name
+            ,c.description
+        FROM product as p
+        LEFT JOIN product_category as pc 
+        ON pc.product_id = p.id 
+        LEFT JOIN category as c 
+        ON pc.category_id = c.id
+        WHERE p.id = ?
         """
-        parameter = (id, )
+        parameter = id, 
 
-        result = self.execute_query_select(sql, parameter)
-        item = result[0]
-
-        product = Product(item[1], item[2], item[3], item[4], item[0])
-        return product
+        result = Dao().execute_query_select(sql, parameter)
+        list_products = self.parse_product(result)
+        
+        return list_products[0]
 
     def update(self, product):
         sql = """
@@ -98,3 +103,16 @@ class ProductDAO(Dao):
         parameters = (id, )
 
         return self.execute_query(sql, parameters)
+
+    def parse_product(self, result):
+
+        products = [ p[:4] for p in result ]                                     
+        categories = [ c[4:] for c in result ] 
+        list_products = []
+
+        for prod in set(products):   
+            prod_cats = [Category(c[2], c[3], c[1]) for c in categories if c[0]==prod[0]]
+            product = Product( prod[1], prod[2], prod[3], prod_cats , prod[0] )
+            list_products.append(product)
+        
+        return list_products
